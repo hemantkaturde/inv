@@ -22,9 +22,10 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Inventory</b></a>
+    <a href="#"><b>Inventory</b></a>
   </div>
   <!-- /.login-logo -->
+  <?php print_r($errors); ?>
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 

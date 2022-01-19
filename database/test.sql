@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2021 at 08:29 PM
+-- Generation Time: Jan 16, 2022 at 01:09 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.3.27
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `inventory`
+-- Database: `test`
 --
 
 -- --------------------------------------------------------
@@ -137,16 +137,19 @@ CREATE TABLE `company` (
   `pan_no` varchar(255) NOT NULL,
   `gst_no` varchar(255) NOT NULL,
   `factory_address` varchar(255) NOT NULL,
-  `notes` varchar(255) NOT NULL
+  `notes` varchar(255) NOT NULL,
+  `prefix` varchar(101) NOT NULL,
+  `count` int(101) NOT NULL,
+  `sufix` varchar(101) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `company`
 --
 
-INSERT INTO `company` (`id`, `company_name`, `service_charge_value`, `vat_charge_value`, `address`, `phone`, `country`, `message`, `currency`, `mobile`, `logo`, `email1`, `email2`, `pan_no`, `gst_no`, `factory_address`, `notes`) VALUES
-(1, 'Webrider1', '13', '10', '', '758676851', 'sri lanka', 'hello everyone one', 'USD', 758676851, 'assets/images/company_image/619a897d08ef2.jpg', 'Webrider1', 'Webrider1', 'Webrider1', '', '', ''),
-(3, 'Test', '', '', 'aIROLI', '123456789', '', '', '', 2147483647, 'assets/images/company_image/619a34a7a582e.jpg', 'snehal@gmail.com', 'snehal@gmail.com', '', '', '', '');
+INSERT INTO `company` (`id`, `company_name`, `service_charge_value`, `vat_charge_value`, `address`, `phone`, `country`, `message`, `currency`, `mobile`, `logo`, `email1`, `email2`, `pan_no`, `gst_no`, `factory_address`, `notes`, `prefix`, `count`, `sufix`) VALUES
+(1, 'Webrider1', '13', '10', '', '758676851', 'sri lanka', 'hello everyone one', 'USD', 758676851, 'assets/images/company_image/619a897d08ef2.jpg', 'Webrider1', 'Webrider1', 'Webrider1', '', '', '', 'We', 100, 'C'),
+(3, 'Test', '', '', 'aIROLI', '123456789', '', '', '', 2147483647, 'assets/images/company_image/619a34a7a582e.jpg', 'snehal@gmail.com', 'snehal@gmail.com', '', '', '', '', '0', 0, '');
 
 -- --------------------------------------------------------
 
@@ -179,7 +182,8 @@ INSERT INTO `customers` (`id`, `company_id`, `name`, `contact_person`, `phone`, 
 (1, 0, 'admin', '', '65646546', 0, 'admin@admin.com', 'snehasmore3@gmail.com', '', '', 'Airoli', '', '', ''),
 (2, 0, 'jsmith', '', '2345678', 0, 'jsmith@sample.com', '', '', '', '', '', '', ''),
 (14, 1, 'test123', 'Sneahl', '8454886789', 0, 'snehal@gmail.com', '', '', '', 'Thane', '', '', ''),
-(16, 1, 'test1', '', '08454886789', 0, 'snehasmore3@gmail.com', '', '', '', 'Hjhjshdjhsd', '', '', 'assets/images/customer_image/5fc5cf759483c.png');
+(16, 1, 'test1', '', '08454886789', 0, 'snehasmore3@gmail.com', '', '', '', 'Hjhjshdjhsd', '', '', 'assets/images/customer_image/5fc5cf759483c.png'),
+(17, 3, 'Test Name', 'Hemant ', '8097404125', 8097404125, 'hkaturde@gmail.com', 'hkaturde@gmail.com', '', '', 'Thane', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -201,7 +205,8 @@ CREATE TABLE `customer_trans` (
 
 INSERT INTO `customer_trans` (`id`, `cust_id`, `attach_name`, `attach_img`, `status`) VALUES
 (3, 16, 'Test1', 'assets/images/customer_image/61b60ab076f9f.pdf', 0),
-(4, 16, 'testie', 'assets/images/customer_image/61b63906db98b.jpg', 0);
+(4, 16, 'testie', 'assets/images/customer_image/61b63906db98b.jpg', 0),
+(5, 17, 'File', '', 0);
 
 -- --------------------------------------------------------
 
@@ -248,9 +253,7 @@ CREATE TABLE `inquiry` (
 --
 
 INSERT INTO `inquiry` (`inquiry_id`, `company_id`, `inquiry_number`, `customer_id`, `inquiry_from`, `inquiry_date`, `inquiry_product`, `inquiry_status`, `inquiry_emp_assigned`, `inquiry_notes`, `inquiry_remark`) VALUES
-(7, 1, 'I1001', 14, '', '1970-01-01', '11', '', '', '', ''),
-(8, 1, 'I1002', 0, '', '2021-12-12', '11,10', '', '', '', ''),
-(9, 11, 'I1003', 0, '', '1970-01-01', '11', '', '', '', '');
+(9, 1, 'We100C', 0, '', '1970-01-01', '11', '1', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -368,7 +371,27 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`id`, `company_id`, `name`, `sku`, `price`, `qty`, `image`, `description`, `attribute_value_id`, `brand_id`, `category_id`, `store_id`, `availability`, `product_code`, `notes`) VALUES
 (10, 1, 'Mac', '', '', '39', 'assets/images/product_image/5afa5fe395f9d.jpg', '<p>sample1<br></p>', '[\"17\",\"20\"]', '[\"15\"]', '[\"7\"]', 5, 1, 'S2', ''),
 (11, 1, 'Rubuke', '', '', '36', 'assets/images/product_image/5afa6026d808e.jpg', '<p>sample<br></p>', '[\"17\",\"21\"]', '[\"15\"]', '[\"7\"]', 5, 1, 'S1', ''),
-(12, 1, 'Sample Product', '', '', '49', 'assets/images/product_image/5fc5cf759483c.png', '<p>\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed est tempor dapibus. Sed auctor porttitor ligula a hendrerit. Praesent lacus eros, pulvinar vitae ante vel, gravida ullamcorper nunc. Sed ac dolor lorem. Quisque felis magna, varius eu malesuada non, sollicitudin nec eros. Praesent pellentesque quam tellus, non dignissim erat sollicitudin sit amet. Sed suscipit tellus sit amet sem vehicula mattis. Quisque bibendum ac quam eget auctor. Pellentesque facilisis nisl mauris, vel venenatis leo varius id. Cras semper convallis tincidunt. Nam ut pulvinar justo, sed vestibulum lectus. Praesent iaculis sem at molestie mattis. Mauris sodales, ipsum a cursus pellentesque, turpis tellus ultricies velit, nec vestibulum turpis risus ac lorem.\r\n\r\n<br></p>', '[\"17\",\"21\"]', '[\"16\",\"19\"]', '[\"9\"]', 7, 1, '', '');
+(12, 1, 'Sample Product', '', '', '49', 'assets/images/product_image/5fc5cf759483c.png', '<p>\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rutrum nisi sed est tempor dapibus. Sed auctor porttitor ligula a hendrerit. Praesent lacus eros, pulvinar vitae ante vel, gravida ullamcorper nunc. Sed ac dolor lorem. Quisque felis magna, varius eu malesuada non, sollicitudin nec eros. Praesent pellentesque quam tellus, non dignissim erat sollicitudin sit amet. Sed suscipit tellus sit amet sem vehicula mattis. Quisque bibendum ac quam eget auctor. Pellentesque facilisis nisl mauris, vel venenatis leo varius id. Cras semper convallis tincidunt. Nam ut pulvinar justo, sed vestibulum lectus. Praesent iaculis sem at molestie mattis. Mauris sodales, ipsum a cursus pellentesque, turpis tellus ultricies velit, nec vestibulum turpis risus ac lorem.\r\n\r\n<br></p>', '[\"17\",\"21\"]', '[\"16\",\"19\"]', '[\"9\"]', 7, 1, '1', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_type`
+--
+
+CREATE TABLE `product_type` (
+  `type_id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL,
+  `product_type` varchar(255) NOT NULL,
+  `status` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_type`
+--
+
+INSERT INTO `product_type` (`type_id`, `company_id`, `product_type`, `status`) VALUES
+(1, 1, 'Vehicle', 0);
 
 -- --------------------------------------------------------
 
@@ -420,7 +443,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `company_id`, `username`, `password`, `email`, `firstname`, `lastname`, `mobile`, `designation`, `phone`, `gender`, `emp_code`, `address`, `notes`) VALUES
 (1, 1, 'super admin', '$2y$10$yfi5nUQGXUZtMdl27dWAyOd/jMOmATBpiUvJDmUu9hJ5Ro6BE5wsK', 'admin@admin.com', 'john', 'doe', 0, '', '65646546', 1, '', '', ''),
-(11, 3, 'shafraz', '$2y$10$yfi5nUQGXUZtMdl27dWAyOd/jMOmATBpiUvJDmUu9hJ5Ro6BE5wsK', 'snehal@gmail.com', 'mohamed', 'nizam', 8454886780, '', '0778650669', 0, '', '', ''),
+(11, 3, 'shafraz', '$2y$10$yfi5nUQGXUZtMdl27dWAyOd/jMOmATBpiUvJDmUu9hJ5Ro6BE5wsK', 'admin@admin.com', 'mohamed', 'nizam', 8454886780, '', '0778650669', 0, '', '', ''),
 (12, 3, 'jsmith', '$2y$10$WLS.lZeiEfyXYfR0l/wkXeRRuqazsgIAMC9//L44J4KkZGbbqcKYC', 'jsmith@sample.com', 'John', 'Smith', 0, '', '2345678', 1, '', '', '');
 
 -- --------------------------------------------------------
@@ -532,6 +555,12 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `product_type`
+--
+ALTER TABLE `product_type`
+  ADD PRIMARY KEY (`type_id`);
+
+--
 -- Indexes for table `stores`
 --
 ALTER TABLE `stores`
@@ -581,7 +610,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -593,7 +622,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `customer_trans`
 --
 ALTER TABLE `customer_trans`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `groups`
@@ -629,7 +658,13 @@ ALTER TABLE `orders_item`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `product_type`
+--
+ALTER TABLE `product_type`
+  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `stores`

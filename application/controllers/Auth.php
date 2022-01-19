@@ -31,10 +31,10 @@ class Auth extends Admin_Controller
 
            	$email_exists = $this->Model_auth->check_email($this->input->post('email'), $this->input->post('company'));
 
+            // print_r($email_exists);exit;
+
            	if($email_exists == TRUE) {
            		$login = $this->Model_auth->login($this->input->post('company'), $this->input->post('email'), $this->input->post('password'));
-
-           		
 
            		if($login) {
                 $company_name = $this->Model_auth->get_company($login['company_id']);
@@ -70,7 +70,11 @@ class Auth extends Admin_Controller
             // false case
         	$company_data = $this->Model_company->getCompanyData();
         	$this->data['company_data'] = $company_data;
-            $this->load->view('login', $this->data);
+
+          $this->data['errors'] = validation_errors();
+          // $this->data['errors'] = array('company' => strip_tags(form_error('company')), 'email' => strip_tags(form_error('email')), 'password' => strip_tags(form_error('password')));
+
+          $this->load->view('login', $this->data);
         }	
 	}
 

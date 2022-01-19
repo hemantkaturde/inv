@@ -62,8 +62,14 @@
                   </div>
 
                   <div class="col-md-3">
-                    <label for="product_code">Product Code *</label>
-                    <input type="text" class="form-control" id="product_code" name="product_code" placeholder="Enter product code" autocomplete="off" required="" />
+                    <label for="product_code">Product Type *</label>
+                    <select class="form-control" id="product_code" name="product_code">
+                      <option value="">Select</option>
+                      <?php foreach ($type as $key => $value): ?>
+                        <option value="<?php echo $value['type_id'] ?>"><?php echo $value['product_type'] ?></option>
+                      <?php endforeach ?>
+                    </select>
+                    <!-- <input type="text" class="form-control" id="product_code" name="product_code" placeholder="Enter product code" autocomplete="off" required="" /> -->
                   </div>
 
                   <div class="col-md-3">

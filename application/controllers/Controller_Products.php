@@ -69,7 +69,7 @@ class Controller_Products extends Admin_Controller
                 
                 $result['data'][$key] = array(
                     $img,
-                    $value['product_code'],
+                    $value['product_type'],
                     $value['price'],
                     $value['description'],
                     $buttons
@@ -123,7 +123,7 @@ class Controller_Products extends Admin_Controller
         }
         else {
             // false case
-
+            $this->data['type'] = $this->Model_products->getProductTypeData();
             $this->render_template('products/create', $this->data);
         }	
 	}
@@ -221,6 +221,7 @@ class Controller_Products extends Admin_Controller
         else {
             
             $product_data = $this->Model_products->getProductData($product_id);
+            $this->data['type'] = $this->Model_products->getProductTypeData();
             $this->data['product_data'] = $product_data;
             $this->render_template('products/edit', $this->data); 
         }   
@@ -257,5 +258,166 @@ class Controller_Products extends Admin_Controller
 
         echo json_encode($response);
 	}
+
+    // ==================================================
+    //          PRODUCT TYPE
+    // ==================================================
+    public function product_type()
+    {
+        $this->render_template('products/product_type_list', $this->data);  
+    }
+
+    public function create_ptype()
+    {
+        // if(!in_array('createProduct', $this->permission)) {
+        //     redirect('dashboard', 'refresh');
+        // }
+
+        $this->form_validation->set_rules('product_type', 'Product Type', 'trim|required|is_unique[product_type.product_type]');
+    
+        if ($this->form_validation->run() == TRUE) {
+            // true case
+
+            $data = array(
+                'company_id' => $_SESSION['company_id'],
+                'product_type' => $this->input->post('product_type')
+            );
+
+            $create = $this->Model_products->create_product($data);
+            if($create == true) {
+                $this->session->set_flashdata('success', 'Successfully created');
+                redirect('Controller_Products/product_type', 'refresh');
+            }
+            else {
+                $this->session->set_flashdata('errors', 'Error occurred!!');
+                redirect('Controller_Products/create_ptype', 'refresh');
+            }
+        }
+        else {
+            // false case
+
+            $this->render_template('products/create_product_type', $this->data);
+        }   
+    }
+
+    // ==========
+
+    public function fetchProductTypeData()
+    {
+        $result = array('data' => array());
+
+        if($_SESSION['id'] == 1)
+        {
+            $data = $this->Model_products->getProductTypeData();    
+        }
+        else
+        {
+            $data = $this->Model_products->getProductTypeDataAsPerCompany($_SESSION['company_id']);
+        }
+        
+
+        foreach ($data as $key => $value) {
+            // $store_data = $this->Model_stores->getStoresData($value['store_id']);
+            // if($_SESSION['company_id'] == $value['company_id']):
+            // button
+                $buttons = '';
+                //if(in_array('updateProduct', $this->permission)) {
+                    $buttons .= '<a href="'.base_url('Controller_Products/update_ptype/'.$value['type_id']).'" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>';
+                //}
+
+                //if(in_array('deleteProduct', $this->permission)) { 
+                    $buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeFunc('.$value['type_id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
+                //}
+                
+                $result['data'][$key] = array(
+                    $value['product_type'],
+                    $buttons
+                );    
+            
+        } // /foreach
+
+        echo json_encode($result);
+    }
+
+    // =======
+    
+    public function update_ptype($type_id)
+    {      
+        // if(!in_array('updateProduct', $this->permission)) {
+        //     redirect('dashboard', 'refresh');
+        // }
+
+        if(!$type_id) {
+            redirect('dashboard', 'refresh');
+        }
+
+        // print_r($type_id);exit;
+
+        $this->form_validation->set_rules('product_type', 'Product Type', 'trim|required');
+
+        if ($this->form_validation->run() == TRUE) {
+            // true case
+            $code = $this->input->post('product_type');
+            $product_data1 = $this->Model_products->getproducttypedata_isunique($type_id, $code);
+            
+            if($product_data1 > 0)
+            {
+                $this->session->set_flashdata('error', 'Product type is already exist');
+                redirect('Controller_Products/update_ptype/'.$type_id, 'refresh');
+
+            }else{
+                $data = array(
+                    'company_id' => $_SESSION['company_id'],
+                    'product_type' => $this->input->post('product_type')
+                );
+
+                $update = $this->Model_products->update_ptype($data, $type_id);
+                if($update == true) {
+                    $this->session->set_flashdata('success', 'Successfully updated');
+                    redirect('Controller_Products/product_type', 'refresh');
+                }
+                else {
+                    $this->session->set_flashdata('errors', 'Error occurred!!');
+                    redirect('Controller_Products/update/'.$type_id, 'refresh');
+                }
+            }
+        }
+        else {
+            
+            $product_data = $this->Model_products->getProductTypeData($type_id);
+            $this->data['product_data'] = $product_data;
+            $this->render_template('products/edit_product_type', $this->data); 
+        }   
+    }
+
+    // ========
+    public function remove_ptype()
+    {
+        // if(!in_array('deleteProduct', $this->permission)) {
+        //     redirect('dashboard', 'refresh');
+        // }
+        
+        $type_id = $this->input->post('type_id');
+
+        $response = array();
+        if($type_id) {
+            $delete = $this->Model_products->remove_ptype($type_id);
+            if($delete == true) {
+                $response['success'] = true;
+                $response['messages'] = "Successfully removed"; 
+            }
+            else {
+                $response['success'] = false;
+                $response['messages'] = "Error in the database while removing the product information";
+            }
+        }
+        else {
+            $response['success'] = false;
+            $response['messages'] = "Refersh the page again!!";
+        }
+
+        echo json_encode($response);
+    }
+    // ==================================================
 
 }

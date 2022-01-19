@@ -39,6 +39,8 @@
                 </span>
               </a>
               <ul class="treeview-menu">
+                  <li id="addProductTypeNav"><a href="<?php echo base_url('Controller_Products/create_ptype') ?>"><i class="fa fa-circle-o"></i> Add Product Type</a></li>
+                  <li id="manageProductTypeNav"><a href="<?php echo base_url('Controller_Products/product_type') ?>"><i class="fa fa-circle-o"></i> Manage Product Type</a></li>
                   <li id="addProductNav"><a href="<?php echo base_url('Controller_Products/create') ?>"><i class="fa fa-circle-o"></i> Add Product</a></li>
                   <li id="manageProductNav"><a href="<?php echo base_url('Controller_Products') ?>"><i class="fa fa-circle-o"></i> Manage Products</a></li>
               </ul>

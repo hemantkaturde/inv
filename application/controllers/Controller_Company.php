@@ -84,6 +84,9 @@ class Controller_Company extends Admin_Controller
                 'gst_no' => $this->input->post('gst_no'),
                 'factory_address' => $this->input->post('factory_address'),
                 'notes' => $this->input->post('notes'),
+                'prefix' => $this->input->post('prefix'),
+                'count' => $this->input->post('count'),
+                'sufix' => $this->input->post('sufix'),
                 'logo' => $upload_image
             );
 
@@ -164,7 +167,10 @@ class Controller_Company extends Admin_Controller
             		'address' => $this->input->post('address'),
             		'pan_no' => $this->input->post('pan_no'),
             		'factory_address' => $this->input->post('factory_address'),
-                    'notes' => $this->input->post('notes')
+                    'notes' => $this->input->post('notes'),
+                    'prefix' => $this->input->post('prefix'),
+                    'count' => $this->input->post('count'),
+                    'sufix' => $this->input->post('sufix')
             	);
 
                 if($_FILES['company_logo']['size'] > 0) {

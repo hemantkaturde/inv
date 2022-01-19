@@ -10,19 +10,25 @@ class Model_inquiry extends CI_Model
 	public function get_max_id($table, $field)
   	{
   		$company_id = $_SESSION['company_id'];
-  		$company_name = $_SESSION['company_name'];
-  		$name = substr($company_name, 0,1);
 
-	    $record = $this->db->query("SELECT MAX(CAST(SUBSTR(TRIM(inquiry_number),2) AS UNSIGNED)) AS inquiry_number FROM inquiry WHERE inquiry_number RLIKE '$name' AND company_id = $company_id")->result_array();
+  		$check_comp = $this->db->query("SELECT prefix, count, sufix FROM company WHERE id = $company_id")->result_array();
+
+  		$prefix = $check_comp[0]['prefix'];
+  		$count = $check_comp[0]['count'];
+  		$sufix = $check_comp[0]['sufix'];
+  		$number = strlen($check_comp[0]['count']);
+  		// print_r($numbers);
+	    $record = $this->db->query("SELECT MAX(CAST(SUBSTR(TRIM(inquiry_number),$number) AS UNSIGNED)) AS inquiry_number FROM inquiry WHERE company_id = $company_id")->result_array();
 
 	    if(empty($record[0]['inquiry_number']))
 	    {
-	      return $name.'1001';
+	      return $prefix.$count.$sufix;
 	    }
 	    else
 	    {
-	      $str = $record[0]['inquiry_number'] + 2;
-	      $code = $name.$str;
+	      $str = $record[0]['inquiry_number'] + 1;
+	      // $code = $name.$str;
+	      $code = $prefix.$str.$sufix;
 	      return $code;
 	    }
   	}
