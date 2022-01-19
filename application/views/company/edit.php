@@ -87,7 +87,6 @@
                     <label for="notes">Notes</label>
                     <textarea type="text" class="form-control" id="notes" name="notes" placeholder="Enter Notes" value="<?php echo $company_data['notes'] ?>" autocomplete="off"><?php echo $company_data['notes'] ?></textarea>
                   </div>
-
                 </div>
 
                 <div class="form-group">
@@ -99,6 +98,21 @@
                     <label for="factory_address">Factory address</label>
                     <textarea type="text" class="form-control" id="factory_address" name="factory_address" placeholder="Enter factory address" value="<?php echo $company_data['factory_address'] ?>" autocomplete="off"><?php echo $company_data['factory_address'] ?></textarea>
                   </div>
+                  <div class="col-md-1">
+                    <label for="prefix">Prefix</label>
+                    <input type="text" class="form-control" id="prefix" name="prefix" placeholder="Prefix" value="<?php echo $company_data['prefix'] ?>" autocomplete="off"/>
+                  </div>
+
+                  <div class="col-md-1">
+                    <label for="count">Count</label>
+                    <input type="text" class="form-control" id="count" name="count" placeholder="Count" value="<?php echo $company_data['count'] ?>" autocomplete="off"/>
+                  </div>
+
+                  <div class="col-md-1">
+                    <label for="sufix">Sufix</label>
+                    <input type="text" class="form-control" id="sufix" name="sufix" placeholder="Sufix" value="<?php echo $company_data['sufix'] ?>" autocomplete="off"/>
+                  </div>
+                  
                 </div>
 
                 <!-- ============= -->

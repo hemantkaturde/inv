@@ -47,6 +47,7 @@ class Model_users extends CI_Model
 			return $q_result;
 		}
 	}
+	
 
 	public function create($data = '', $group_id = null)
 	{

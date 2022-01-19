@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Start Your Session Here</title>
+  <title>Inventory Management System</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -17,20 +17,20 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/iCheck/square/blue.css')?>">
 
- 
 </head>
-<body class="hold-transition login-page">
+<!-- <body class="hold-transition login-page" style="background-image: url('assets/dist/img/inventory.jpg'); "> -->
+<body class="hold-transition login-page" style="height:200px">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Inventory</b></a>
+    <a href="#"><b>Inventory</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
-
+    <p class="error password_error" style="color:red"> <?php echo $error ; ?></p>
     <form action="<?php echo base_url('auth/login') ?>" method="post">
       <div class="form-group has-feedback">
-        <select class="form-control" id="company" name="company" required>
+        <select class="form-control" id="company" name="company">
           <option value="">Select Company</option>
           <?php foreach ($company_data as $k => $v): ?>
             <option value="<?php echo $v['id'] ?>"><?php echo $v['company_name'] ?></option>
@@ -40,11 +40,11 @@
       </div>
 
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" name="email" id="email" required placeholder="Email" autocomplete="off">
+        <input type="text" class="form-control" name="username" id="username" placeholder="Username" autocomplete="off">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" name="password" id="password" required placeholder="Password" autocomplete="off">
+        <input type="text" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
@@ -62,8 +62,6 @@
         <!-- /.col -->
       </div>
     </form>
-
-
   </div>
   <!-- /.login-box-body -->
 </div>

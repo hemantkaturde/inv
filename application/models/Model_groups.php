@@ -5,18 +5,20 @@ class Model_groups extends CI_Model
 	public function __construct()
 	{
 		parent::__construct();
+		
 	}
 
 	public function getGroupData($groupId = null) 
 	{
+		$company_id = $_SESSION['company_id'];
 		if($groupId) {
 			$sql = "SELECT * FROM groups WHERE id = ?";
 			$query = $this->db->query($sql, array($groupId));
 			return $query->row_array();
 		}
 
-		$sql = "SELECT * FROM groups WHERE id != ?";
-		$query = $this->db->query($sql, array(1));
+		$sql = "SELECT * FROM groups WHERE company_id !=0 and company_id = ?";
+		$query = $this->db->query($sql, $company_id);
 		return $query->result_array();
 	}
 

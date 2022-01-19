@@ -60,10 +60,10 @@ class Controller_Members extends Admin_Controller
 
         if ($this->form_validation->run() == TRUE) {
             // true case
-            $password = $this->password_hash($this->input->post('password'));
+            //$password = $this->password_hash($this->input->post('password'));
         	$data = array(
         		'username' => $this->input->post('username'),
-        		'password' => $password,
+        		'password' => $this->input->post('password'),
         		'company_id' => $this->input->post('company_id'),
         		'email' => $this->input->post('email'),
         		'firstname' => $this->input->post('fname'),
@@ -125,6 +125,7 @@ class Controller_Members extends Admin_Controller
 		        if(empty($this->input->post('password')) && empty($this->input->post('cpassword'))) {
 		        	$data = array(
 		        		'username' => $this->input->post('username'),
+						'password' => $this->input->post('password'),
 		        		'company_id' => $this->input->post('company_id'),
 		        		'email' => $this->input->post('email'),
 		        		'firstname' => $this->input->post('fname'),
@@ -153,11 +154,11 @@ class Controller_Members extends Admin_Controller
 
 					if($this->form_validation->run() == TRUE) {
 
-						$password = $this->password_hash($this->input->post('password'));
+						//$password = $this->password_hash($this->input->post('password'));
 
 						$data = array(
 			        		'username' => $this->input->post('username'),
-			        		'password' => $password,
+			        		'password' => $this->input->post('password'),
 			        		'company_id' => $this->input->post('company_id'),
 			        		'email' => $this->input->post('email'),
 			        		'firstname' => $this->input->post('fname'),

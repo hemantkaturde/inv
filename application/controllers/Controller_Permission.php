@@ -9,7 +9,6 @@ class Controller_Permission extends Admin_Controller
 		$this->not_logged_in();
 
 		$this->data['page_title'] = 'Permission';
-		
 
 		$this->load->model('Model_groups');
 	}
@@ -20,14 +19,11 @@ class Controller_Permission extends Admin_Controller
 	*/
 	public function index()
 	{
-
 		// if(!in_array('viewGroup', $this->permission)) {
 		// 	redirect('dashboard', 'refresh');
-		// }
-
+		$company_id = $_SESSION['company_id'];
 		$groups_data = $this->Model_groups->getGroupData();
 		$this->data['groups_data'] = $groups_data;
-
 		$this->render_template('permission/index', $this->data);
 	}	
 
@@ -41,14 +37,13 @@ class Controller_Permission extends Admin_Controller
 		// if(!in_array('createGroup', $this->permission)) {
 		// 	redirect('dashboard', 'refresh');
 		// }
-
+		$company_id = $_SESSION['company_id'];
 		$this->form_validation->set_rules('group_name', 'Permission name', 'required');
-
         if ($this->form_validation->run() == TRUE) {
             // true case
             $permission = serialize($this->input->post('permission'));
-            
         	$data = array(
+				'company_id' => $company_id,
         		'group_name' => $this->input->post('group_name'),
         		'permission' => $permission
         	);
@@ -76,7 +71,7 @@ class Controller_Permission extends Admin_Controller
 	*/
 	public function edit($id = null)
 	{
-
+		$company_id = $_SESSION['company_id'];
 		// if(!in_array('updateGroup', $this->permission)) {
 		// 	redirect('dashboard', 'refresh');
 		// }
@@ -90,6 +85,7 @@ class Controller_Permission extends Admin_Controller
 	            $permission = serialize($this->input->post('permission'));
 	            
 	        	$data = array(
+					'company_id' => $company_id,
 	        		'group_name' => $this->input->post('group_name'),
 	        		'permission' => $permission
 	        	);

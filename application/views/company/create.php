@@ -96,6 +96,8 @@
                   </div>
                 </div>
 
+                
+
                 <div class="form-group">
                   <div class="col-md-4">
                     <label for="factory_address">Factory address</label>
@@ -104,7 +106,22 @@
                   <div class="col-md-4">
                     <label for="notes">Notes</label>
                     <textarea type="text" class="form-control" id="notes" name="notes" placeholder="Enter Notes"autocomplete="off"></textarea>
-                  </div>      
+                  </div>
+
+                  <div class="col-md-1">
+                    <label for="prefix">Prefix</label>
+                    <input type="text" class="form-control" id="prefix" name="prefix" placeholder="Prefix"autocomplete="off"/>
+                  </div>
+
+                  <div class="col-md-1">
+                    <label for="count">Count</label>
+                    <input type="text" class="form-control" id="count" name="count" placeholder="Prefix"autocomplete="off"/>
+                  </div>
+
+                  <div class="col-md-1">
+                    <label for="sufix">Sufix</label>
+                    <input type="text" class="form-control" id="sufix" name="sufix" placeholder="Prefix"autocomplete="off"/>
+                  </div>
                   
                 </div>
                 
