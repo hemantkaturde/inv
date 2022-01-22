@@ -1,22 +1,18 @@
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>var $j = jQuery.noConflict(true);</script>
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
       Manage Customer
-
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Customer</li>
     </ol>
   </section>
-
   <!-- Main content -->
   <section class="content">
     <!-- Small boxes (Stat box) -->
@@ -36,28 +32,21 @@
             <?php echo $this->session->flashdata('error');  ?>
           </div>
         <?php endif; ?>
-
-        <?php if((in_array('createCompany', $user_permission)) || ($_SESSION['id'] == 1)): ?> 
           <a href="<?php echo base_url('Controller_Customer/create') ?>" class="btn btn-primary">Add Customer</a>
           <br /> <br />
-        <?php endif; ?>
-
         <div class="box">
-         
           <!-- /.box-header -->
           <div class="box-body">
             <table id="manageTable" class="table table-bordered table-striped">
               <thead>
               <tr>
                 <!-- <th></th> -->
-                <th>Image</th>
+                <!-- <th>Image</th> -->
                 <th>Company Name</th>
                 <th>Phone</th>
                 <th>Email</th>
                 <th>Attachments</th>
-                <?php if(in_array('updateCustomer', $user_permission) || in_array('deleteCustomer', $user_permission) || ($_SESSION['id'] == 1)): ?>
-                  <th>Action</th>
-                <?php endif; ?>
+                <th>Action</th>
               </tr>
               </thead>
 

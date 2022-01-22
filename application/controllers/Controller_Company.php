@@ -112,7 +112,7 @@ class Controller_Company extends Admin_Controller
         $config['upload_path'] = 'assets/images/company_image';
         $config['file_name'] =  uniqid();
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
-        $config['max_size'] = '1000';
+        $config['max_size'] = '10000000000';
 
         $this->load->library('upload', $config);
         if ( ! $this->upload->do_upload('company_logo'))

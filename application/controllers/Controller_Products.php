@@ -306,14 +306,7 @@ class Controller_Products extends Admin_Controller
     {
         $result = array('data' => array());
 
-        if($_SESSION['id'] == 1)
-        {
-            $data = $this->Model_products->getProductTypeData();    
-        }
-        else
-        {
-            $data = $this->Model_products->getProductTypeDataAsPerCompany($_SESSION['company_id']);
-        }
+        $data = $this->Model_products->getProductTypeDataAsPerCompany($_SESSION['company_id']);
         
 
         foreach ($data as $key => $value) {

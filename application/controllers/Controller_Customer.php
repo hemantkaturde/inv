@@ -5,65 +5,34 @@ class Controller_Customer extends Admin_Controller
 	public function __construct()
 	{
 		parent::__construct();
-
 		$this->not_logged_in();
-		
 		$this->data['page_title'] = 'Customer';
-		
 		$this->load->model('Model_customer');
 		$this->load->model('Model_groups');
 	}
 
-	
 	public function index()
 	{
-		if(!in_array('viewCustomer', $this->permission)) {
-			redirect('dashboard', 'refresh');
-		}
-
 		$this->render_template('customer/index', $this->data);
 	}
 
 	public function fetchCustomerData()
     {
         $result = array('data' => array());
-
-        if($_SESSION['id'] == 1)
-        {
-            $data = $this->Model_customer->getCustomerData();
-        }
-        else
-        {
-            $data = $this->Model_customer->getCustomerDataAsPerCompany($_SESSION['company_id']);
-        }
-       
+        $data = $this->Model_customer->getCustomerDataAsPerCompany($_SESSION['company_id']);
         foreach ($data['customer'] as $key => $value) {
-            
-            if (($_SESSION['company_id'] == $value['company_id']) || ($_SESSION['id'] == 1)) {
-            // $store_data = $this->model_stores->getStoresData($value['store_id']);
-            // button
+            if (($_SESSION['company_id'] == $value['company_id'])) {
                 $buttons = '';
-                
-                // if(in_array('deleteCustomer', $this->permission) || ($_SESSION['id'] == 1)) { 
                     $buttons .= ' <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_attachment" onclick="addAttach_Func('.$value['id'].')"><i class="fa fa-file"></i></button>';
-                // }
-
-                if(in_array('updateCustomer', $this->permission) || ($_SESSION['id'] == 1)) {
                     $buttons .= ' <a href="'.base_url('Controller_Customer/edit/'.$value['id']).'" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>';
-                }
-
-                if(in_array('deleteCustomer', $this->permission) || ($_SESSION['id'] == 1)) { 
                     $buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
-                }
-
-                if (!empty($value['cust_attachment'])) {
-                    $img = '<img src="'.base_url($value['cust_attachment']).'" alt="'.$value['name'].'" class="img-circle" width="50" height="50" />';
-                }else
-                {
-                    $img = "";
-                }
-                
-                
+           
+                // if (!empty($value['cust_attachment'])) {
+                //     $img = '<img src="'.base_url($value['cust_attachment']).'" alt="'.$value['name'].'" class="img-circle" width="50" height="50" />';
+                // }else
+                // {
+                //     $img = "";
+                // }
                 $attachments = "";
                 foreach ($data['cust_trans'] as $key1 => $value1) {
                    
@@ -73,9 +42,8 @@ class Controller_Customer extends Admin_Controller
                         $attachments .= ' <a onclick="removeTransFunc('.$value1['id'].')" data-toggle="modal" data-target="#removeTransModal" style="margin-right:10px;"><i class="fa fa-trash"></i></a>';
                     }
                 }
-
                 $result['data'][$key] = array(
-                    $img,
+                    // $img,
                     $value['name'],
                     $value['phone'],
                     $value['email'],
@@ -85,25 +53,26 @@ class Controller_Customer extends Admin_Controller
             }
         } // /foreach
         
-
         echo json_encode($result);
     }
 	public function create()
 	{
-		// if(!in_array('createCustomer', $this->permission)) {
-		// 	redirect('dashboard', 'refresh');
-		// }
-
 		$this->form_validation->set_rules('mobile', 'Mobile No', 'trim|required');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required');
-		$this->form_validation->set_rules('customer', 'Customer name', 'trim|required|is_unique[customers.name]');
+		$this->form_validation->set_rules('customer', 'Customer name', 'trim|required');
 		$this->form_validation->set_rules('address', 'Address', 'trim|required');
 
         if ($this->form_validation->run() == TRUE) {
             // true case
             // $upload_image = $this->upload_image();
-        	$data = array(
+             $check_customer = $this->Model_customer->CheckCustomerAlreadyExist(trim($this->input->post('customer')),$_SESSION['company_id']);
+        
+             if($check_customer){
+                $this->session->set_flashdata('errors', 'Customer Alreday Exits!');
+        		redirect('Controller_Customer/create', 'refresh');
 
+             }else{
+        	$data = array(
         		'name' => $this->input->post('customer'),
                 'company_id' => $_SESSION['company_id'],
         		'contact_person' => $this->input->post('contact_person'),
@@ -128,6 +97,7 @@ class Controller_Customer extends Admin_Controller
         		$this->session->set_flashdata('errors', 'Error occurred!!');
         		redirect('Controller_Customer/create', 'refresh');
         	}
+        }
         }
         else {
             // false case

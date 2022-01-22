@@ -11,15 +11,15 @@ class Model_groups extends CI_Model
 	public function getGroupData($groupId = null) 
 	{
 		$company_id = $_SESSION['company_id'];
-		if($groupId) {
-			$sql = "SELECT * FROM groups WHERE id = ?";
-			$query = $this->db->query($sql, array($groupId));
+		if($groupId && $company_id) {
+			$sql = "SELECT * FROM groups WHERE company_id=? AND id = ?";
+			$query = $this->db->query($sql, array($company_id ,$groupId));
 			return $query->row_array();
+		}else{
+			$sql = "SELECT * FROM groups WHERE company_id = ?";
+			$query = $this->db->query($sql, $company_id);
+			return $query->result_array();
 		}
-
-		$sql = "SELECT * FROM groups WHERE company_id !=0 and company_id = ?";
-		$query = $this->db->query($sql, $company_id);
-		return $query->result_array();
 	}
 
 	public function create($data = '')

@@ -1,9 +1,3 @@
-<style type="text/css">
-  .col-md-4{
-    margin-top: 15px;
-  }
-</style>
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -22,12 +16,11 @@
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-default">
         <div class="box-header">
-    
-
-          <div class="box-tools pull-right">
+  
+          <!-- <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-          </div>
+          </div> -->
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -61,7 +54,7 @@
                 <!-- <div class="col-md-6"> -->
                   <div class="form-group">
                     <div class="col-md-4">
-                      <label for="customer">Customer *</label>
+                      <label for="customer">Customer <span class="required">*</span></label>
                       <input type="text" class="form-control" id="customer" name="customer" placeholder="Enter Customer Name" autocomplete="off" required="">
                     </div>
 
@@ -78,11 +71,11 @@
 
                   <div class="form-group">
                     <div class="col-md-4">
-                      <label for="mobile">Mobile No. *</label>
+                      <label for="mobile">Mobile No. <span class="required">*</span></label>
                       <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter Mobile Number" autocomplete="off" required="">
                     </div>
                     <div class="col-md-4">
-                      <label for="email">Email *</label>
+                      <label for="email">Email <span class="required">*</span></label>
                       <input type="email" class="form-control" id="email" name="email" placeholder="Email" autocomplete="off" required="">
                     </div>
                     <div class="col-md-4">
@@ -102,7 +95,7 @@
                       <input type="text" class="form-control" id="pan_no" name="pan_no" placeholder="Enter PAN No" autocomplete="off">
                     </div>
                     <div class="col-md-4">
-                      <label for="address">Address *</label>
+                      <label for="address">Address <span class="required">*</span></label>
                       <textarea type="text" class="form-control" id="address" name="address" placeholder="Enter Address" autocomplete="off" required=""></textarea>
                     </div>
                   </div>

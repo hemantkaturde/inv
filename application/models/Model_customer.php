@@ -38,7 +38,6 @@ class Model_customer extends CI_Model
 			$record['customer'] = $query->row_array();
 			return $record;
 		}
-
 		$sql = "SELECT * FROM customers where company_id = ? ORDER BY id DESC";
 		$query = $this->db->query($sql, array($company_id));
 		$record['customer'] = $query->result_array();
@@ -106,4 +105,14 @@ class Model_customer extends CI_Model
 			return ($delete == true) ? true : false;
 		}
 	}
+
+    public function CheckCustomerAlreadyExist($companyid,$customername){
+
+		$sql = "SELECT * FROM customers where company_id = ? && `name` = ?";
+		$query = $this->db->query($sql, array($companyid, $customername));
+		$record = $query->row_array();
+		return $record;
+
+	}
+
 }

@@ -151,7 +151,7 @@
     $("#message").wysihtml5();
 
     var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' + 
-        'onclick="alert(\'Call your custom code here.\')">' +
+        'onclick="">' +
         '<i class="glyphicon glyphicon-tag"></i>' +
         '</button>'; 
     $("#company_logo").fileinput({
@@ -172,4 +172,3 @@
     });
   });
 </script>
-

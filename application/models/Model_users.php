@@ -28,8 +28,8 @@ class Model_users extends CI_Model
 			return $query->row_array();
 		}
 
-		$sql = "SELECT * FROM users WHERE company_id = ? && id != ?";
-		$query = $this->db->query($sql, array($company_id, 1));
+		$sql = "SELECT * FROM users WHERE company_id = ?";
+		$query = $this->db->query($sql, array($company_id));
 		return $query->result_array();
 	}
 

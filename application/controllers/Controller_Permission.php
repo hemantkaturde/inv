@@ -59,7 +59,6 @@ class Controller_Permission extends Admin_Controller
         	}
         }
         else {
-            // false case
             $this->render_template('permission/create', $this->data);
         }	
 	}

@@ -38,10 +38,9 @@
           <?php endif; ?>
 
 
-          <div class="box">
-            
+          <div class="box table-responsive no-padding">
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body ">
               <table id="userTable" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -100,7 +99,7 @@
                         </td>
                       <?php endif; ?>
                       </tr>
-                    <?php endforeach ?>
+                    <?php endforeach; ?>
                   <?php endif; ?>
                 </tbody>
               </table>

@@ -23,13 +23,8 @@ class Controller_Members extends Admin_Controller
 		// 	redirect('dashboard', 'refresh');
 		// }
 
-		if ($_SESSION['id'] == 1) {
-			$user_data = $this->Model_users->getUserData();
-		}else
-		{
-			$user_data = $this->Model_users->getUserDataAsPerCompany($_SESSION['company_id']);
-		}
-		
+		$user_data = $this->Model_users->getUserDataAsPerCompany($_SESSION['company_id']);
+	
 
 		$result = array();
 		foreach ($user_data as $k => $v) {

@@ -1,25 +1,20 @@
-
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
         Manage Company
-     
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">company</li>
       </ol>
     </section>
-
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
         <div class="col-md-12 col-xs-12">
-          
           <?php if($this->session->flashdata('success')): ?>
             <div class="alert alert-success alert-dismissible" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -110,21 +105,19 @@
 
                   <div class="col-md-1">
                     <label for="prefix">Prefix</label>
-                    <input type="text" class="form-control" id="prefix" name="prefix" placeholder="Prefix"autocomplete="off"/>
+                    <input type="text" class="form-control" id="prefix" name="prefix" placeholder="Prefix" autocomplete="off"/>
                   </div>
 
                   <div class="col-md-1">
                     <label for="count">Count</label>
-                    <input type="text" class="form-control" id="count" name="count" placeholder="Prefix"autocomplete="off"/>
+                    <input type="text" class="form-control" id="count" name="count" placeholder="Count" autocomplete="off"/>
                   </div>
 
                   <div class="col-md-1">
                     <label for="sufix">Sufix</label>
-                    <input type="text" class="form-control" id="sufix" name="sufix" placeholder="Prefix"autocomplete="off"/>
+                    <input type="text" class="form-control" id="sufix" name="sufix" placeholder="Sufix" autocomplete="off"/>
                   </div>
-                  
                 </div>
-                
               </div>
               <!-- /.box-body -->
 
@@ -153,7 +146,7 @@
     $("#message").wysihtml5();
 
     var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' + 
-        'onclick="alert(\'Call your custom code here.\')">' +
+        'onclick="">' +
         '<i class="glyphicon glyphicon-tag"></i>' +
         '</button>'; 
     $("#company_logo").fileinput({
@@ -174,4 +167,3 @@
     });
   });
 </script>
-

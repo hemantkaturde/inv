@@ -30,12 +30,12 @@
             <?php endif; ?>
             <a href="<?php echo base_url('Controller_Permission/create') ?>" class="btn btn-primary">Add Permission</a>
             <br /> <br />
-            <div class="box">
+            <div class="box table-responsive no-padding">
                <div class="box-header">
                   <h3 class="box-title">Manage Permission</h3>
                </div>
                <!-- /.box-header -->
-               <div class="box-body">
+               <div class="box-body ">
                   <table id="groupTable" class="table table-bordered table-striped">
                      <thead>
                         <tr>
@@ -109,3 +109,4 @@
    //   $("#manageGroupNav").addClass('active');
    });
 </script>
+
