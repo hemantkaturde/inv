@@ -28,6 +28,7 @@ class Auth extends Admin_Controller
 			}else{
 				if($this->input->post('username')=='Superadmin'){
 					$checkSuperadmin = $this->Model_auth->SuperadminLogin(trim($this->input->post('username')),trim($this->input->post('password')));
+					// print_r($checkSuperadmin);exit;
 					if($checkSuperadmin){
 						$company_name = $this->Model_auth->get_company($this->input->post('company'));
 						$permission = $this->Model_auth->getUserPermission($checkSuperadmin['id']);

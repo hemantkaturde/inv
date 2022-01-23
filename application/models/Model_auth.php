@@ -29,7 +29,7 @@ class Model_auth extends CI_Model
 	public function login($company, $username, $password) {
 		if($company && $username && $password) {
 			$sql = "SELECT * FROM users  WHERE (company_id = ? AND username = ? AND `password`= ?)";
-			$query = $this->db->query($sql, array($company, $username,$password));
+			$query = $this->db->query($sql, array($company, $username, $password));
 			if($query->num_rows() == 1) {
 				$result = $query->row_array();
                 if($result){

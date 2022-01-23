@@ -23,8 +23,11 @@ class Model_customer extends CI_Model
 		// return $query->result_array();
 		$record['customer'] = $query->row_array();
 			return $record;
+	}
 
-		$sql = "SELECT * FROM customer_trans ORDER BY id DESC";
+	public function getCustomerAttachments($id = null)
+	{
+		$sql = "SELECT * FROM customer_trans WHERE cust_id = $id ORDER BY id DESC";
 		$query = $this->db->query($sql);
 		$record['cust_trans'] = $query->result_array();
 		return $record;

@@ -23,7 +23,8 @@ class Controller_Customer extends Admin_Controller
         foreach ($data['customer'] as $key => $value) {
             if (($_SESSION['company_id'] == $value['company_id'])) {
                 $buttons = '';
-                    $buttons .= ' <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_attachment" onclick="addAttach_Func('.$value['id'].')"><i class="fa fa-file"></i></button>';
+                    // $buttons .= ' <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_attachment" onclick="addAttach_Func('.$value['id'].')"><i class="fa fa-file"></i></button>';
+                    $buttons .= ' <a href="'.base_url('Controller_Customer/attachment/'.$value['id']).'" class="btn btn-info btn-sm"><i class="fa fa-upload"></i></a>';
                     $buttons .= ' <a href="'.base_url('Controller_Customer/edit/'.$value['id']).'" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>';
                     $buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
            
@@ -33,21 +34,11 @@ class Controller_Customer extends Admin_Controller
                 // {
                 //     $img = "";
                 // }
-                $attachments = "";
-                foreach ($data['cust_trans'] as $key1 => $value1) {
-                   
-                    if($value['id'] == $value1['cust_id'])
-                    {  
-                        $attachments .= '<a href="'.base_url().$value1['attach_img'].'" target="_blank" download><i class="fa fa-link"></i></a>';
-                        $attachments .= ' <a onclick="removeTransFunc('.$value1['id'].')" data-toggle="modal" data-target="#removeTransModal" style="margin-right:10px;"><i class="fa fa-trash"></i></a>';
-                    }
-                }
                 $result['data'][$key] = array(
                     // $img,
                     $value['name'],
                     $value['phone'],
                     $value['email'],
-                    $attachments,
                     $buttons
                 );
             }
@@ -208,6 +199,49 @@ class Controller_Customer extends Admin_Controller
 
     // === ADD ATTACHMENT TRANSACTION
 
+    public function attachment($id = null)
+    {
+        if($id)
+        {
+            // print_r($id);
+            $this->data['id'] = $id;
+            $this->render_template('customer/customer_attachment', $this->data);
+        }
+    }
+
+    public function fetchCustomerAttachments($id= null)
+    {
+        $result = array('data' => array());
+        $data = $this->Model_customer->getCustomerAttachments($id);
+        // print_r($data);
+
+        foreach ($data['cust_trans'] as $key => $value) {
+                $buttons = '';
+                $buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeTransFunc('.$value['id'].')" data-toggle="modal" data-target="#removeTransModal"><i class="fa fa-trash"></i></button>';
+            
+                if(!empty($value['attach_img']))
+                {
+                    $substring = substr($value['attach_img'], strpos($value['attach_img'], '_image/')+7);
+                }
+                else
+                {
+                    $substring = "";
+                }
+                // $attachments = "";
+                $attachments = '<a href="'.base_url().$value['attach_img'].'" target="_blank" download><i class="fa fa-eye"></i></a>';
+       
+                $result['data'][$key] = array(
+                    $value['attach_name'],
+                    // $value['attach_img'],
+                    $substring,
+                    $attachments,
+                    $buttons
+                );
+        } // /foreach
+        
+        echo json_encode($result);
+    }
+    
     public function add_attachment()
     {
         // print_r($this->input->post());

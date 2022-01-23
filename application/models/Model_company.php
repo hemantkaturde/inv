@@ -60,4 +60,31 @@ class Model_company extends CI_Model
         $this->db->from('company');
         return $this->db->count_all_results();
 	}
+
+	// === GET COMPANY ATTACHMENTS
+	public function getCompanyAttachments($id = null)
+	{
+		$sql = "SELECT * FROM company_trans WHERE comp_id = $id ORDER BY id DESC";
+		$query = $this->db->query($sql);
+		$record['comp_trans'] = $query->result_array();
+		return $record;
+	}
+
+	public function create_trans($data)
+	{
+		if($data) {
+			$insert = $this->db->insert('company_trans', $data);
+			return ($insert == true) ? true : false;
+		}
+	}
+
+	public function removeTrans($id)
+	{
+		if($id) {
+			$this->db->where('id', $id);
+			$delete = $this->db->delete('company_trans');
+			return ($delete == true) ? true : false;
+		}
+	}
+
 }

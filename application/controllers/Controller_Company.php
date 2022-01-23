@@ -35,7 +35,8 @@ class Controller_Company extends Admin_Controller
             // button
             $buttons = '';
             //if(in_array('updateCompany', $this->permission)) {
-                $buttons .= '<a href="'.base_url('Controller_Company/update/'.$value['id']).'" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>';
+                $buttons .= ' <a href="'.base_url('Controller_Company/attachment/'.$value['id']).'" class="btn btn-info btn-sm"><i class="fa fa-upload"></i></a>';
+                $buttons .= ' <a href="'.base_url('Controller_Company/update/'.$value['id']).'" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>';
             // }
 
             // if(in_array('deleteCompany', $this->permission)) { 
@@ -228,4 +229,131 @@ class Controller_Company extends Admin_Controller
         echo json_encode($response);
     }
 
+    // === ADD ATTACHMENT TRANSACTION
+
+    public function attachment($id = null)
+    {
+        if($id)
+        {
+            // print_r($id);
+            $this->data['id'] = $id;
+            $this->render_template('company/company_attachment', $this->data);
+        }
+    }
+
+    public function fetchCompanyAttachments($id = null)
+    {
+        $result = array('data' => array());
+        $data = $this->Model_company->getCompanyAttachments($id);
+        // print_r($data);
+
+        foreach ($data['comp_trans'] as $key => $value) {
+                $buttons = '';
+                $buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeTransFunc('.$value['id'].')" data-toggle="modal" data-target="#removeTransModal"><i class="fa fa-trash"></i></button>';
+            
+                if(!empty($value['attach_img']))
+                {
+                    $substring = substr($value['attach_img'], strpos($value['attach_img'], '_image/')+7);
+                }
+                else
+                {
+                    $substring = "";
+                }
+                // $attachments = "";
+                $attachments = '<a href="'.base_url().$value['attach_img'].'" target="_blank" download><i class="fa fa-eye"></i></a>';
+       
+                $result['data'][$key] = array(
+                    $value['attach_name'],
+                    // $value['attach_img'],
+                    $substring,
+                    $attachments,
+                    $buttons
+                );
+        } // /foreach
+        
+        echo json_encode($result);
+    }
+    
+    public function add_attachment()
+    {
+        $upload_image = $this->upload_trans_image();
+
+        $comp_id = $this->input->post('id');
+        $attach_name = $this->input->post('attach_name');
+
+        $response = array();
+        if($comp_id) {
+            $data = array(
+                'comp_id' => $comp_id,
+                'attach_name' => $attach_name,
+                'attach_img' => $upload_image
+            );
+            $insert_trans = $this->Model_company->create_trans($data);
+            if($insert_trans == true) {
+                $response['success'] = true;
+                $response['messages'] = "Successfully Uploaded"; 
+            }
+            else {
+                $response['success'] = false;
+                $response['messages'] = "Error in the database while removing the product information";
+            }
+        }
+        else {
+            $response['success'] = false;
+            $response['messages'] = "Refersh the page again!!";
+        }
+
+        echo json_encode($response);
+    }
+
+    public function upload_trans_image()
+    {
+        // assets/images/cust_attach
+        $config['upload_path'] = 'assets/images/company_image';
+        $config['file_name'] =  uniqid();
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+        $config['max_size'] = '1000';
+
+        $this->load->library('upload', $config);
+        if ( ! $this->upload->do_upload('attach_img'))
+        {
+            $error = '';
+            return $error;
+        }
+        else
+        {
+            $data = array('upload_data' => $this->upload->data());
+            $type = explode('.', $_FILES['attach_img']['name']);
+            $type = $type[count($type) - 1];
+            
+            $path = $config['upload_path'].'/'.$config['file_name'].'.'.$type;
+            return ($data == true) ? $path : false;            
+        }
+    }
+
+    public function removeTrans()
+    {        
+        $id = $this->input->post('id');
+
+        $response = array();
+        if($id) {
+            $delete = $this->Model_company->removeTrans($id);
+            if($delete == true) {
+                $response['success'] = true;
+                $response['messages'] = "Successfully removed"; 
+            }
+            else {
+                $response['success'] = false;
+                $response['messages'] = "Error in the database while removing the product information";
+            }
+        }
+        else {
+            $response['success'] = false;
+            $response['messages'] = "Refersh the page again!!";
+        }
+
+        echo json_encode($response);
+    }
+
+    // ===============================
 }
