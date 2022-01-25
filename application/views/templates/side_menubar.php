@@ -43,7 +43,7 @@
         <?php }?> 
 
         <?php if(in_array('moduleMaster', unserialize($permission['permission']))) {  ?>
-        <li class="treeview <?php if($pageUrl=="Controller_Masters/department" || $pageUrl=="Controller_Masters/createdepartment"){echo 'active';}?>">
+        <li class="treeview <?php if($pageUrl=="Controller_Masters/department" || $pageUrl=="Controller_Masters/createdepartment" || $pageUrl=="Controller_Products/product_type" || $pageUrl=="Controller_Products" || $pageUrl=="Controller_Products/create_ptype" || $pageUrl=="Controller_Products/update_ptype"){echo 'active';}?>">
               <a href="#">
                 <i class="fa fa-bars"></i>
                 <span>Masters</span>
@@ -51,7 +51,10 @@
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
+
+              
               <ul class="treeview-menu">
+              <?php if(in_array('moduleDepartment', unserialize($permission['permission']))) {  ?>
                  <li class="treeview <?php if($pageUrl=="Controller_Masters/department" || $pageUrl=="Controller_Masters/createdepartment"){echo 'active';}?>">
                     <a href="#">
                       <i class="fa fa-address-card-o"></i>
@@ -65,11 +68,29 @@
                     <li <?php if($pageUrl=="Controller_Masters/department"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Masters/department') ?>"><i class="fa fa-pencil"></i> Manage Department</a></li>
                     </ul>
                 </li>
+
+                <?php } ?>
+                <?php if(in_array('moduleDepartment', unserialize($permission['permission']))) {  ?>
+                <li class="treeview <?php if($pageUrl=="Controller_Products/product_type" || $pageUrl=="Controller_Products" || $pageUrl=="Controller_Products/create_ptype" || $pageUrl=="Controller_Products/update_ptype"){echo 'active';}?>">
+                    <a href="#">
+                      <i class="fa fa-address-card-o"></i>
+                      <span>Product Type</span>
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                    </a>
+                    <ul class="treeview-menu">
+                    <li <?php if($pageUrl=="Controller_Products/create_ptype"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Products/create_ptype') ?>"><i class="fa fa-plus"></i> Add Product Type</a></li>
+                    <li <?php if($pageUrl=="Controller_Products/product_type" || $pageUrl=="Controller_Products/update_ptype" ){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Products/product_type') ?>"><i class="fa fa-pencil"></i> Manage Product Type</a></li>
+                    </ul>
+                </li>
+                <?php } ?>
               </ul>
+             
         </li>
       <?php }?>
         
-        <?php if(in_array('moduleProduct', unserialize($permission['permission']))) {  ?>
+        <!-- <?php if(in_array('moduleProduct', unserialize($permission['permission']))) {  ?>
           <li class="treeview <?php if($pageUrl=="Controller_Products/product_type" || $pageUrl=="Controller_Products" || $pageUrl=="Controller_Products/create" || $pageUrl=="Controller_Products/update" ){echo 'active';}?>">
                 <a href="#">
                   <i class="fa fa-cube"></i>
@@ -90,7 +111,7 @@
                 <?php }?>    
                 </ul>
           </li>
-        <?php }?>   
+        <?php }?>    -->
 
         <?php if(in_array('moduleCompany', unserialize($permission['permission']))) {  ?>
           <li class="treeview <?php if($pageUrl=="Controller_Company" || $pageUrl=="Controller_Company/create" || $pageUrl=="Controller_Company/update" ){echo 'active';}?>" >
