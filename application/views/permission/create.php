@@ -96,6 +96,18 @@
                                     <td></td>
                                  </tr>
 
+                                 
+                                 <tr>
+                                    <td>Masters</td>
+                                    <td><input type="checkbox" name="permission[]" id="permission" value="moduleMaster" class="minimal"></td>
+                                    <td><input type="checkbox" name="permission[]" id="permission" value="viewMaster" class="minimal"></td>
+                                    <td><input type="checkbox" name="permission[]" id="permission" value="createMaster" class="minimal"></td>
+                                    <td><input type="checkbox" name="permission[]" id="permission" value="updateMaster" class="minimal"></td>
+                                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteMaster" class="minimal"></td>
+                                    <td></td>
+                                 </tr>
+
+
                                  <tr>
                                     <td>Products Type</td>
                                     <td><input type="checkbox" name="permission[]" id="permission" value="moduleProductType" class="minimal"></td>

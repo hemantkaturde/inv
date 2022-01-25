@@ -53,9 +53,9 @@
                 <th>Company Name</th>
                 <th>Phone</th>
                 <th>Email</th>
-                <?php if(in_array('updateCompany', $user_permission) || in_array('deleteCompany', $user_permission)): ?>
+                <!-- <?php if(in_array('updateCompany', $user_permission) || in_array('deleteCompany', $user_permission)): ?> -->
                   <th>Action</th>
-                <?php endif; ?>
+                <!-- <?php endif; ?> -->
               </tr>
               </thead>
 

@@ -41,20 +41,72 @@ class Controller_Masters extends Admin_Controller
 		 $this->render_template('masters/department/index', $this->data);
 	}
 
-    // public function fetchDepartmentData(){
 
-    //     $user_data = $this->Model_masters->getDepartmentData($_SESSION['company_id']);
-	// 	$result = array();
-	// 	foreach ($user_data as $k => $v) {
+	public function createdepartment(){
 
-	// 		$result[$k]['user_info'] = $v;
+		$post_submit = $this->input->post();
+		if($post_submit){
+			$this->form_validation->set_rules('department', 'Department', 'trim|required|is_unique[company.company_name]');
 
-	// 		$group = $this->Model_users->getUserGroup($v['id']);
-	// 		$result[$k]['user_group'] = $group;
-	// 	}
-	// 	$this->data['user_data'] = $result;
+			if($this->form_validation->run() == TRUE)
+            {
+				$check_department = $this->Model_masters->CheckdepartmentAlreadyExist(trim($this->input->post('department')),$_SESSION['company_id']);
+				
+				if($check_department){
+				   $this->session->set_flashdata('error', 'Department Alreday Exits!');
+				  redirect('Controller_Masters/createdepartment', 'refresh');
 
-	// 	$this->render_template('masters/department/index', $this->data);
-    // }
+				}else{
+					$department = $this->input->post('department');
+					$data = array(
+						'department' => $this->input->post('department'),
+						'company_id' => $_SESSION['company_id']
+					);
+					
+					$create = $this->Model_masters->departmentCreate($data);
+
+					if($create == true) {
+						$this->session->set_flashdata('success', 'Successfully created');
+						redirect('Controller_Masters/department', 'refresh');
+					}
+					else {
+						$this->session->set_flashdata('error', 'Error occurred!!');
+						redirect('Controller_Masters/createdepartment', 'refresh');
+					}
+		    	}
+			}
+
+		}else{
+			$this->render_template('masters/department/create', $this->data);
+		}
+   }
+
+   public function delete($id)
+	{
+	
+		if($id) {
+			if($this->input->post('confirm')) {
+					$delete = $this->Model_masters->delete($id);
+					if($delete == true) {
+		        		$this->session->set_flashdata('success', 'Successfully removed');
+		        		redirect('Controller_Masters/department', 'refresh');
+		        	}
+		        	else {
+		        		$this->session->set_flashdata('error', 'Error occurred!!');
+		        		redirect('Controller_Masters/department'.$id, 'refresh');
+		        	}
+			}	
+			else {
+				$this->data['id'] = $id;
+				$this->render_template('masters/department/index', $this->data);
+			}	
+		}
+	}
+
+	public function edit($id){
+
+		
+		
+	}
 
 }

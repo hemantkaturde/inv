@@ -2,6 +2,7 @@
   $user_id = $this->session->userdata('id');
   $is_admin = ($user_id == 1) ? true :false;
   $permission = $this->session->userdata('permission');
+
   $pageUrl1 =$this->uri->segment(1);
   $pageUrl2 =$this->uri->segment(2);
   if($pageUrl2){
@@ -41,9 +42,8 @@
           </li>
         <?php }?> 
 
-
-       
-        <li class="treeview">
+        <?php if(in_array('moduleMaster', unserialize($permission['permission']))) {  ?>
+        <li class="treeview <?php if($pageUrl=="Controller_Masters/department" || $pageUrl=="Controller_Masters/createdepartment"){echo 'active';}?>">
               <a href="#">
                 <i class="fa fa-bars"></i>
                 <span>Masters</span>
@@ -52,7 +52,7 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                 <li class="treeview">
+                 <li class="treeview <?php if($pageUrl=="Controller_Masters/department" || $pageUrl=="Controller_Masters/createdepartment"){echo 'active';}?>">
                     <a href="#">
                       <i class="fa fa-address-card-o"></i>
                       <span>Department</span>
@@ -61,13 +61,13 @@
                       </span>
                     </a>
                     <ul class="treeview-menu">
-                    <li <?php if($pageUrl=="Controller_Masters/create"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Masters/create') ?>"><i class="fa fa-plus"></i> Add Department</a></li>
+                    <li <?php if($pageUrl=="Controller_Masters/createdepartment"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Masters/createdepartment') ?>"><i class="fa fa-plus"></i> Add Department</a></li>
                     <li <?php if($pageUrl=="Controller_Masters/department"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Masters/department') ?>"><i class="fa fa-pencil"></i> Manage Department</a></li>
                     </ul>
                 </li>
               </ul>
         </li>
-      
+      <?php }?>
         
         <?php if(in_array('moduleProduct', unserialize($permission['permission']))) {  ?>
           <li class="treeview <?php if($pageUrl=="Controller_Products/product_type" || $pageUrl=="Controller_Products" || $pageUrl=="Controller_Products/create" || $pageUrl=="Controller_Products/update" ){echo 'active';}?>">

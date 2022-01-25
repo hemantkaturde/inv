@@ -3,14 +3,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Edit Products
+            Edit Department
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Products</li>
+            <li class="active">Department</li>
         </ol>
     </section>
-
     <!-- Main content -->
     <section class="content">
         <!-- Small boxes (Stat box) -->
@@ -37,7 +36,7 @@
                 <div class="box">
 
                     <!-- /.box-header -->
-                    <form role="form" action="<?php base_url('product/update_ptype') ?>" method="post">
+                    <form role="form" action="<?php base_url('Controller_Masters/edit') ?>" method="post">
                         <div class="box-body">
 
                             <?php if (!empty(validation_errors())) { ?>
@@ -51,24 +50,21 @@
 
                             <div class="form-group">
                                 <div class="col-md-3">
-                                    <label for="product_type">Product Type *</label>
-                                    <input type="text" class="form-control" id="product_type" name="product_type"
+                                    <label for="department">Department <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="department" name="department"
                                         placeholder="Enter product Type"
-                                        value="<?php echo $product_data['product_type']; ?>" autocomplete="off"
+                                        value="<?php echo $dapartment_data['department']; ?>" autocomplete="off"
                                         required />
                                 </div>
 
 
                             </div>
-
-
-
                         </div>
                         <!-- /.box-body -->
 
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">Save Changes</button>
-                            <a href="<?php echo base_url('Controller_Products/product_type') ?>"
+                            <a href="<?php echo base_url('Controller_Masters/department') ?>"
                                 class="btn btn-warning">Back</a>
                         </div>
                     </form>

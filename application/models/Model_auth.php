@@ -70,6 +70,7 @@ class Model_auth extends CI_Model
 	}
 
 	public function getUserPermission($id){
+
 		$user_data = $this->Model_users->getUserGroup($id);
 		return $user_data;
 	}
