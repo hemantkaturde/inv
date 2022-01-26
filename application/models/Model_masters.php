@@ -21,5 +21,32 @@ class Model_masters extends CI_Model
 		$query = $this->db->query($sql, array($company_id));
 		return $query->result_array();
 	}
+    /* Function End Here*/
+	
+	/* This Function is used To create department*/
+    public function departmentCreate($data){
+		if($data) {
+			$insert = $this->db->insert('department', $data);
+			return ($insert == true) ? true : false;
+		}
+
+	}
+	/* Function End Here*/
+
+	public function CheckdepartmentAlreadyExist($department ,$companyid){
+
+			$sql = "SELECT * FROM department where company_id = ? && `department` = ?";
+			$query = $this->db->query($sql, array($companyid, $department));
+			$record = $query->row_array();
+			return $record;
+
+	}
+
+	public function delete($id)
+	{
+		$this->db->where('deprt_id', $id);
+		$delete = $this->db->delete('department');
+		return ($delete == true) ? true : false;
+	}
 
 }
