@@ -253,6 +253,7 @@ class Controller_Customer extends Admin_Controller
         $response = array();
         if($cust_id) {
             $data = array(
+                'company_id' => $_SESSION['company_id'],
                 'cust_id' => $cust_id,
                 'attach_name' => $attach_name,
                 'attach_img' => $upload_image
