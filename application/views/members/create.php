@@ -42,21 +42,21 @@
                 <div class="row">
                       <div class="form-group">
                         <div class="col-md-4">
-                          <label for="fname">Employee First Name <span class="requiredFiled">*</span></label>
+                          <label for="fname">Employee First Name <span class="required">*</span></label>
                           <input type="text" class="form-control" id="fname" name="fname" placeholder="Employee First Name" required autocomplete="off">
                         </div>
                         <div class="col-md-4">
-                          <label for="lname">Employee Last name <span class="requiredFiled">*</span></label>
+                          <label for="lname">Employee Last name <span class="required">*</span></label>
                           <input type="text" class="form-control" id="lname" name="lname" placeholder="Employee Last name" autocomplete="off">
                         </div>
                         <div class="col-md-4">
-                          <label for="mobile">Mobile No <span class="requiredFiled">*</span></label>
+                          <label for="mobile">Mobile No <span class="required">*</span></label>
                           <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile Number" required autocomplete="off">
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="col-md-4">
-                          <label for="employee_code">Employee Code <span class="requiredFiled">*</span></label>
+                          <label for="employee_code">Employee Code <span class="required">*</span></label>
                           <input type="text" class="form-control" id="employee_code" name="employee_code" placeholder="Enter Employee Code" autocomplete="off">
                         </div>
                         <div class="col-md-4">
@@ -64,13 +64,13 @@
                           <input type="text" class="form-control" id="emp_designation" name="emp_designation" placeholder="Employee Designation" autocomplete="off">
                         </div>
                         <div class="col-md-4">
-                          <label for="email">Email <span class="requiredFiled">*</span></label>
+                          <label for="email">Email <span class="required">*</span></label>
                           <input type="email" class="form-control" id="email" required name="email" placeholder="Email" autocomplete="off">
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="col-md-4">
-                          <label for="company_id">Company Name <span class="requiredFiled">*</span></label>
+                          <label for="company_id">Company Name <span class="required">*</span></label>
                           <!-- <input type="text" class="form-control" id="company_id" name="company_id" placeholder="Company Name" autocomplete="off"> -->
                           <select class="form-control" id="company_id" required name="company_id"> 
                             <option value="">Select Company</option>
@@ -88,22 +88,22 @@
 
                 <div class="row">
                         <div class="col-md-4">
-                          <label for="username">Username <span class="requiredFiled">*</span></label>
+                          <label for="username">Username <span class="required">*</span></label>
                           <input type="text" class="form-control" id="username" name="username" placeholder="Username"  required autocomplete="off">
                         </div>
                         <div class="col-md-4">
-                          <label for="password">Password <span class="requiredFiled">*</span></label>
+                          <label for="password">Password <span class="required">*</span></label>
                           <input type="password" class="form-control" id="password" name="password" placeholder="Password" required autocomplete="off">
                         </div>
                         <div class="col-md-4">
-                          <label for="cpassword">Confirm password <span class="requiredFiled">*</span></label>
+                          <label for="cpassword">Confirm password <span class="required">*</span></label>
                           <input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Confirm Password" required autocomplete="off">
                         </div>
                 </div>  
 
                 <div class="row">
                     <div class="col-md-4">
-                      <label for="address">Address <span class="requiredFiled">*</span></label>
+                      <label for="address">Address <span class="required">*</span></label>
                       <textarea type="text" class="form-control" id="address" name="address" placeholder="Address" autocomplete="off"></textarea>
                     </div>
                     <div class="col-md-4">
@@ -111,7 +111,7 @@
                       <textarea type="text" class="form-control" id="notes" name="notes" placeholder="Notes" autocomplete="off"></textarea>
                     </div> 
                     <div class="col-md-4">
-                      <label for="groups">Permission <span class="requiredFiled">*</span></label>
+                      <label for="groups">Permission <span class="required">*</span></label>
                       <select class="form-control" id="groups" name="groups" required>
                         <option value="">Select Permission</option>
                         <?php foreach ($group_data as $k => $v): ?>

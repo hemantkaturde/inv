@@ -23,7 +23,7 @@
           </li>
         <?php } ?> 
         <?php if(in_array('moduleCustomer', unserialize($permission['permission']))) {  ?>
-          <li class="treeview <?php if($pageUrl=="Controller_Customer" || $pageUrl=="Controller_Customer/create" || $pageUrl=="Controller_Customer/update" ){echo 'active';}?>">
+          <li class="treeview <?php if($pageUrl=="Controller_Customer" || $pageUrl=="Controller_Customer/create" || $pageUrl=="Controller_Customer/edit" || $pageUrl=="Controller_Products/index" || $pageUrl=="Controller_Customer/attachment" || $pageUrl=="Controller_Products/update"  || $pageUrl=="Controller_Products/create"){echo 'active';}?>">
               <a href="#">
                 <i class="fa fa fa-handshake-o"></i>
                 <span>Customer</span>
@@ -36,7 +36,7 @@
                   <li <?php if($pageUrl=="Controller_Customer/create"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Customer/create') ?>"><i class="fa fa-plus"></i> Add Customer</a></li>
                 <?php } ?>
                 <?php if(in_array('viewCustomer', unserialize($permission['permission']))) {  ?>
-                  <li <?php if($pageUrl=="Controller_Customer" || $pageUrl=="Controller_Customer/update"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Customer') ?>"><i class="fa fa-pencil"></i> Manage Customer</a></li>
+                  <li <?php if($pageUrl=="Controller_Customer" || $pageUrl=="Controller_Customer/edit" || $pageUrl=="Controller_Customer/attachment" || $pageUrl=="Controller_Products/index" || $pageUrl=="Controller_Products/update" || $pageUrl=="Controller_Products/create"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Customer') ?>"><i class="fa fa-pencil"></i> Manage Customer</a></li>
                 <?php } ?>
               </ul>
           </li>
@@ -73,7 +73,7 @@
                 <?php if(in_array('moduleDepartment', unserialize($permission['permission']))) {  ?>
                 <li class="treeview <?php if($pageUrl=="Controller_Products/product_type" || $pageUrl=="Controller_Products" || $pageUrl=="Controller_Products/create_ptype" || $pageUrl=="Controller_Products/update_ptype"){echo 'active';}?>">
                     <a href="#">
-                      <i class="fa fa-address-card-o"></i>
+                      <i class="fa fa fa-cube"></i>
                       <span>Product Type</span>
                       <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
@@ -124,10 +124,10 @@
               </a>
               <ul class="treeview-menu">
               <?php if(in_array('createCompany', unserialize($permission['permission']))) {  ?>
-                <li <?php if($pageUrl=="Controller_Company/create"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Company/create') ?>"><i class="fa fa fa-address-book"></i> Add Company</a></li>
+                <li <?php if($pageUrl=="Controller_Company/create"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Company/create') ?>"><i class="fa fa fa-plus"></i> Add Company</a></li>
               <?php } ?>
               <?php if(in_array('viewCompany', unserialize($permission['permission']))) {  ?>
-                <li <?php if($pageUrl=="Controller_Company" || $pageUrl=="Controller_Company/update"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Company') ?>"><i class="fa fa fa-pencil-square"></i> Manage Company</a></li>
+                <li <?php if($pageUrl=="Controller_Company" || $pageUrl=="Controller_Company/update"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Company') ?>"><i class="fa fa fa-pencil"></i> Manage Company</a></li>
               <?php }?>
               </ul>
           </li>
@@ -147,7 +147,7 @@
                   <li <?php if($pageUrl=="Controller_Inquiry/create"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Inquiry/create') ?>"><i class="fa fa fa-plus"></i> Add Inquiry</a></li>
                 <?php } ?>
                 <?php if(in_array('viewInquiry', unserialize($permission['permission']))) {  ?>
-                  <li <?php if($pageUrl=="Controller_Inquiry"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Inquiry') ?>"><i class="fa fa fa-book"></i> Manage Inquiry</a></li>
+                  <li <?php if($pageUrl=="Controller_Inquiry"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Inquiry') ?>"><i class="fa fa fa-pencil"></i> Manage Inquiry</a></li>
                   <?php } ?>
                 </ul>
           </li>
@@ -164,10 +164,10 @@
               </a>
               <ul class="treeview-menu">
                 <?php if(in_array('createUser', unserialize($permission['permission']))) {  ?>
-                <li <?php if($pageUrl=="Controller_Members/create"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Members/create') ?>"><i class="fa fa-user"></i> Add Members</a></li>
+                <li <?php if($pageUrl=="Controller_Members/create"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Members/create') ?>"><i class="fa fa-plus"></i> Add Members</a></li>
                 <?php } ?>
                 <?php if(in_array('viewUser', unserialize($permission['permission']))) {  ?>
-                <li <?php if($pageUrl=="Controller_Members" || $pageUrl=="Controller_Members/edit"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Members') ?>"><i class="fa fa-user-plus"></i> Manage Members</a></li>
+                <li <?php if($pageUrl=="Controller_Members" || $pageUrl=="Controller_Members/edit"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Members') ?>"><i class="fa fa-pencil"></i> Manage Members</a></li>
                 <?php } ?>
               </ul>
           </li>

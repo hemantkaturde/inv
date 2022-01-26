@@ -42,7 +42,7 @@
 
                 <div class="form-group">
                   <div class="col-md-4">
-                    <label for="company_name">Company *</label>
+                    <label for="company_name">Company <span class="required">*</span></label>
                     <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Enter company name" autocomplete="off">
                   </div>
                   <div class="col-md-4">

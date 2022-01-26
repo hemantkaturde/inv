@@ -54,12 +54,12 @@
 
                 <div class="form-group">  
                   <div class="col-md-3">
-                    <label for="product_name">Product name *</label>
+                    <label for="product_name">Product name <span class="required">*</span></label>
                     <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Enter product name" value="<?php echo $product_data['name']; ?>"  autocomplete="off" required/>
                   </div>
 
                   <div class="col-md-3">
-                    <label for="product_code">Product Code *</label>
+                    <label for="product_code">Product Code <span class="required">*</span></label>
                     <!-- <input type="text" class="form-control" id="product_code" name="product_code" placeholder="Enter product code" value="<?php echo $product_data['product_code']; ?>" autocomplete="off" required/> -->
                     <select class="form-control" id="product_code" name="product_code">
                       <option value="">Select</option>
@@ -86,7 +86,7 @@
 
                 <div class="form-group">
                   <div class="col-md-6">
-                    <label for="description">Description *</label>
+                    <label for="description">Description <span class="required">*</span></label>
                     <textarea type="text" class="form-control" id="description" name="description" placeholder="Enter 
                   description" autocomplete="off">
                       <?php echo $product_data['description']; ?>

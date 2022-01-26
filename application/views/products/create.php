@@ -57,12 +57,12 @@
                 <div class="form-group">
                   
                   <div class="col-md-3">
-                    <label for="product_name">Product name *</label>
+                    <label for="product_name">Product name <span class="required">*</span></label>
                     <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Enter product name" autocomplete="off" required="" />
                   </div>
 
                   <div class="col-md-3">
-                    <label for="product_code">Product Type *</label>
+                    <label for="product_code">Product Type <span class="required">*</span></label>
                     <select class="form-control" id="product_code" name="product_code">
                       <option value="">Select</option>
                       <?php foreach ($type as $key => $value): ?>
@@ -89,7 +89,7 @@
 
                 <div class="form-group">
                   <div class="col-md-6" style="margin-top: 10px;">
-                    <label for="description">Description *</label>
+                    <label for="description">Description <span class="required">*</span></label>
                     <textarea type="text" class="form-control" id="description" name="description" placeholder="Enter 
                   description" autocomplete="off" required=""></textarea>
                   </div>
@@ -132,7 +132,7 @@
     $("#addProductNav").addClass('active');
     
     var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' + 
-        'onclick="alert(\'Call your custom code here.\')">' +
+        'onclick="">' +
         '<i class="glyphicon glyphicon-tag"></i>' +
         '</button>'; 
     $("#product_image").fileinput({

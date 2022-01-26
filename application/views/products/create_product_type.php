@@ -56,7 +56,7 @@
 
                 <div class="form-group">
                   <div class="col-md-6">
-                    <label for="product_type">Product Type *</label>
+                    <label for="product_type">Product Type <span class="required">*</span></label>
                     <input type="text" class="form-control" id="product_type" name="product_type" placeholder="Enter product type" autocomplete="off" required=""/>
                   </div>
                 </div>
