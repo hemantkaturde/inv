@@ -22,12 +22,19 @@ class Controller_Customer extends Admin_Controller
         $data = $this->Model_customer->getCustomerDataAsPerCompany($_SESSION['company_id']);
         foreach ($data['customer'] as $key => $value) {
             if (($_SESSION['company_id'] == $value['company_id'])) {
+                $permission = $this->session->userdata('permission');
                 $buttons = '';
                     // $buttons .= ' <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_attachment" onclick="addAttach_Func('.$value['id'].')"><i class="fa fa-file"></i></button>';
                     $buttons .= ' <a href="'.base_url('Controller_Customer/attachment/'.$value['id']).'" class="btn btn-info btn-sm"><i class="fa fa-upload"></i></a>';
+                    if(in_array('updateCustomer', unserialize($permission['permission']))) {
                     $buttons .= ' <a href="'.base_url('Controller_Customer/edit/'.$value['id']).'" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>';
+                    }
+                    if(in_array('deleteCustomer', unserialize($permission['permission']))) {
                     $buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
+                    }
+                    if(in_array('moduleDashboard', unserialize($permission['permission']))) {
                     $buttons .= ' <a href="'.base_url('Controller_Products/index/'.$value['id']).'" class="btn btn-info btn-sm"><i class="fa fa-plus"></i></a>';
+                    }
                 // if (!empty($value['cust_attachment'])) {
                 //     $img = '<img src="'.base_url($value['cust_attachment']).'" alt="'.$value['name'].'" class="img-circle" width="50" height="50" />';
                 // }else

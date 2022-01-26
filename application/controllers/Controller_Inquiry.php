@@ -36,15 +36,15 @@ class Controller_Inquiry extends Admin_Controller
     */
 	public function fetchInquiryData()
 	{
-		$result = array('data' => array());
-        if($_SESSION['id'] == 1)
-        {
-            $data = $this->Model_inquiry->getInquiryData();
-        }
-        else
-        {
+		// $result = array('data' => array());
+        // if($_SESSION['id'] == 1)
+        // {
+        //     $data = $this->Model_inquiry->getInquiryData();
+        // }
+        // else
+        // {
             $data = $this->Model_inquiry->getInquiryDataAsPerCompany($_SESSION['company_id']);
-        }
+        // }
 
 		
 		foreach ($data as $key => $value) {

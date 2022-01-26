@@ -77,7 +77,6 @@ class Model_inquiry extends CI_Model
 			$query = $this->db->query($sql, array($company_id,$id));
 			return $query->row_array();
 		}
-
 		$sql = "SELECT * FROM inquiry where company_id = ? ORDER BY inquiry_id DESC";
 		$query = $this->db->query($sql, array($company_id));
 		return $query->result_array();		
