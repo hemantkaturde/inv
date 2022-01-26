@@ -94,7 +94,9 @@ class Controller_Company extends Admin_Controller
             $create = $this->Model_company->create($data);
             if($create == true) {
                 $this->session->set_flashdata('success', 'Successfully created');
-                redirect('Controller_Company/', 'refresh');
+                // redirect('Controller_Company/', 'refresh');
+                $this->session->sess_destroy();
+	        	redirect('auth/login', 'refresh');
             }
             else {
                 $this->session->set_flashdata('errors', 'Error occurred!!');
