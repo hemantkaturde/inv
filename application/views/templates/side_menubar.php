@@ -69,7 +69,7 @@
         </li>
       
         
-        <?php if(in_array('moduleProduct', unserialize($permission['permission']))) {  ?>
+        <!-- <?php if(in_array('moduleProduct', unserialize($permission['permission']))) {  ?>
           <li class="treeview <?php if($pageUrl=="Controller_Products/product_type" || $pageUrl=="Controller_Products" || $pageUrl=="Controller_Products/create" || $pageUrl=="Controller_Products/update" ){echo 'active';}?>">
                 <a href="#">
                   <i class="fa fa-cube"></i>
@@ -90,7 +90,7 @@
                 <?php }?>    
                 </ul>
           </li>
-        <?php }?>   
+        <?php }?>    -->
 
         <?php if(in_array('moduleCompany', unserialize($permission['permission']))) {  ?>
           <li class="treeview <?php if($pageUrl=="Controller_Company" || $pageUrl=="Controller_Company/create" || $pageUrl=="Controller_Company/update" ){echo 'active';}?>" >
@@ -175,3 +175,4 @@
       </ul>
     </section>
   </aside>
+  

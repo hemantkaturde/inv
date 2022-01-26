@@ -38,7 +38,7 @@
         <?php endif; ?>
 
         <?php if(in_array('createProduct', $user_permission)): ?>
-          <a href="<?php echo base_url('Controller_Products/create') ?>" class="btn btn-primary">Add Product</a>
+          <a href="<?php echo base_url('Controller_Products/create/'.$id) ?>" class="btn btn-primary">Add Product</a>
           <br /> <br />
         <?php endif; ?>
 
@@ -110,7 +110,7 @@
 <script type="text/javascript">
 var manageTable;
 var base_url = "<?php echo base_url(); ?>";
-
+var id = "<?php echo $id; ?>";
 $j(document).ready(function() {
 
   $j("#mainProductNav").addClass('active');
@@ -121,7 +121,7 @@ $j(document).ready(function() {
         buttons: [
             'copy', 'csv', 'excel', 'print'
         ], 
-    'ajax': base_url + 'Controller_Products/fetchProductData',
+    'ajax': base_url + 'Controller_Products/fetchProductData/'+id,
     'order': []
   });
 

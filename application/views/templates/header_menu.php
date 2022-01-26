@@ -11,7 +11,7 @@
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
-        <span style="margin-left: 10px; font-size: 20px;"><?php echo $_SESSION['company_name']; ?>
+        <!-- <span style="margin-left: 10px; font-size: 20px;"><?php echo $_SESSION['company_name']; ?> -->
         <!-- <p style="margin-left: 10px; font-size: 10px;"><?php echo "Welcome, ".$_SESSION['username']; ?></p> -->
        </span>
       </a>
@@ -22,9 +22,9 @@
           </li>
         </ul> -->
         <ul class="nav navbar-nav">
-          <li>
+          <!-- <li>
             <a><?php echo "Welcome, ".$_SESSION['username']; ?></a>
-          </li>
+          </li> -->
           <li>
              <a href="<?php echo base_url('auth/logout') ?>"><i class="glyphicon glyphicon-log-out"></i> LOGOUT</a>
           </li>

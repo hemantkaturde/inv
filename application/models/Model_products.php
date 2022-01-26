@@ -8,29 +8,29 @@ class Model_products extends CI_Model
 	}
 
 	/* get the brand data */
-	public function getProductData($id = null)
+	public function getProductData($cust_id= null, $id = null)
 	{
 		if($id) {
-			$sql = "SELECT * FROM products LEFT JOIN product_type pt ON(pt.type_id = product_code) where id = ?";
+			$sql = "SELECT * FROM products LEFT JOIN product_type pt ON(pt.type_id = product_code) where customer_id = $cust_id AND id = ?";
 			// $CI->db->join('user_email', 'user_email.user_id = emails.id', 'left');
 			$query = $this->db->query($sql, array($id));
 			return $query->row_array();
 		}
 
-		$sql = "SELECT * FROM products LEFT JOIN product_type pt ON(pt.type_id = product_code) ORDER BY id DESC";
+		$sql = "SELECT * FROM products LEFT JOIN product_type pt ON(pt.type_id = product_code) WHERE customer_id = $cust_id ORDER BY id DESC";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
 
-	public function getProductDataAsPerCompany($company_id = null, $id = null)
+	public function getProductDataAsPerCompany($company_id = null, $customer_id = null, $id = null)
 	{
 		if($company_id && $id) {
-			$sql = "SELECT * FROM products LEFT JOIN product_type pt ON(pt.type_id = product_code) where company_id = ? && id = ?";
+			$sql = "SELECT * FROM products LEFT JOIN product_type pt ON(pt.type_id = product_code) where customer_id = $customer_id AND  company_id = ? && id = ?";
 			$query = $this->db->query($sql, array($company_id,$id));
 			return $query->row_array();
 		}
 
-		$sql = "SELECT * FROM products LEFT JOIN product_type pt ON(pt.type_id = product_code) where company_id = ? ORDER BY id DESC";
+		$sql = "SELECT * FROM products LEFT JOIN product_type pt ON(pt.type_id = product_code) where customer_id = $customer_id AND company_id = ? ORDER BY id DESC";
 		$query = $this->db->query($sql, array($company_id));
 		return $query->result_array();
 	}

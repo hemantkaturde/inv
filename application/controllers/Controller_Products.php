@@ -22,14 +22,14 @@ class Controller_Products extends Admin_Controller
     /* 
     * It only redirects to the manage product page
     */
-	public function index()
+	public function index($id = null)
 	{
         // if(!in_array('viewProduct', $this->permission)) {
         //     redirect('dashboard', 'refresh');
         // }
         // print_r($_SESSION['company_id']);
         // exit;
-
+        $this->data['id'] = $id;
 		$this->render_template('products/index', $this->data);	
 	}
 
@@ -37,17 +37,19 @@ class Controller_Products extends Admin_Controller
     * It Fetches the products data from the product table 
     * this function is called from the datatable ajax function
     */
-	public function fetchProductData()
+	public function fetchProductData($id = null)
 	{
+        // $id = $_GET['id'];
+        
 		$result = array('data' => array());
 
         if($_SESSION['id'] == 1)
         {
-            $data = $this->Model_products->getProductData();    
+            $data = $this->Model_products->getProductData($id);    
         }
 		else
         {
-            $data = $this->Model_products->getProductDataAsPerCompany($_SESSION['company_id']);
+            $data = $this->Model_products->getProductDataAsPerCompany($_SESSION['company_id'],$id);
         }
         
 
@@ -57,7 +59,7 @@ class Controller_Products extends Admin_Controller
 			// button
                 $buttons = '';
                 if(in_array('updateProduct', $this->permission)) {
-        			$buttons .= '<a href="'.base_url('Controller_Products/update/'.$value['id']).'" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>';
+        			$buttons .= '<a href="'.base_url('Controller_Products/update/'.$value['customer_id'].'/'.$value['id']).'" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>';
                 }
 
                 if(in_array('deleteProduct', $this->permission)) { 
@@ -88,7 +90,7 @@ class Controller_Products extends Admin_Controller
     * If the validation for each input field is valid then it inserts the data into the database 
     * and it stores the operation message into the session flashdata and display on the manage product page
     */
-	public function create()
+	public function create($id = null)
 	{
 		// if(!in_array('createProduct', $this->permission)) {
         //     redirect('dashboard', 'refresh');
@@ -103,6 +105,7 @@ class Controller_Products extends Admin_Controller
 
         	$data = array(
                 'company_id' => $_SESSION['company_id'],
+                'customer_id' => $id,
         		'name' => $this->input->post('product_name'),
         		'product_code' => $this->input->post('product_code'),
         		'price' => $this->input->post('rate'),
@@ -114,11 +117,11 @@ class Controller_Products extends Admin_Controller
         	$create = $this->Model_products->create($data);
         	if($create == true) {
         		$this->session->set_flashdata('success', 'Successfully created');
-        		redirect('Controller_Products/', 'refresh');
+        		redirect('Controller_Products/index/'.$id, 'refresh');
         	}
         	else {
         		$this->session->set_flashdata('errors', 'Error occurred!!');
-        		redirect('Controller_Products/create', 'refresh');
+        		redirect('Controller_Products/create/'.$id, 'refresh');
         	}
         }
         else {
@@ -165,7 +168,7 @@ class Controller_Products extends Admin_Controller
     * If the validation is successfully then it updates the data into the database 
     * and it stores the operation message into the session flashdata and display on the manage product page
     */
-	public function update($product_id)
+	public function update($customer_id,$product_id)
 	{      
         // if(!in_array('updateProduct', $this->permission)) {
         //     redirect('dashboard', 'refresh');
@@ -192,9 +195,10 @@ class Controller_Products extends Admin_Controller
             }else{
                 $data = array(
                     'company_id' => $_SESSION['company_id'],
+                    'customer_id' => $customer_id,
                     'name' => $this->input->post('product_name'),
                     'product_code' => $this->input->post('product_code'),
-                    'price' => $this->input->post('price'),
+                    'price' => $this->input->post('rate'),
                     'description' => $this->input->post('description'),
                     'notes' => $this->input->post('notes')
                 );
@@ -210,17 +214,17 @@ class Controller_Products extends Admin_Controller
                 $update = $this->Model_products->update($data, $product_id);
                 if($update == true) {
                     $this->session->set_flashdata('success', 'Successfully updated');
-                    redirect('Controller_Products/', 'refresh');
+                    redirect('Controller_Products/index/'.$customer_id, 'refresh');
                 }
                 else {
                     $this->session->set_flashdata('errors', 'Error occurred!!');
-                    redirect('Controller_Products/update/'.$product_id, 'refresh');
+                    redirect('Controller_Products/update/'.$customer_id.'/'.$product_id, 'refresh');
                 }
             }
         }
         else {
             
-            $product_data = $this->Model_products->getProductData($product_id);
+            $product_data = $this->Model_products->getProductData($customer_id, $product_id);
             $this->data['type'] = $this->Model_products->getProductTypeData();
             $this->data['product_data'] = $product_data;
             $this->render_template('products/edit', $this->data); 

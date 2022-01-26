@@ -27,7 +27,7 @@ class Controller_Customer extends Admin_Controller
                     $buttons .= ' <a href="'.base_url('Controller_Customer/attachment/'.$value['id']).'" class="btn btn-info btn-sm"><i class="fa fa-upload"></i></a>';
                     $buttons .= ' <a href="'.base_url('Controller_Customer/edit/'.$value['id']).'" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>';
                     $buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
-           
+                    $buttons .= ' <a href="'.base_url('Controller_Products/index/'.$value['id']).'" class="btn btn-info btn-sm"><i class="fa fa-plus"></i></a>';
                 // if (!empty($value['cust_attachment'])) {
                 //     $img = '<img src="'.base_url($value['cust_attachment']).'" alt="'.$value['name'].'" class="img-circle" width="50" height="50" />';
                 // }else
