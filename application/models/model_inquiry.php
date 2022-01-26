@@ -2,11 +2,28 @@
 
 class Model_inquiry extends CI_Model
 {
+	public $CI="";
 	public function __construct()
 	{
 		parent::__construct();
+		$this->CI =& get_instance();
 	}
 
+	function get_record($table='', $condition){
+
+		return $this->CI->db->get_where($table,$condition)->result_array();
+	}
+	function delete_record($table='',$arr=''){
+
+		return $this->CI->db->delete($table,$arr);
+	}
+
+	function data_update($table='',$arr='',$field='',$value=''){
+
+		$this->CI->db->where($field,$value);
+		return $this->CI->db->update($table,$arr);
+	}
+	
 	public function get_max_id($table, $field)
   	{
   		$company_id = $_SESSION['company_id'];
@@ -16,17 +33,17 @@ class Model_inquiry extends CI_Model
   		$count = $check_comp[0]['count'];
   		$sufix = $check_comp[0]['sufix'];
   		$number = strlen($check_comp[0]['count']);
-  		// print_r($numbers);
-	    $record = $this->db->query("SELECT MAX(CAST(SUBSTR(TRIM(inquiry_number),$number) AS UNSIGNED)) AS inquiry_number FROM inquiry WHERE company_id = $company_id")->result_array();
 
-	    if(empty($record[0]['inquiry_number']))
+	    $record = $this->db->query("SELECT MAX(CAST(SUBSTR(TRIM(inquiry_number),$number) AS UNSIGNED)) AS inquiry_number FROM inquiry WHERE company_id = $company_id")->result_array();
+		// $record = "SELECT MAX(CAST(SUBSTR(TRIM(inquiry_number),$number) AS UNSIGNED)) AS inquiry_number FROM inquiry WHERE company_id = $company_id";
+	    if((empty($record[0]['inquiry_number'])) || ($record[0]['inquiry_number'] != 0))
 	    {
 	      return $prefix.$count.$sufix;
 	    }
 	    else
 	    {
-	      $str = $record[0]['inquiry_number'] + 1;
-	      // $code = $name.$str;
+			
+	      $str = $record[0]['inquiry_number'] + 2;
 	      $code = $prefix.$str.$sufix;
 	      return $code;
 	    }
@@ -42,6 +59,13 @@ class Model_inquiry extends CI_Model
 		}
 
 		$sql = "SELECT * FROM inquiry ORDER BY inquiry_id DESC";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	public function getInquiryProductData($id)
+	{
+		$sql = "SELECT it.*,p.name FROM inquiry_trans it LEFT JOIN products p ON(p.id = it.product_id) WHERE trans_inquiry_id = $id ORDER BY trans_id DESC";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
@@ -65,6 +89,12 @@ class Model_inquiry extends CI_Model
 			$insert = $this->db->insert('inquiry', $data);
 			return ($insert == true) ? true : false;
 		}
+	}
+
+	function insert_id($table='',$arr=''){
+
+		$this->CI->db->insert($table,$arr);
+		return $this->CI->db->insert_id();
 	}
 
 	public function update($data, $id)

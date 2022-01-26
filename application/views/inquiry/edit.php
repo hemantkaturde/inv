@@ -35,11 +35,11 @@
         <?php endif; ?>
 
 
+        <form role="form" action="<?php base_url('inquiry/update') ?>" method="post" enctype="multipart/form-data">
+      <!-- ============================= -->
+      <div class="col-md-4">
         <div class="box">
-         
-          <!-- /.box-header -->
-          <form role="form" action="<?php base_url('inquiry/update') ?>" method="post" enctype="multipart/form-data">
-               <div class="box-body">
+              <div class="box-body">
                 <?php if (!empty(validation_errors())) { ?>
                 
                 <div class="alert alert-error alert-dismissible" role="alert">
@@ -49,22 +49,10 @@
                 <?php  } ?>
 
                 <div class="form-group">
-                  <div class="col-md-4">
                     <label for="inq_no">Inquiry Number</label>
-                    <input type="text" class="form-control" id="inq_no" name="inq_no" placeholder="Enter product name" autocomplete="off" value="<?php echo $inquiry_data['inquiry_number'] ?>" />
-                  </div>
-
-                  <div class="col-md-4">
-                    <label for="customer">Customer</label>
-                    <select class="form-control" id="customer" name="customer">
-                      <option value="">Select customer</option>
-                    <?php foreach ($cust['customer'] as $k => $v): ?>
-                      <option value="<?php echo $v['id'] ?>" <?php if($inquiry_data['customer_id'] == $v['id']) { echo 'selected'; } ?> ><?php echo $v['name'] ?></option> 
-                    <?php endforeach ?>
-                  </select>
-                  </div>
-
-                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="inq_no" name="inq_no" placeholder="Enter Inquiry Number" autocomplete="off" value="<?php echo $inquiry_data['inquiry_number'] ?>" />
+                </div>
+                <div class="form-group">
                     <label for="inq_from">Inquiry From</label>
                     <select type="text" class="form-control" id="inq_from" name="inq_from" autocomplete="off">
                       <option value="">PLEASE SELECT</option>
@@ -79,70 +67,125 @@
                       <option value="9" <?php if($inquiry_data['inquiry_from'] == 9){ echo "selected"; } ?>>Exhibition</option>
                       <option value="10" <?php if($inquiry_data['inquiry_from'] == 10){ echo "selected"; } ?>>Other</option>
                     </select>
-                  </div>
                 </div>
-
                 <div class="form-group">
-                  <div class="col-md-4">
-                    <label for="inq_date">Inquiry Date *</label>
-                    <input type="text" class="form-control" id="inq_date" name="inq_date" placeholder="Enter product name" autocomplete="off" value="<?php echo date('d-m-Y', strtotime($inquiry_data['inquiry_date'])) ?>"/>
-                  </div>
-
-                  <div class="col-md-4">
-                    <label for="product">Product</label>
-                    <select type="text" class="form-control" id="product" name="product[]" multiple="" />
-                    <option value="">Select product</option>
-                    <?php foreach ($product as $k => $v): 
-                      // print_r($inquiry_data['inquiry_product']);
-                      $pro = explode(",", $inquiry_data['inquiry_product']);
-                        foreach ($pro as $kp => $vp) {
-                          if ($vp == $v['id']) {
-                  
-                            $selected = "selected";
-                          }else
-                          {
-                            $selected = "";
-                          }
-                        }
-                    ?>
-                      <option value="<?php echo $v['id'] ?>" <?php echo $selected; ?> ><?php echo $v['name'] ?></option> 
-                    <?php endforeach ?>
+                  <label for="customer">Customer</label>
+                    
+                  <select class="form-control" id="customer" name="customer" onchanhe="get_productList_customerwise()" >
+                      <option value="">Select customer</option>
+                      <?php foreach ($cust['customer'] as $key => $value): ?>
+                        <option value="<?php echo $value['id']; ?>" <?php if($inquiry_data['customer_id'] == $value['id']) { echo 'selected'; } ?>><?php echo $value['name']; ?></option>
+                      <?php endforeach; ?>
                   </select>
-                  </div>
-
-                  <div class="col-md-4">
+                </div>
+                
+                <div class="form-group">
+                    <label for="inq_date">Inquiry Date *</label>
+                    <input type="text" class="form-control" id="inq_date" name="inq_date" placeholder="Enter Inquiry Date" value="<?php echo date('d-m-Y', strtotime($inquiry_data['inquiry_date'])) ?>" autocomplete="off"/>
+                </div>
+                <div class="form-group">
                     <label for="status">Status</label>
                     <select type="text" class="form-control" id="status" name="status" autocomplete="off">
                       <option value="">PLEASE SELECT</option>
+                      <option value="4" <?php if($inquiry_data['inquiry_status'] == 4){ echo "selected"; } ?>>Create</option>
                       <option value="1" <?php if($inquiry_data['inquiry_status'] == 1){ echo "selected"; } ?>>Assigned</option>
                       <option value="2" <?php if($inquiry_data['inquiry_status'] == 2){ echo "selected"; } ?>>In Progress</option>
                       <option value="3" <?php if($inquiry_data['inquiry_status'] == 3){ echo "selected"; } ?>>Closed</option>
                     </select>
-                  </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea type="text" class="form-control" id="notes" name="notes" placeholder="Enter Notes" autocomplete="off"><?php echo $inquiry_data['inquiry_notes'] ?></textarea>
                 </div>
 
                 <div class="form-group">
-                  <div class="col-md-4">
-                    <label for="emp_assigned">Employee Assigned</label>
-                    <input type="text" class="form-control" id="emp_assigned" name="emp_assigned" placeholder="Enter Employee Assigned" autocomplete="off" value="<?php echo $inquiry_data['inquiry_emp_assigned'] ?>"/>
+                  <button type="submit" class="btn btn-primary">Save Changes</button>
+                  <a href="<?php echo base_url('Controller_inquiry/') ?>" class="btn btn-warning">Back</a>
+                </div>
+              </div>
+          <!-- /.box-body -->
+        </div>
+      </div>
+      <!-- ============================= -->
+
+      <div class="col-md-8">
+        <div class="box">
+              <div class="box-body">
+                <div class="form-group">
+                  <div class="col-md-3">
+                  <label for="product">Product</label>
+                    <select class="form-control" id="product" name="product">
+                      <option value="">Select product</option>
+                       <?php foreach ($product as $key => $value): ?>
+                        <option value="<?php echo $value['id'] ?>"><?php echo $value['name'] ?></option>
+                      <?php endforeach ?>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label for="rate">Rate</label>
+                    <input type="text" class="form-control" id="rate" name="rate" placeholder="Enter Rate" onkeyup="calulate_amount()" autocomplete="off"/>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="qty">Quantity</label>
+                    <input type="text" class="form-control" id="qty" name="qty" onkeyup="calulate_amount()" autocomplete="off" placeholder="Qty" />
+                  </div>
+                  <div class="col-md-3" style="margin-bottom:20px;">
+                    <label for="final_amt">Total Amount</label>
+                    <input type="text" class="form-control" id="final_amt" name="final_amt" placeholder="Final Amount" autocomplete="off" readonly/>
                   </div>
 
-                  <div class="col-md-4">
-                    <label for="notes">Notes</label>
-                    <textarea type="text" class="form-control" id="notes" name="notes" placeholder="Enter Notes" autocomplete="off"  value="<?php echo $inquiry_data['inquiry_notes'] ?>"/><?php echo $inquiry_data['inquiry_notes'] ?></textarea>
+                  <div class="col-md-1">
+                    <a onclick="add_inquiry_row()" class="btn btn-xs btn-success" style="margin-top:12px;"><i class="fa fa-plus" ></i></a>
                   </div>
                 </div>
 
+                <div class="">
+                  <table class="table table-bordered table-responsive">
+                    <thead class="bg-primary">
+                      <tr>
+                        <td>Product</td>
+                        <td>Rate</td>
+                        <td>Qty</td>
+                        <td>Final Amt</td>
+                        <td>Delete</td>
+                      </tr>
+                    </thead>
+                    <tbody id="inquiry_wrapper">
+                        <?php $inq_cnt = 1; if(!empty($trans_data)){ 
+                          foreach($trans_data as $key => $value){
+                        ?>
+                          <tr id="inq_row_<?php echo $inq_cnt ?>">
+                            <td>
+                              <?php echo $value['name'] ?>
+                              <input type="hidden" value="<?php echo $value['trans_id'] ?>" name="inq_trans_id[]" id="inq_trans_id_<?php echo $inq_cnt ?>">
+                              <input type="hidden" value="<?php echo $value['product_id'] ?>" name="inq_product_id[]" id="inq_product_id_<?php echo $inq_cnt ?>">
+                            </td>
+                            <td>
+                              <?php echo $value['rate'] ?>
+                              <input type="hidden" value="<?php echo $value['rate'] ?>" name="inq_rate[]" id="inq_rate_<?php echo $inq_cnt ?>">
+                            </td>
+                            <td>
+                              <?php echo $value['qty'] ?>
+                              <input type="hidden" value="<?php echo $value['qty'] ?>" name="inq_qty[]" id="inq_qty_<?php echo $inq_cnt ?>">
+                            </td>
+                            <td>
+                              <?php echo $value['final_amount'] ?>
+                              <input type="hidden" value="<?php echo $value['final_amount'] ?>" name="inq_final_amt[]" id="inq_final_amt_<?php echo $inq_cnt ?>">
+                            </td>
+                            <td><a onclick="remove_inq_row(<?php echo $inq_cnt ?>)"><i class="fa fa-trash"></i></a></td>
+                          </tr>
+                        <?php $inq_cnt++; } } ?>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-                <a href="<?php echo base_url('Controller_Inquiry/') ?>" class="btn btn-warning">Back</a>
-              </div>
-            </form>
-          <!-- /.box-body -->
+              <!-- /.box-body -->
         </div>
-        <!-- /.box -->
+      </div>
+
+      <!-- ============================= -->
+      </form>
       </div>
       <!-- col-md-12 -->
     </div>
@@ -153,7 +196,11 @@
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-
+<?php
+    echo "<script>";
+    echo "var inq_cnt = $inq_cnt";
+    echo "</script>";
+?>
 <script type="text/javascript">
   
   $(document).ready(function() {
@@ -164,3 +211,4 @@
   
   });
 </script>
+<script src="<?php echo base_url('assets/dist/js/pages/inquiry.js') ?>"></script>

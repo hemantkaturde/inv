@@ -115,7 +115,22 @@ class Model_customer extends CI_Model
 		$query = $this->db->query($sql, array($companyid, $customername));
 		$record = $query->row_array();
 		return $record;
+	}
 
+	public function getActiveCustomerData()
+	{
+		$sql = "SELECT * FROM customers";
+		$query = $this->db->query($sql);
+		$record['customer'] = $query->result_array();
+		return $record;
+	}
+
+	public function getActiveCustomerDataAsPerCompany($id)
+	{
+		$sql = "SELECT * FROM customers WHERE company_id = $id";
+		$query = $this->db->query($sql);
+		$record['customer'] = $query->result_array();
+		return $record;
 	}
 
 }

@@ -124,15 +124,19 @@ class Controller_Inquiry extends Admin_Controller
         //     redirect('dashboard', 'refresh');
         // }
 
+        
+
 		$this->form_validation->set_rules('inq_no', 'Inquiry Number', 'trim|required|is_unique[inquiry.inquiry_number]');
         $this->form_validation->set_rules('inq_date', 'Inquiry Date', 'trim|required');
 	
         if ($this->form_validation->run() == TRUE) {
             // true case
             $enq_no = $this->Model_inquiry->get_max_id('inquiry', 'inquiry_number');
+            $formdata = $this->input->post();
+            // echo "<pre>"; print_r($formdata);
+            // exit;
 
-                // $product = $this->input->post('product');
-            $product = implode(',',$this->input->post('product'));
+            // $product = implode(',',$this->input->post('product'));
             
         	$data = array(
         		'inquiry_number' => $enq_no,
@@ -140,16 +144,50 @@ class Controller_Inquiry extends Admin_Controller
         		'customer_id' => $this->input->post('customer'),
         		'inquiry_from' => $this->input->post('inq_from'),
         		'inquiry_date' => date('Y-m-d', strtotime($this->input->post('inq_date'))),
-        		'inquiry_product' => $product,
+        		// 'inquiry_product' => $product,
                 'inquiry_status' => $this->input->post('status'),
-                'inquiry_emp_assigned' => $this->input->post('emp_assigned'),
+                // 'inquiry_emp_assigned' => $this->input->post('emp_assigned'),
                 'inquiry_notes' => $this->input->post('notes')
         	);
-
-        	$create = $this->Model_inquiry->create($data);
-        	if($create == true) {
-        		$this->session->set_flashdata('success', 'Successfully created');
-        		redirect('Controller_Inquiry/', 'refresh');
+            $this->db->trans_begin();
+        	// $create = $this->Model_inquiry->create($data);
+            $create = $this->Model_inquiry->insert_id('inquiry',$data);
+        	if(!empty($create)) {
+                if(!empty($this->input->post('inq_trans_id')))
+                {
+                    $trans_result = $this->data_insert_inquiry_trans($this->input->post(),$create);
+                    if($trans_result == 1)
+                    {
+                        if ($this->db->trans_status() === FALSE)
+                        {
+                            $this->db->trans_rollback();
+                            $this->session->set_flashdata('errors', 'Error occurred!!');
+        		            redirect('Controller_Inquiry/create', 'refresh');
+                        }
+                        else
+                        {
+                            echo $this->db->trans_commit();
+                            $this->session->set_flashdata('success', 'Successfully created');
+        		            redirect('Controller_Inquiry/', 'refresh');
+                        }
+                    } // ATTACH TRANS
+                }
+                else
+                {
+                    if ($this->db->trans_status() === FALSE)
+                    {
+                        $this->db->trans_rollback();
+                        $this->session->set_flashdata('errors', 'Error occurred!!');
+        		        redirect('Controller_Inquiry/create', 'refresh');
+                    }
+                    else
+                    {
+                        echo $this->db->trans_commit();
+                        $this->session->set_flashdata('success', 'Successfully created');
+        		        redirect('Controller_Inquiry/', 'refresh');
+                    }
+                } // ELSE NOT EMPTY ATTACH ID
+        		
         	}
         	else {
         		$this->session->set_flashdata('errors', 'Error occurred!!');
@@ -161,17 +199,17 @@ class Controller_Inquiry extends Admin_Controller
 			$this->data['inq_no'] = $this->Model_inquiry->get_max_id('inquiry', 'inquiry_number');
             // $this->data['users'] = $this->Model_users->getUserData();
             if ($_SESSION['id'] == 1) {
-                $this->data['cust'] = $this->Model_customer->getCustomerData();
+                $this->data['cust'] = $this->Model_customer->getActiveCustomerData();
             }else
             {
-                $this->data['cust'] = $this->Model_customer->getCustomerDataAsPerCompany($_SESSION['company_id']);
+                $this->data['cust'] = $this->Model_customer->getActiveCustomerDataAsPerCompany($_SESSION['company_id']);
             }
+
             $this->data['product'] = $this->Model_products->getActiveProductData();            
 
             $this->render_template('inquiry/create', $this->data);
         }	
 	}
-
     
     /*
     * If the validation is not valid, then it redirects to the edit product page 
@@ -192,24 +230,64 @@ class Controller_Inquiry extends Admin_Controller
 
         if ($this->form_validation->run() == TRUE) {
             // true case
-            $product = implode(',',$this->input->post('product'));
+            // $product = implode(',',$this->input->post('product'));
 
             $data = array(
                 'inquiry_number' => $this->input->post('inq_no'),
                 'customer_id' => $this->input->post('customer'),
                 'inquiry_from' => $this->input->post('inq_from'),
                 'inquiry_date' => date('Y-m-d', strtotime($this->input->post('inq_date'))),
-                'inquiry_product' => $product,
+                // 'inquiry_product' => $product,
                 'inquiry_status' => $this->input->post('status'),
-                'inquiry_emp_assigned' => $this->input->post('emp_assigned'),
+                // 'inquiry_emp_assigned' => $this->input->post('emp_assigned'),
                 'inquiry_notes' => $this->input->post('notes')
             );
 
+            
+            $this->db->trans_begin();
+        	// $create = $this->Model_inquiry->create($data);
             $update = $this->Model_inquiry->update($data, $inquiry_id);
-            if($update == true) {
-                $this->session->set_flashdata('success', 'Successfully updated');
-                redirect('Controller_Inquiry/', 'refresh');
-            }
+        	if(!empty($update)) {
+                if(!empty($this->input->post('inq_trans_id')))
+                {
+                    $trans_result = $this->data_insert_inquiry_trans($this->input->post(),$inquiry_id);
+                    if($trans_result == 1)
+                    {
+                        if ($this->db->trans_status() === FALSE)
+                        {
+                            $this->db->trans_rollback();
+                            $this->session->set_flashdata('errors', 'Error occurred!!');
+        		            redirect('Controller_Inquiry/create', 'refresh');
+                        }
+                        else
+                        {
+                            $this->db->trans_commit();
+                            $this->session->set_flashdata('success', 'Successfully updated');
+        		            redirect('Controller_Inquiry/', 'refresh');
+                        }
+                    } // ATTACH TRANS
+                }
+                else
+                {
+                    if ($this->db->trans_status() === FALSE)
+                    {
+                        $this->db->trans_rollback();
+                        $this->session->set_flashdata('errors', 'Error occurred!!');
+        		        redirect('Controller_Inquiry/create', 'refresh');
+                    }
+                    else
+                    {
+                        $this->db->trans_commit();
+                        $this->session->set_flashdata('success', 'Successfully updated');
+        		        redirect('Controller_Inquiry/', 'refresh');
+                    }
+                } // ELSE NOT EMPTY ATTACH ID
+        		
+        	}
+            // if($update == true) {
+            //     $this->session->set_flashdata('success', 'Successfully updated');
+            //     redirect('Controller_Inquiry/', 'refresh');
+            // }
             else {
                 $this->session->set_flashdata('errors', 'Error occurred!!');
                 redirect('Controller_Inquiry/update/'.$inquiry_id, 'refresh');
@@ -218,18 +296,67 @@ class Controller_Inquiry extends Admin_Controller
         else {
             
             $inquiry_data = $this->Model_inquiry->getInquiryData($inquiry_id);
+            $inqTrans_data = $this->Model_inquiry->getInquiryProductData($inquiry_id);
             // $this->data['users'] = $this->Model_users->getUserData();
             if ($_SESSION['id'] == 1) {
-                $this->data['cust'] = $this->Model_customer->getCustomerData();
+                $this->data['cust'] = $this->Model_customer->getActiveCustomerData();
             }else
             {
-                $this->data['cust'] = $this->Model_customer->getCustomerDataAsPerCompany($_SESSION['company_id']);
+                $this->data['cust'] = $this->Model_customer->getActiveCustomerDataAsPerCompany($_SESSION['company_id']);
             }
             $this->data['product'] = $this->Model_products->getActiveProductData();
             $this->data['inquiry_data'] = $inquiry_data;
+            $this->data['trans_data'] = $inqTrans_data;
+
+            // echo "<pre>";
+            // print_r($inqTrans_data);
+            // exit;
+
+
             $this->render_template('inquiry/edit', $this->data); 
         }   
 	}
+
+    
+    function data_insert_inquiry_trans($formdata, $id)
+    {
+         $db_trans = $this->Model_inquiry->get_record('inquiry_trans',array('trans_inquiry_id' =>$id));
+  	    foreach($db_trans as $key => $value)
+  	    {
+	        if(!in_array( $value['trans_id'], $formdata['inq_trans_id'] ) )
+	        {
+	            $this->Model_inquiry->delete_record('inquiry_trans',array('trans_id' =>$value['trans_id']));
+	        }
+	    }
+
+        $flag = 0;
+        foreach ($formdata['inq_trans_id'] as $key => $value) 
+		{
+		  $trans_data = array();
+		  $trans_data['trans_inquiry_id']  = $id;
+		  $trans_data['product_id']  = $formdata['inq_product_id'][$key];
+		  $trans_data['qty']	  = $formdata['inq_qty'][$key];
+		  $trans_data['rate']= $formdata['inq_rate'][$key];
+          $trans_data['final_amount']= $formdata['inq_final_amt'][$key];
+	      if($value == 0)
+          {
+            $result1 = $this->Model_inquiry->insert_id('inquiry_trans',$trans_data);	
+          }
+          else{
+            $result1 = $this->Model_inquiry->data_update('inquiry_trans',$trans_data, 'trans_id', $value);	
+          }
+          
+		  
+		  if(!empty($result1))
+		  {	$flag = 1; }		
+		}
+        if($flag == 1)
+        {
+            return true;
+        }
+
+    }
+
 
     /*
     * It removes the data from the database

@@ -36,12 +36,12 @@
             <?php echo $this->session->flashdata('error'); ?>
           </div>
         <?php endif; ?>
-        <!-- /.box -->
-      </div>
-      <form role="form" action="<?php base_url('inquiry/create') ?>" method="post" enctype="multipart/form-data">
-      <!-- ============================= -->
-      <div class="col-md-4">
+
+
         <div class="box">
+         
+          <!-- /.box-header -->
+          <form role="form" action="<?php base_url('inquiry/create') ?>" method="post" enctype="multipart/form-data">
               <div class="box-body">
                 <?php if (!empty(validation_errors())) { ?>
                 
@@ -52,10 +52,23 @@
                 <?php  } ?>
 
                 <div class="form-group">
+                  <div class="col-md-4">
                     <label for="inq_no">Inquiry Number</label>
                     <input type="text" class="form-control" id="inq_no" name="inq_no" placeholder="Enter Inquiry Number" autocomplete="off" value="<?php echo $inq_no; ?>" />
-                </div>
-                <div class="form-group">
+                  </div>
+
+                  <div class="col-md-4">
+                    <label for="customer">Customer</label>
+                    
+                    <select class="form-control" id="customer" name="customer">
+                      <option value="">Select customer</option>
+                      <?php foreach ($cust['customer'] as $key => $value): ?>
+                        <option value="<?php echo $value['id'] ?>"><?php echo $value['name'] ?></option>
+                      <?php endforeach ?>
+                    </select>
+                  </div>
+
+                  <div class="col-md-4">
                     <label for="inq_from">Inquiry From</label>
                     <select type="text" class="form-control" id="inq_from" name="inq_from" autocomplete="off">
                       <option value="">Select Inquiry From</option>
@@ -70,103 +83,61 @@
                       <option value="9">Exhibition</option>
                       <option value="10">Other</option>
                     </select>
+                  </div>
                 </div>
+
                 <div class="form-group">
-                  <label for="customer">Customer</label>
-                    
-                  <select class="form-control" id="customer" name="customer" onchanhe="get_productList_customerwise()" >
-                      <option value="">Select customer</option>
-                      <?php foreach ($cust['customer'] as $key => $value): ?>
-                        <option value="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></option>
-                      <?php endforeach; ?>
-                  </select>
-                </div>
-                
-                <div class="form-group">
+                  <div class="col-md-4">
                     <label for="inq_date">Inquiry Date *</label>
                     <input type="text" class="form-control" id="inq_date" name="inq_date" placeholder="Enter Inquiry Date" autocomplete="off"/>
-                </div>
-                <div class="form-group">
-                    <label for="status">Status</label>
-                    <select type="text" class="form-control" id="status" name="status" autocomplete="off">
-                      <option value="">Select Status</option>
-                      <option value="4" selected>Create</option>
-                      <option value="1">Assigned</option>
-                      <option value="2">In Progress</option>
-                      <option value="3">Closed</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="notes">Notes</label>
-                    <textarea type="text" class="form-control" id="notes" name="notes" placeholder="Enter Notes" autocomplete="off" /></textarea>
-                </div>
+                  </div>
 
-                <div class="form-group">
-                  <button type="submit" class="btn btn-primary">Save Changes</button>
-                  <a href="<?php echo base_url('Controller_inquiry/') ?>" class="btn btn-warning">Back</a>
-                </div>
-              </div>
-          <!-- /.box-body -->
-        </div>
-      </div>
-      <!-- ============================= -->
-
-      <div class="col-md-8">
-        <div class="box">
-              <div class="box-body">
-                <div class="form-group">
-                  <div class="col-md-3">
-                  <label for="product">Product</label>
-                    <select class="form-control" id="product" name="product">
+                  <div class="col-md-4">
+                    <label for="product">Product</label>
+                    <select class="form-control" id="product" name="product[]" multiple="">
                       <option value="">Select product</option>
-                       <?php foreach ($product as $key => $value): ?>
+                      <?php foreach ($product as $key => $value): ?>
                         <option value="<?php echo $value['id'] ?>"><?php echo $value['name'] ?></option>
                       <?php endforeach ?>
                     </select>
                   </div>
-                  <div class="col-md-3">
-                    <label for="rate">Rate</label>
-                    <input type="text" class="form-control" id="rate" name="rate" placeholder="Enter Rate" onkeyup="calulate_amount()" autocomplete="off"/>
-                  </div>
-                  <div class="col-md-2">
-                    <label for="qty">Quantity</label>
-                    <input type="text" class="form-control" id="qty" name="qty" onkeyup="calulate_amount()" autocomplete="off" placeholder="Qty" />
-                  </div>
-                  <div class="col-md-3" style="margin-bottom:20px;">
-                    <label for="final_amt">Total Amount</label>
-                    <input type="text" class="form-control" id="final_amt" name="final_amt" placeholder="Final Amount" autocomplete="off" readonly/>
-                  </div>
 
-                  <div class="col-md-1">
-                    <a onclick="add_inquiry_row()" class="btn btn-xs btn-success" style="margin-top:12px;"><i class="fa fa-plus" ></i></a>
+                  <div class="col-md-4">
+                    <label for="status">Status</label>
+                    <select type="text" class="form-control" id="status" name="status" autocomplete="off">
+                      <option value="">Select Status</option>
+                      <option value="1">Assigned</option>
+                      <option value="2">In Progress</option>
+                      <option value="3">Closed</option>
+                    </select>
                   </div>
                 </div>
 
-                <div class="">
-                  <table class="table table-bordered table-responsive">
-                    <thead class="bg-primary">
-                      <tr>
-                        <td>Product</td>
-                        <td>Rate</td>
-                        <td>Qty</td>
-                        <td>Final Amt</td>
-                        <td>Delete</td>
-                      </tr>
-                    </thead>
-                    <tbody id="inquiry_wrapper">
+                <div class="form-group">
+                  <div class="col-md-4">
+                    <label for="emp_assigned">Employee Assigned</label>
+                    <input type="text" class="form-control" id="emp_assigned" name="emp_assigned" placeholder="Employee Assigned" autocomplete="off"/>
+                  </div>
 
-                    </tbody>
-                  </table>
+                  <div class="col-md-4">
+                    <label for="notes">Notes</label>
+                    <textarea type="text" class="form-control" id="notes" name="notes" placeholder="Enter Notes" autocomplete="off" /></textarea>
+                  </div>
                 </div>
+
               </div>
               <!-- /.box-body -->
-        </div>
-      </div>
 
-      <!-- ============================= -->
-      </form>
-      <!-- ============================= -->
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a href="<?php echo base_url('Controller_inquiry/') ?>" class="btn btn-warning">Back</a>
+              </div>
+            </form>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      </div>
+      <!-- col-md-12 -->
     </div>
     <!-- /.row -->
     
@@ -194,4 +165,3 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
-<script src="<?php echo base_url('assets/dist/js/pages/inquiry.js') ?>"></script>

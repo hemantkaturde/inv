@@ -108,7 +108,7 @@
             <div class="icon">
               <i class="fa fa-cube"></i>
             </div>
-            <a href="<?php echo base_url('Controller_Products/') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php echo base_url('Controller_Customer/') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
