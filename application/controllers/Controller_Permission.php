@@ -40,23 +40,32 @@ class Controller_Permission extends Admin_Controller
 		$company_id = $_SESSION['company_id'];
 		$this->form_validation->set_rules('group_name', 'Permission name', 'required');
         if ($this->form_validation->run() == TRUE) {
-            // true case
-            $permission = serialize($this->input->post('permission'));
-        	$data = array(
-				'company_id' => $company_id,
-        		'group_name' => $this->input->post('group_name'),
-        		'permission' => $permission
-        	);
 
-        	$create = $this->Model_groups->create($data);
-        	if($create == true) {
-        		$this->session->set_flashdata('success', 'Successfully created');
-        		redirect('Controller_Permission/', 'refresh');
-        	}
-        	else {
-        		$this->session->set_flashdata('errors', 'Error occurred!!');
-        		redirect('Controller_Permission/create', 'refresh');
-        	}
+			$check_groupsExits = $this->Model_groups->CheckgroupsAlreadyExist(trim($this->input->post('group_name')),$_SESSION['company_id']);
+				
+				if($check_groupsExits){
+				   $this->session->set_flashdata('error', 'Permission Alreday Exits!');
+				  redirect('Controller_Permission/create', 'refresh');
+
+				}else{
+						// true case
+						$permission = serialize($this->input->post('permission'));
+						$data = array(
+							'company_id' => $company_id,
+							'group_name' => $this->input->post('group_name'),
+							'permission' => $permission
+						);
+
+						$create = $this->Model_groups->create($data);
+						if($create == true) {
+							$this->session->set_flashdata('success', 'Successfully created');
+							redirect('Controller_Permission/', 'refresh');
+						}
+						else {
+							$this->session->set_flashdata('errors', 'Error occurred!!');
+							redirect('Controller_Permission/create', 'refresh');
+						}
+					}
         }
         else {
             $this->render_template('permission/create', $this->data);
@@ -78,26 +87,55 @@ class Controller_Permission extends Admin_Controller
 		if($id) {
 
 			$this->form_validation->set_rules('group_name', 'Permission name', 'required');
-
 			if ($this->form_validation->run() == TRUE) {
 	            // true case
-	            $permission = serialize($this->input->post('permission'));
-	            
-	        	$data = array(
-					'company_id' => $company_id,
-	        		'group_name' => $this->input->post('group_name'),
-	        		'permission' => $permission
-	        	);
 
-	        	$update = $this->Model_groups->edit($data, $id);
-	        	if($update == true) {
-	        		$this->session->set_flashdata('success', 'Successfully updated');
-	        		redirect('Controller_Permission/', 'refresh');
-	        	}
-	        	else {
-	        		$this->session->set_flashdata('errors', 'Error occurred!!');
-	        		redirect('Controller_Permission/edit/'.$id, 'refresh');
-	        	}
+				$check_groupsExits = $this->Model_groups->CheckgroupsAlreadyExist(trim($this->input->post('group_name')),$_SESSION['company_id'],$id);
+				if($check_groupsExits){
+   
+				   $permission = serialize($this->input->post('permission'));
+				   
+				   $data = array(
+					   'company_id' => $company_id,
+					   'group_name' => $this->input->post('group_name'),
+					   'permission' => $permission
+				   );
+   
+				   $update = $this->Model_groups->edit($data, $id);
+				   if($update == true) {
+					   $this->session->set_flashdata('success', 'Successfully updated');
+					   redirect('Controller_Permission/', 'refresh');
+				   }
+				   else {
+					   $this->session->set_flashdata('error', 'Error occurred!!');
+					   redirect('Controller_Permission/edit/'.$id, 'refresh');
+				   }
+				}else{
+					// $this->session->set_flashdata('error', 'Alreadey!!');
+					// redirect('Controller_Permission/edit/'.$id, 'refresh');
+
+					$permission = serialize($this->input->post('permission'));
+				   
+					$data = array(
+						'company_id' => $company_id,
+						'group_name' => $this->input->post('group_name'),
+						'permission' => $permission
+					);
+	
+					$update = $this->Model_groups->edit($data, $id);
+					if($update == true) {
+						$this->session->set_flashdata('success', 'Successfully updated');
+						redirect('Controller_Permission/', 'refresh');
+					}
+					else {
+						$this->session->set_flashdata('error', 'Error occurred!!');
+						redirect('Controller_Permission/edit/'.$id, 'refresh');
+					}
+
+
+
+				}
+	          
 	        }
 	        else {
 	            // false case

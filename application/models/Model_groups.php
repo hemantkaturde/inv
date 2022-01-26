@@ -60,4 +60,27 @@ class Model_groups extends CI_Model
 		return $result;
 
 	}
+
+    public function CheckgroupsAlreadyExist($groupname='', $company_id='',$id=''){
+
+		if($id){
+			$sql = "SELECT * FROM groups WHERE company_id=? AND group_name =? AND id=?";
+			$query = $this->db->query($sql, array($company_id ,$groupname,$id));
+			return $query->row_array();
+
+		}else if($groupname && $company_id){
+
+			$sql = "SELECT * FROM groups WHERE company_id=? AND group_name =?";
+			$query = $this->db->query($sql, array($company_id ,$groupname));
+			return $query->row_array();
+
+		}
+	
+	}
+
+	
+
+
+
+
 }
