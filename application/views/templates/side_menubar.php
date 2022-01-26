@@ -114,7 +114,7 @@
         <?php }?>    -->
 
         <?php if(in_array('moduleCompany', unserialize($permission['permission']))) {  ?>
-          <li class="treeview <?php if($pageUrl=="Controller_Company" || $pageUrl=="Controller_Company/create" || $pageUrl=="Controller_Company/update" ){echo 'active';}?>" >
+          <li class="treeview <?php if($pageUrl=="Controller_Company" || $pageUrl=="Controller_Company/create" || $pageUrl=="Controller_Company/update" || $pageUrl=="Controller_Company/attachment" ){echo 'active';}?>" >
               <a href="#">
                 <i class="fa fa-building"></i>
                 <span>Company</span>
@@ -127,7 +127,7 @@
                 <li <?php if($pageUrl=="Controller_Company/create"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Company/create') ?>"><i class="fa fa fa-plus"></i> Add Company</a></li>
               <?php } ?>
               <?php if(in_array('viewCompany', unserialize($permission['permission']))) {  ?>
-                <li <?php if($pageUrl=="Controller_Company" || $pageUrl=="Controller_Company/update"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Company') ?>"><i class="fa fa fa-pencil"></i> Manage Company</a></li>
+                <li <?php if($pageUrl=="Controller_Company" || $pageUrl=="Controller_Company/update" || $pageUrl=="Controller_Company/attachment"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Company') ?>"><i class="fa fa fa-pencil"></i> Manage Company</a></li>
               <?php }?>
               </ul>
           </li>
