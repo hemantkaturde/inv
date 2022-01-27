@@ -87,4 +87,17 @@ class Model_company extends CI_Model
 		}
 	}
 
+	public function getDepartmentData($id=null,$company_id){
+		if($id) {
+			$sql = "SELECT * FROM department where deprt_id = ? AND company_id";
+			$query = $this->db->query($sql, array($id,$company_id));
+			return $query->row_array();
+		}
+
+		$sql = "SELECT * FROM department where company_id=$company_id ORDER BY deprt_id DESC";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+
+	}
+
 }

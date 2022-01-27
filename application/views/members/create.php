@@ -38,7 +38,7 @@
           <?php endif; ?>
             <form role="form" action="<?php base_url('Controller_Members/create') ?>" method="post">
               <div class="box-body">
-                <?php echo validation_errors(); ?>
+                <p style="color:red"><?php echo validation_errors(); ?> </p>
                 <div class="row">
                       <div class="form-group">
                         <div class="col-md-4">
@@ -56,7 +56,7 @@
                       </div>
                       <div class="form-group">
                         <div class="col-md-4">
-                          <label for="employee_code">Employee Code <span class="required">*</span></label>
+                          <label for="employee_code">Employee Code</label>
                           <input type="text" class="form-control" id="employee_code" name="employee_code" placeholder="Enter Employee Code" autocomplete="off">
                         </div>
                         <div class="col-md-4">
@@ -65,17 +65,17 @@
                         </div>
                         <div class="col-md-4">
                           <label for="email">Email <span class="required">*</span></label>
-                          <input type="email" class="form-control" id="email" required name="email" placeholder="Email" autocomplete="off">
+                          <input type="text" class="form-control" id="email" required name="email" placeholder="Email" autocomplete="off">
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="col-md-4">
-                          <label for="company_id">Company Name <span class="required">*</span></label>
+                          <label for="department">Department <span class="required">*</span></label>
                           <!-- <input type="text" class="form-control" id="company_id" name="company_id" placeholder="Company Name" autocomplete="off"> -->
-                          <select class="form-control" id="company_id" required name="company_id"> 
-                            <option value="">Select Company</option>
-                            <?php foreach ($company_data as $k => $v): ?>
-                              <option value="<?php echo $v['id'] ?>"><?php echo $v['company_name'] ?></option>
+                          <select class="form-control" id="department_id" required name="department_id"> 
+                            <option value="">Select Department</option>
+                            <?php foreach ($department_data as $k => $v): ?>
+                              <option value="<?php echo $v['deprt_id'] ?>"><?php echo $v['department'] ?></option>
                             <?php endforeach ?>
                           </select>
                         </div>

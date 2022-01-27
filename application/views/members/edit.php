@@ -74,11 +74,11 @@
                         <div class="form-group">
 
                            <div class="col-md-4">
-                              <label for="company_id">Company Name <span class="requiredFiled">*</span></label>
-                              <select class="form-control" id="company_id" required name="company_id">
+                              <label for="department">Department<span class="requiredFiled">*</span></label>
+                              <select class="form-control" id="department_id" required name="department_id">
                                  <option value="">Select Company</option>
-                                 <?php foreach ($company_data as $k => $v): ?>
-                                 <option value="<?php echo $v['id'] ?>" <?php if($user_data['company_id'] == $v['id']) { echo 'selected'; } ?>><?php echo $v['company_name'] ?></option>
+                                 <?php foreach ($department_data as $k => $v): ?>
+                                 <option value="<?php echo $v['id'] ?>" <?php if($user_data['department_id'] == $v['deprt_id']) { echo 'selected'; } ?>><?php echo $v['department'] ?></option>
                                  <?php endforeach ?>
                               </select>
                            </div>

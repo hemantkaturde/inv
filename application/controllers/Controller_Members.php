@@ -47,8 +47,8 @@ class Controller_Members extends Admin_Controller
 		// }
 
 		$this->form_validation->set_rules('groups', 'Group', 'required');
-		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[5]|max_length[12]|is_unique[users.username]');
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|is_unique[users.email]');
+		$this->form_validation->set_rules('username', 'Username', 'trim|required');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required');
 		$this->form_validation->set_rules('cpassword', 'Confirm password', 'trim|required|matches[password]');
 		$this->form_validation->set_rules('fname', 'First name', 'trim|required');
@@ -59,7 +59,7 @@ class Controller_Members extends Admin_Controller
         	$data = array(
         		'username' => $this->input->post('username'),
         		'password' => $this->input->post('password'),
-        		'company_id' => $this->input->post('company_id'),
+        		'company_id' => $_SESSION['company_id'],
         		'email' => $this->input->post('email'),
         		'firstname' => $this->input->post('fname'),
         		'lastname' => $this->input->post('lname'),
@@ -69,6 +69,7 @@ class Controller_Members extends Admin_Controller
         		'designation' => $this->input->post('emp_designation'),
         		'address' => $this->input->post('address'),
         		'notes' => $this->input->post('notes'),
+				'department_id'=> $this->input->post('department_id'),
         	);
 
         	$create = $this->Model_users->create($data, $this->input->post('groups'));
@@ -77,16 +78,16 @@ class Controller_Members extends Admin_Controller
         		redirect('Controller_Members/', 'refresh');
         	}
         	else {
-        		$this->session->set_flashdata('errors', 'Error occurred!!');
+        		$this->session->set_flashdata('error', 'Error occurred!!');
         		redirect('Controller_Members/create', 'refresh');
         	}
         }
         else {
             // false case
         	$group_data = $this->Model_groups->getGroupData();
-        	$company_data = $this->Model_company->getCompanyData();
+        	$department_data = $this->Model_company->getDepartmentData($id=null,$_SESSION['company_id']);
         	$this->data['group_data'] = $group_data;
-        	$this->data['company_data'] = $company_data;
+        	$this->data['department_data'] = $department_data;
 
             $this->render_template('members/create', $this->data);
         }	
@@ -203,9 +204,9 @@ class Controller_Members extends Admin_Controller
 	        	$this->data['user_group'] = $groups;
 	        	
 	            $group_data = $this->Model_groups->getGroupData();
-	        	$company_data = $this->Model_company->getCompanyData();
+	        	$department_data = $this->Model_company->getDepartmentData($id=null,$_SESSION['company_id']);
 	        	$this->data['group_data'] = $group_data;
-	        	$this->data['company_data'] = $company_data;
+	        	$this->data['department_data'] = $department_data;
 
 				$this->render_template('members/edit', $this->data);	
 	        }	
