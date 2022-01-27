@@ -71,7 +71,7 @@ class Controller_Products extends Admin_Controller
                 
                 $result['data'][$key] = array(
                     $img,
-                    $value['product_type'],
+                    $value['name'],
                     $value['price'],
                     $value['description'],
                     $buttons
@@ -96,7 +96,7 @@ class Controller_Products extends Admin_Controller
         //     redirect('dashboard', 'refresh');
         // }
 
-		$this->form_validation->set_rules('product_code', 'Product Code', 'trim|required|is_unique[products.product_code]');
+		$this->form_validation->set_rules('product_name', 'Product Code', 'trim|required|is_unique[products.name]');
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
 	
         if ($this->form_validation->run() == TRUE) {

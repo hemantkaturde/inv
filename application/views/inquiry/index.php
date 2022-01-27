@@ -115,14 +115,26 @@
         <div class="modal-body">
           <div class="row col-md-12">
             <div class="form-group">
+              <label>Department</label>
+              <select type="text" name="dept_id" id="dept_id" class="form-control" onchange="get_userListdata()">
+                <option value="">Please Select</option>
+                <?php if (!empty($department)) {
+                  foreach ($department as $key => $value) { ?>
+                    <option value="<?php echo $value['deprt_id'] ?>"><?php echo $value['department'] ?></option>
+                <?php  }
+                } ?>
+              </select>
+            </div>
+
+            <div class="form-group">
               <label>Member List</label>
               <select type="text" name="member_id" id="member_id" class="form-control">
                 <option value="">Please Select</option>
-                <?php if (!empty($users)) {
+                <!-- <?php if (!empty($users)) {
                   foreach ($users as $key => $value) { ?>
                     <option value="<?php echo $value['id'] ?>"><?php echo $value['firstname'].' '.$value['lastname'] ?></option>
                 <?php  }
-                } ?>
+                } ?> -->
               </select>
             </div>
 
@@ -133,7 +145,7 @@
 
              <div class="form-group">
               <label>Invoice Date</label>
-              <input type="text" name="invoice_date" id="invoice_date" class="form-control" placeholder="Enter Invoice Date">
+              <input type="text" name="invoice_date" id="invoice_date" class="form-control datepicker" placeholder="Enter Invoice Date">
             </div>
 
             <div class="form-group">
@@ -171,9 +183,8 @@ var manageTable;
 var base_url = "<?php echo base_url(); ?>";
 
 $j(document).ready(function() {
-
+  
   $j("#mainInquiryNav").addClass('active');
-
   // initialize the datatable 
   manageTable = $('#manageTable').DataTable({
     dom: 'Bfrtip',
@@ -276,8 +287,42 @@ function addInvoiceFunc(id)
     });
   }
 }
+// ==================
+$(document).ready(function() {
+    $('.datepicker').datepicker({
+      autoclose: true
+    })
+});
 
+function get_userListdata()
+{
+    var dept_id = $('#dept_id').val();
+    var path = base_url+'controller_Inquiry/get_userListdata/'+dept_id;
+    console.log(path);
+    $.ajax({
+        type : 'POST',
+        url : path,
+        dataType : 'json',
+        success : function(response)
+        {
+            var data = "";
+            data += '<select class="form-control" name="member_id" id="member_id" onchange="get_product_price()">';
+            data += '<option value="">Please Select</option>';
+                $.each(response, function(index, value){
+                    data += '<option value="'+value['id']+'">'+value['firstname']+' '+value['lastname']+'</option>';
+                });
 
+            data += '</select>';
+
+            $('#member_id').html(data);
+        },
+        error : function(response)
+        {
+            console.log(response);
+        }
+
+    });
+}
 
 </script>
 <script type="text/javascript" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>

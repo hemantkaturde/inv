@@ -71,7 +71,7 @@
                 <div class="form-group">
                   <label for="customer">Customer</label>
                     
-                  <select class="form-control" id="customer" name="customer" onchanhe="get_productList_customerwise()" >
+                  <select class="form-control" id="customer" name="customer" onchange="get_productList_customerwise()" >
                       <option value="">Select customer</option>
                       <?php foreach ($cust['customer'] as $key => $value): ?>
                         <option value="<?php echo $value['id']; ?>" <?php if($inquiry_data['customer_id'] == $value['id']) { echo 'selected'; } ?>><?php echo $value['name']; ?></option>
@@ -81,7 +81,7 @@
                 
                 <div class="form-group">
                     <label for="inq_date">Inquiry Date *</label>
-                    <input type="text" class="form-control" id="inq_date" name="inq_date" placeholder="Enter Inquiry Date" value="<?php echo date('d-m-Y', strtotime($inquiry_data['inquiry_date'])) ?>" autocomplete="off"/>
+                    <input type="text" class="form-control datepicker" id="inq_date" name="inq_date" placeholder="Enter Inquiry Date" value="<?php echo date('d-m-Y', strtotime($inquiry_data['inquiry_date'])) ?>" autocomplete="off"/>
                 </div>
                 <div class="form-group">
                     <label for="status">Status</label>
@@ -115,7 +115,7 @@
                 <div class="form-group">
                   <div class="col-md-3">
                   <label for="product">Product</label>
-                    <select class="form-control" id="product" name="product">
+                    <select class="form-control" id="product" name="product" onchange="get_product_price()">
                       <option value="">Select product</option>
                        <?php foreach ($product as $key => $value): ?>
                         <option value="<?php echo $value['id'] ?>"><?php echo $value['name'] ?></option>
@@ -202,13 +202,15 @@
     echo "</script>";
 ?>
 <script type="text/javascript">
-  
+  var base_url = "<?php echo base_url(); ?>";
   $(document).ready(function() {
     $(".select_group").select2();
 
     $("#mainInquiryNav").addClass('active');
     $("#manageInquiryNav").addClass('active');
-  
+    $('.datepicker').datepicker({
+      autoclose: true
+    })
   });
 </script>
 <script src="<?php echo base_url('assets/dist/js/pages/inquiry.js') ?>"></script>

@@ -16,6 +16,7 @@ class Controller_Inquiry extends Admin_Controller
         $this->load->model('Model_users');
         $this->load->model('Model_customer');
         $this->load->model('Model_products');
+        $this->load->model('Model_masters');
 	}
 
     /* 
@@ -26,6 +27,7 @@ class Controller_Inquiry extends Admin_Controller
         // if(!in_array('viewInquiry', $this->permission)) {
         //     redirect('dashboard', 'refresh');
         // }
+        $this->data['department'] = $this->Model_masters->getDepartmentData($_SESSION['company_id']);
         $this->data['users'] = $this->Model_users->getUserData();
 		$this->render_template('inquiry/index', $this->data);	
 	}
@@ -113,6 +115,32 @@ class Controller_Inquiry extends Admin_Controller
 		echo json_encode($result);
 	}	
 
+    // === GET PRODUCT LIST AS PER CUSTOMER
+    public function get_product_data_asper_customers($id)
+    {
+        $result = $this->Model_inquiry->getproductList_aspercustomer($id);
+        echo json_encode($result);
+    }
+
+    public function get_product_data($id)
+    {
+        $result = $this->Model_inquiry->getproductListData($id);
+        echo json_encode($result);
+    }
+
+    public function get_product_data_in_inquiry($id)
+    {
+        $comp_id = $_SESSION['company_id'];
+        $result = $this->Model_inquiry->getproductListDataFromInquiry($comp_id,$id);
+        echo json_encode($result);
+    }
+
+    public function get_userListdata($dept_id)
+    {
+        $result = $this->Model_inquiry->getDeptWiseuserListData($dept_id);
+        echo json_encode($result);   
+    }
+
     /*
     * If the validation is not valid, then it redirects to the create page.
     * If the validation for each input field is valid then it inserts the data into the database 
@@ -145,8 +173,7 @@ class Controller_Inquiry extends Admin_Controller
         		'customer_id' => $this->input->post('customer'),
         		'inquiry_from' => $this->input->post('inq_from'),
         		'inquiry_date' => date('Y-m-d', strtotime($this->input->post('inq_date'))),
-        		// 'inquiry_product' => $product,
-                'inquiry_status' => $this->input->post('status'),
+                'inquiry_status' => 4,
                 // 'inquiry_emp_assigned' => $this->input->post('emp_assigned'),
                 'inquiry_notes' => $this->input->post('notes')
         	);
@@ -199,7 +226,7 @@ class Controller_Inquiry extends Admin_Controller
    //          // false case
 			$this->data['inq_no'] = $this->Model_inquiry->get_max_id('inquiry', 'inquiry_number');
             // $this->data['users'] = $this->Model_users->getUserData();
-            if ($_SESSION['id'] == 1) {
+            if ($_SESSION['id'] == 0) {
                 $this->data['cust'] = $this->Model_customer->getActiveCustomerData();
             }else
             {
@@ -299,20 +326,16 @@ class Controller_Inquiry extends Admin_Controller
             $inquiry_data = $this->Model_inquiry->getInquiryData($inquiry_id);
             $inqTrans_data = $this->Model_inquiry->getInquiryProductData($inquiry_id);
             // $this->data['users'] = $this->Model_users->getUserData();
-            if ($_SESSION['id'] == 1) {
+            if ($_SESSION['id'] == 0) {
                 $this->data['cust'] = $this->Model_customer->getActiveCustomerData();
             }else
             {
                 $this->data['cust'] = $this->Model_customer->getActiveCustomerDataAsPerCompany($_SESSION['company_id']);
             }
-            $this->data['product'] = $this->Model_products->getActiveProductData();
+            $cust_id = $inquiry_data['customer_id'];
+            $this->data['product'] = $this->Model_inquiry->getproductList_aspercustomer($cust_id);
             $this->data['inquiry_data'] = $inquiry_data;
             $this->data['trans_data'] = $inqTrans_data;
-
-            // echo "<pre>";
-            // print_r($inqTrans_data);
-            // exit;
-
 
             $this->render_template('inquiry/edit', $this->data); 
         }   
@@ -335,6 +358,7 @@ class Controller_Inquiry extends Admin_Controller
 		{
 		  $trans_data = array();
 		  $trans_data['trans_inquiry_id']  = $id;
+          $trans_data['company_id']  = $_SESSION['company_id'];
 		  $trans_data['product_id']  = $formdata['inq_product_id'][$key];
 		  $trans_data['qty']	  = $formdata['inq_qty'][$key];
 		  $trans_data['rate']= $formdata['inq_rate'][$key];
@@ -409,6 +433,7 @@ class Controller_Inquiry extends Admin_Controller
             $data = array(
                 'inquiry_id' => $id,
                 'company_id' => $_SESSION['company_id'],
+                'deprt_id' => $this->input->post('dept_id'),
                 'user_id' => $this->input->post('member_id'),
                 'invoice_no' => $this->input->post('invoice_no'),
                 'vehicle_no' => $this->input->post('veh_no'),

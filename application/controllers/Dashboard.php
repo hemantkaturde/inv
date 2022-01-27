@@ -43,7 +43,6 @@ class Dashboard extends Admin_Controller
 			$this->data['total_inquiry'] = $this->Model_inquiry->countTotalinquiryAsPerComp($_SESSION['company_id']);
 		// }
 		
-
 		$this->data['is_admin'] = $is_admin;
 		$this->render_template('dashboard', $this->data);
 	}

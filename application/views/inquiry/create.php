@@ -52,12 +52,12 @@
                 <?php  } ?>
 
                 <div class="form-group">
-                    <label for="inq_no">Inquiry Number</label>
+                    <label for="inq_no">Inquiry Number <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="inq_no" name="inq_no" placeholder="Enter Inquiry Number" autocomplete="off" value="<?php echo $inq_no; ?>" />
                 </div>
                 <div class="form-group">
-                    <label for="inq_from">Inquiry From</label>
-                    <select type="text" class="form-control" id="inq_from" name="inq_from" autocomplete="off">
+                    <label for="inq_from">Inquiry From <span class="text-danger">*</span></label>
+                    <select type="text" class="form-control" id="inq_from" name="inq_from" autocomplete="off" required>
                       <option value="">Select Inquiry From</option>
                       <option value="1">Justdial</option>
                       <option value="2">Direct</option>
@@ -72,9 +72,9 @@
                     </select>
                 </div>
                 <div class="form-group">
-                  <label for="customer">Customer</label>
+                  <label for="customer">Customer <span class="text-danger">*</span></label>
                     
-                  <select class="form-control" id="customer" name="customer" onchanhe="get_productList_customerwise()" >
+                  <select class="form-control" id="customer" name="customer" onchange="get_productList_customerwise()" required>
                       <option value="">Select customer</option>
                       <?php foreach ($cust['customer'] as $key => $value): ?>
                         <option value="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></option>
@@ -83,12 +83,12 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="inq_date">Inquiry Date *</label>
-                    <input type="text" class="form-control" id="inq_date" name="inq_date" placeholder="Enter Inquiry Date" autocomplete="off"/>
+                    <label for="inq_date">Inquiry Date <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control datepicker" id="inq_date" name="inq_date" placeholder="Enter Inquiry Date" autocomplete="off" required/>
                 </div>
                 <div class="form-group">
-                    <label for="status">Status</label>
-                    <select type="text" class="form-control" id="status" name="status" autocomplete="off">
+                    <label for="status">Status <span class="text-danger">*</span></label>
+                    <select type="text" class="form-control" id="status" name="status" autocomplete="off" disabled required>
                       <option value="">Select Status</option>
                       <option value="4" selected>Create</option>
                       <option value="1">Assigned</option>
@@ -118,11 +118,11 @@
                 <div class="form-group">
                   <div class="col-md-3">
                   <label for="product">Product</label>
-                    <select class="form-control" id="product" name="product">
+                    <select class="form-control" id="product" name="product" onchange="get_product_price()">
                       <option value="">Select product</option>
-                       <?php foreach ($product as $key => $value): ?>
+                       <!-- <?php foreach ($product as $key => $value): ?>
                         <option value="<?php echo $value['id'] ?>"><?php echo $value['name'] ?></option>
-                      <?php endforeach ?>
+                      <?php endforeach ?> -->
                     </select>
                   </div>
                   <div class="col-md-3">
@@ -177,12 +177,18 @@
 <!-- /.content-wrapper -->
 
 <script type="text/javascript">
+  var base_url = "<?php echo base_url(); ?>";
+ 
   $(document).ready(function() {
     $(".select_group").select2();
 
     $("#mainInquiryNav").addClass('active');
     $("#addInquiryNav").addClass('active');
-     
+    
+    $('.datepicker').datepicker({
+      autoclose: true
+    })
+
   });
 </script>
 <script type="text/javascript" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>

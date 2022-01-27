@@ -137,4 +137,32 @@ class Model_inquiry extends CI_Model
 		$query = $this->db->query($sql, array($company_id));
 		return $query->num_rows();
 	}
+
+	public function getproductList_aspercustomer($id)
+	{
+		$sql = "SELECT * FROM products where customer_id = ?";
+		$query = $this->db->query($sql, array($id));
+		return $query->result_array();
+	}
+
+	public function getproductListData($id)
+	{
+		$sql = "SELECT * FROM products where id = ?";
+		$query = $this->db->query($sql, array($id));
+		return $query->result_array();	
+	}
+
+	public function getproductListDataFromInquiry($comp_id,$id)
+	{
+		$sql = "SELECT * FROM inquiry_trans where company_id = $comp_id AND product_id = ?";
+		$query = $this->db->query($sql, array($id));
+		return $query->result_array();	
+	}
+
+	public function getDeptWiseuserListData($dept_id)
+	{
+		$sql = "SELECT * FROM users where department_id = $dept_id";
+		$query = $this->db->query($sql);
+		return $query->result_array();	
+	}
 }

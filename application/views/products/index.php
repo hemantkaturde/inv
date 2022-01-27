@@ -51,7 +51,7 @@
               <tr>
                 <th>Image</th>
                 <!-- <th>Name</th> -->
-                <th>Product Code</th>
+                <th>Product</th>
                 <th>Rate</th>
                 <!-- <th>Qty</th> -->
                 <!-- <th>Warehouse</th> -->
