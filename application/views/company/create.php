@@ -105,17 +105,17 @@
 
                   <div class="col-md-1">
                     <label for="prefix">Prefix</label>
-                    <input type="text" class="form-control" id="prefix" name="prefix" placeholder="Prefix" autocomplete="off"/>
+                    <input type="text" pattern="[a-zA-Z]" oninvalid="setCustomValidity('Please enter on alphabets only. ')" class="form-control" id="prefix" name="prefix" placeholder="Prefix" autocomplete="off"/>
                   </div>
 
                   <div class="col-md-1">
                     <label for="count">Count</label>
-                    <input type="text" class="form-control" id="count" name="count" placeholder="Count" autocomplete="off"/>
+                    <input type="number" class="form-control" id="count" name="count" placeholder="No" autocomplete="off"/>
                   </div>
 
                   <div class="col-md-1">
                     <label for="sufix">Sufix</label>
-                    <input type="text" class="form-control" id="sufix" name="sufix" placeholder="Sufix" autocomplete="off"/>
+                    <input type="text" pattern="[a-zA-Z]" oninvalid="setCustomValidity('Please enter on alphabets only. ')" class="form-control" id="sufix" name="sufix" placeholder="Sufix" autocomplete="off"/>
                   </div>
                 </div>
               </div>

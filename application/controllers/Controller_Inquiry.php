@@ -132,6 +132,7 @@ class Controller_Inquiry extends Admin_Controller
         if ($this->form_validation->run() == TRUE) {
             // true case
             $enq_no = $this->Model_inquiry->get_max_id('inquiry', 'inquiry_number');
+
             $formdata = $this->input->post();
             // echo "<pre>"; print_r($formdata);
             // exit;
