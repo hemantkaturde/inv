@@ -9,7 +9,7 @@ class Controller_Tcpdf extends CI_Controller {
 		//$this->not_logged_in();
 		$this->load->model('Model_inquiry');
 	}
-
+	
 
 	public function purchase_order($id)
 	{
@@ -17,8 +17,8 @@ class Controller_Tcpdf extends CI_Controller {
 		$inquiry_data = $this->Model_inquiry->getInquiryCustomerData($_SESSION['company_id'],$id);
 
 
-		print_r($inquiry_data);
-		 exit;
+		// print_r($inquiry_data);
+		//  exit;
 		$company_name = $inquiry_data[0]['company_name'];
 		$company_address = $inquiry_data[0]['company_address'];
 		$company_factory_address = $inquiry_data[0]['company_factory_address'];
@@ -26,7 +26,8 @@ class Controller_Tcpdf extends CI_Controller {
 
 		$this->load->library('MYPDF');
 
-		$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'utf-8', false);
+		$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'utf-8', false);		
+		
 
 		$pdf->SetCreator(PDF_CREATOR);
 		$pdf->SetAuthor('PdfWithCodeigniter');
