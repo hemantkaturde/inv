@@ -180,4 +180,11 @@ class Model_inquiry extends CI_Model
 		return $query->result_array();	
 
 	}
+
+
+	public function GetCompanyName($company_id){
+		$sql = "SELECT * FROM company where id = $company_id";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
 }

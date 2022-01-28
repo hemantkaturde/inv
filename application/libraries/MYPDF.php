@@ -8,11 +8,19 @@ class MYPDF extends TCPDF {
 
     //Page header
     public function Header() {
+
+       
+
+        $CI =& get_instance();
+        $CI->load->model('Model_inquiry');
+        $result = $CI->Model_inquiry->GetCompanyName($_SESSION['company_id']);
         // Logo
         $this->SetY(10);
         $this->SetFont('helvetica', 'B', 15);
         // Title
-        $this->Cell(0, 20, 'Footer Text', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+        $this->Cell(0, 20, $result[0]['company_name'], 0, false, 'C', 0, '', 0, false, 'M', 'M');
+        $this->SetY(25);
+        $this->Cell(0, 20, 'Manufacturers of : CAPACITORS & ANCILLARIES', 0, false, 'C', 0, '', 0, false, 'M', 'M');
     }
 
 //     // Page footer
