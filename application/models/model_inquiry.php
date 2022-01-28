@@ -155,7 +155,8 @@ class Model_inquiry extends CI_Model
 
 	public function getproductListDataFromInquiry($comp_id,$id)
 	{
-		$sql = "SELECT * FROM inquiry_trans where company_id = $comp_id AND product_id = ?";
+
+		$sql = "SELECT * FROM inquiry_trans where  company_id = $comp_id AND product_id = ? AND trans_id=5000";
 		$query = $this->db->query($sql, array($id));
 		return $query->result_array();	
 	}
@@ -165,5 +166,18 @@ class Model_inquiry extends CI_Model
 		$sql = "SELECT * FROM users where department_id = $dept_id";
 		$query = $this->db->query($sql);
 		return $query->result_array();	
+	}
+
+	public function getInquiryCustomerData($company_id,$id){
+		$sql = "SELECT *,company.address as company_address,company.factory_address as company_factory_address FROM inquiry 
+		join customers on inquiry.customer_id= customers.id
+		join inquiry_trans on inquiry_trans.trans_inquiry_id=inquiry.inquiry_id
+		join company on company.id=inquiry.company_id
+		join products on products.id=inquiry_trans.product_id where customers.company_id=$company_id 
+		And inquiry_trans.company_id=$company_id AND products.company_id=$company_id And inquiry.inquiry_id=$id";
+		// $sql = "SELECT * FROM inquiry";
+		$query = $this->db->query($sql);
+		return $query->result_array();	
+
 	}
 }

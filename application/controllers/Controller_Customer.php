@@ -25,15 +25,15 @@ class Controller_Customer extends Admin_Controller
                 $permission = $this->session->userdata('permission');
                 $buttons = '';
                     // $buttons .= ' <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add_attachment" onclick="addAttach_Func('.$value['id'].')"><i class="fa fa-file"></i></button>';
-                    $buttons .= ' <a href="'.base_url('Controller_Customer/attachment/'.$value['id']).'" class="btn btn-info btn-sm"><i class="fa fa-upload"></i></a>';
+                    $buttons .= ' <a href="'.base_url('Controller_Customer/attachment/'.$value['id']).'" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Uplaod Documents"><i class="fa fa-upload"></i></a>';
                     if(in_array('updateCustomer', unserialize($permission['permission']))) {
-                    $buttons .= ' <a href="'.base_url('Controller_Customer/edit/'.$value['id']).'" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>';
+                    $buttons .= ' <a href="'.base_url('Controller_Customer/edit/'.$value['id']).'" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Edit Customer"><i class="fa fa-pencil"></i></a>';
                     }
                     if(in_array('deleteCustomer', unserialize($permission['permission']))) {
-                    $buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
+                    $buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal" data-toggle="tooltip" data-placement="top" title="Delete Customer"><i class="fa fa-trash"></i></button>';
                     }
                     if(in_array('moduleDashboard', unserialize($permission['permission']))) {
-                    $buttons .= ' <a href="'.base_url('Controller_Products/index/'.$value['id']).'" class="btn btn-info btn-sm"><i class="fa fa-plus"></i></a>';
+                    $buttons .= ' <a href="'.base_url('Controller_Products/index/'.$value['id']).'" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="Add Products"><i class="fa fa-plus"></i></a>';
                     }
                 // if (!empty($value['cust_attachment'])) {
                 //     $img = '<img src="'.base_url($value['cust_attachment']).'" alt="'.$value['name'].'" class="img-circle" width="50" height="50" />';

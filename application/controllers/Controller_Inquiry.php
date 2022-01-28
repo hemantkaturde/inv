@@ -54,18 +54,23 @@ class Controller_Inquiry extends Admin_Controller
             $customer_data = $this->Model_customer->getCustomerData($value['customer_id']);
 			// button
             $buttons = '';
-            if((in_array('updateInquiry', $this->permission)) || ($_SESSION['id'] == 1)) {
+            if((in_array('updateInquiry', $this->permission))) {
     			$buttons .= '<a href="'.base_url('Controller_Inquiry/update/'.$value['inquiry_id']).'" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>';
             }
 
-            if(in_array('deleteInquiry', $this->permission) || ($_SESSION['id'] == 1)) { 
+            if(in_array('deleteInquiry', $this->permission)) { 
     			$buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeFunc('.$value['inquiry_id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
             }
             
-            if(in_array('assigntoInquiry', $this->permission) || ($_SESSION['id'] == 1)) { 
+            if(in_array('assigntoInquiry', $this->permission)) { 
                 $buttons .= ' <a data-toggle="modal" data-target="#addInvoice" onclick="addInvoiceFunc('.$value['inquiry_id'].')"  class="btn btn-primary btn-sm"><i class="fa fa-cogs"></i></a>';
             }
+
             
+            $buttons .= '<a href="'.base_url('Controller_Tcpdf/purchase_order/'.$value['inquiry_id']).'" class="btn btn-warning btn-sm"><i class="fa fa-file-text-o"></i></a>';
+            $buttons .= '<a href="'.base_url('Controller_Tcpdf/sales_order/'.$value['inquiry_id']).'" class="btn btn-warning btn-sm"><i class="fa fa fa-file"></i></a>';
+         
+            $inquiry_date =  date("d-m-Y", strtotime($value['inquiry_date']));
 			
             if($value['inquiry_from'] == 1) {
                 $inq_from = 'Justdial';
@@ -98,8 +103,8 @@ class Controller_Inquiry extends Admin_Controller
                 $status = 'In Progress';
             }else if($value['inquiry_status'] == 3) {
                 $status = 'Closed';
-            }else {
-                $status = "";
+            }else if($value['inquiry_status'] == 4) {
+                $status = "Created";
             }
 
 
@@ -107,6 +112,7 @@ class Controller_Inquiry extends Admin_Controller
 			    $value['inquiry_number'],
 				$customer_data['customer']['name'],
                 $inq_from,
+                $inquiry_date,
                 $status,
 				$buttons
 			);
@@ -468,4 +474,5 @@ class Controller_Inquiry extends Admin_Controller
     }
 
     // ================================
+
 }

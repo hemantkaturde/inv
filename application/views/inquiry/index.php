@@ -52,10 +52,10 @@
                 <th>Inquiry No</th>
                 <th>Customer Name</th>
                 <th>Inquiry From</th>
+                <th>Inquiry Date</th>
                 <th>Status</th>
-                <?php if(in_array('updateInquiry', $user_permission) || in_array('deleteInquiry', $user_permission) || ($_SESSION['id'] == 1)): ?>
-                  <th>Action</th>
-                <?php endif; ?>
+                <th>Action</th>
+                
               </tr>
               </thead>
 
@@ -270,6 +270,8 @@ function addInvoiceFunc(id)
               '<strong> <span class="glyphicon glyphicon-ok-sign"></span> </strong>'+response.messages+
             '</div>');
 
+           
+            $(form)[0].reset();
             // hide the modal
             $("#addInvoice").modal('hide');
 
