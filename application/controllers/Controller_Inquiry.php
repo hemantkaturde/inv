@@ -154,7 +154,7 @@ class Controller_Inquiry extends Admin_Controller
 
         
 
-		$this->form_validation->set_rules('inq_no', 'Inquiry Number', 'trim|required|is_unique[inquiry.inquiry_number]');
+		$this->form_validation->set_rules('inq_no', 'Inquiry Number', 'trim|required');
         $this->form_validation->set_rules('inq_date', 'Inquiry Date', 'trim|required');
 	
         if ($this->form_validation->run() == TRUE) {
