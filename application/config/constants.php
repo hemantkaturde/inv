@@ -83,3 +83,21 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+
+// Declare Database Connection
+if($_SERVER['SERVER_NAME']=='localhost'){
+
+            define('DATABASE_HOSTNAME', 'localhost');
+            define('DATABASE_USERNAME', 'root');
+            define('DATABASE_NAME', 'test');
+            define('DATABASE_PASSWORD', '');
+
+}else if($_SERVER['SERVER_NAME']=='https://qelocitytest.xyz')
+{
+            define('DATABASE_HOSTNAME', 'localhost');
+            define('DATABASE_USERNAME', 'qelocity_inventory');
+            define('DATABASE_NAME', 'qelocity@2014');
+            define('DATABASE_PASSWORD', 'qelocity_inventory');
+}
+

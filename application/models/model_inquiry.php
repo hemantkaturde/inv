@@ -36,17 +36,18 @@ class Model_inquiry extends CI_Model
 
 	   // $record = $this->db->query("SELECT MAX(CAST(SUBSTR(TRIM(inquiry_number),$number) AS UNSIGNED)) AS inquiry_number FROM inquiry WHERE company_id = $company_id")->result_array();
 
-		$record = $this->db->query("SELECT REGEXP_SUBSTR(inquiry_number,'[0-9]+') as inquiry_number FROM inquiry WHERE company_id = $company_id order by inquiry_id desc limit 1")->result_array();
+		$record = $this->db->query("SELECT  inquiry_number FROM inquiry WHERE company_id = $company_id order by inquiry_id desc limit 1")->result_array();
 		// $record = "SELECT MAX(CAST(SUBSTR(TRIM(inquiry_number),$number) AS UNSIGNED)) AS inquiry_number FROM inquiry WHERE company_id = $company_id";
-	    if((empty($record[0]['inquiry_number'])))
+        $getOnlyNumbersFromString = preg_replace('/[^0-9.]+/', '', $record[0]['inquiry_number']);
+		
+	    if(empty($getOnlyNumbersFromString) )
 	    {
 	      return $prefix.$count.$sufix;
 	    }
 	    else
 	    {
-	      $str = $record[0]['inquiry_number'] + 1;
+	      $str = $getOnlyNumbersFromString  + 1;
 	      $code = $prefix.$str.$sufix;
-
 		  return $code;
 	    }
   	}

@@ -74,10 +74,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'test',
+	'hostname' => DATABASE_HOSTNAME,
+	'username' => DATABASE_USERNAME,
+	'password' => DATABASE_PASSWORD,
+	'database' => DATABASE_NAME,
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

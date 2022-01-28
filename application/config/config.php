@@ -23,7 +23,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
+if($_SERVER['SERVER_NAME']=='localhost'){
 $config['base_url'] = 'http://localhost/qelocity_technologies/inventory1/';
+}else if($_SERVER['SERVER_NAME']=='https://qelocitytest.xyz'){
+$config['base_url'] = 'https://qelocitytest.xyz';
+}
 
 /*
 |--------------------------------------------------------------------------
