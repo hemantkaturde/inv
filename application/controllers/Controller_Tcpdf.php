@@ -33,10 +33,10 @@ class Controller_Tcpdf extends CI_Controller {
 		$pdf->SetAuthor('PdfWithCodeigniter');
 		$pdf->SetTitle('PdfWithCodeigniter');
 		$pdf->SetSubject('PdfWithCodeigniter');
-		$pdf->SetKeywords('TCPDF, PDF, example, test, codeigniter');
+		// $pdf->SetKeywords('TCPDF, PDF, example, test, codeigniter');
 
 		// set default header data
-		$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
+		$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.'035', PDF_HEADER_STRING);
 
 		// set header and footer fonts
 		$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -57,7 +57,7 @@ class Controller_Tcpdf extends CI_Controller {
 
 		// set font
 		$pdf->SetFont('times', 'BI', 12);
-
+		
 		// add a page
 		$pdf->AddPage();
 
@@ -70,11 +70,12 @@ EOD;
 
 		// print a block of text using Write()
 		$pdf->Write(0, $txt, '', 0, 'C', true, 0, false, false, 0);
+		// $pdf->write($txt, true, false, false, false, '');
 
 		// ---------------------------------------------------------
 		 ob_clean();
 		//Close and output PDF document
-		$pdf->Output('example_003.pdf', 'D');
+		$pdf->Output('Purchase Order.pdf', 'D');
 	}
 
 }

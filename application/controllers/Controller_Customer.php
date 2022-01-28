@@ -63,10 +63,10 @@ class Controller_Customer extends Admin_Controller
         if ($this->form_validation->run() == TRUE) {
             // true case
             // $upload_image = $this->upload_image();
-             $check_customer = $this->Model_customer->CheckCustomerAlreadyExist(trim($this->input->post('customer')),$_SESSION['company_id']);
-        
+             $check_customer = $this->Model_customer->CheckCustomerAlreadyExist($_SESSION['company_id'],trim($this->input->post('customer')));
+            //  $customer_data = $this->Model_customer->getCustomerCreate_isunique($id,$_SESSION['company_id'], $customer);
              if($check_customer){
-                $this->session->set_flashdata('errors', 'Customer Alreday Exits!');
+                $this->session->set_flashdata('error', 'Customer Alreday Exits!');
         		redirect('Controller_Customer/create', 'refresh');
 
              }else{
@@ -120,7 +120,7 @@ class Controller_Customer extends Admin_Controller
 			if ($this->form_validation->run() == TRUE) {
 	            // true case
 		          $customer = $this->input->post('customer');
-                  $customer_data = $this->Model_customer->getCustomerData_isunique($id, $customer);
+                  $customer_data = $this->Model_customer->getCustomerData_isunique($id,$_SESSION['company_id'], $customer);
                   // echo $customer_data['name'];
                   // print_r($customer_data);exit;
                   

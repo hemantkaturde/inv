@@ -84,9 +84,10 @@ class Model_customer extends CI_Model
 		return $query->num_rows();
 	}
 
-	public function getCustomerData_isunique($id, $cust)
+	public function getCustomerData_isunique($id,$comp_id, $cust)
 	{
 		$this->db->where('name', $cust);
+		$this->db->where_in('company_id', $id);
 		$this->db->where_not_in('id', $id);
 		$this->db->from('customers');
 		return $this->db->count_all_results();

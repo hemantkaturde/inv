@@ -9,8 +9,6 @@ class MYPDF extends TCPDF {
     //Page header
     public function Header() {
 
-       
-
         $CI =& get_instance();
         $CI->load->model('Model_inquiry');
         $result = $CI->Model_inquiry->GetCompanyName($_SESSION['company_id']);
