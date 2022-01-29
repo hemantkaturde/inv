@@ -185,9 +185,17 @@
     $("#mainInquiryNav").addClass('active');
     $("#addInquiryNav").addClass('active');
     
-    $('.datepicker').datepicker({
-      autoclose: true
-    })
+    // $('.datepicker').datepicker({
+    //   autoclose: true,
+    //   minDate:new Date()
+    // })
+
+var date = new Date();
+date.setDate(date.getDate());
+
+$('.datepicker').datepicker({ 
+    startDate: date
+});
 
   });
 </script>

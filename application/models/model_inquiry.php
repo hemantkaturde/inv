@@ -187,4 +187,11 @@ class Model_inquiry extends CI_Model
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
+
+	
+	public function getInquiryDetails($company_id,$id){
+		$sql = "SELECT * FROM inquiry  where company_id=$company_id AND inquiry_id = $id";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
 }
