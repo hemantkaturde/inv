@@ -67,8 +67,8 @@ class Controller_Inquiry extends Admin_Controller
             }
 
             
-            $buttons .= '<a href="'.base_url('Controller_Tcpdf/purchase_order/'.$value['inquiry_id']).'" class="btn btn-warning btn-sm"><i class="fa fa-file-text-o"></i></a>';
-            $buttons .= '<a href="'.base_url('Controller_Tcpdf/sales_order/'.$value['inquiry_id']).'" class="btn btn-warning btn-sm"><i class="fa fa fa-file"></i></a>';
+            $buttons .= ' <a href="'.base_url('Controller_Tcpdf/purchase_order/'.$value['inquiry_id']).'" class="btn btn-warning btn-sm"><i class="fa fa-file-text-o"></i></a>';
+            $buttons .= ' <a href="'.base_url('Controller_Tcpdf/sales_order/'.$value['inquiry_id']).'" class="btn btn-warning btn-sm"><i class="fa fa fa-file"></i></a>';
          
             $inquiry_date =  date("d-m-Y", strtotime($value['inquiry_date']));
 			
