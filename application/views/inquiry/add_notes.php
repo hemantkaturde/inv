@@ -51,7 +51,6 @@
                   </div>
             
                   <div style="margin-left:14px">
-                  <!-- <a href="<?php echo base_url('Controller_Inquiry/create') ?>" class="btn btn-primary">Add Inquiry</a> -->
                   <button type="submit" class="btn btn-primary">Save & Close</button>
                   </div>
                    

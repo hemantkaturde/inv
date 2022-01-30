@@ -482,4 +482,10 @@ class Controller_Inquiry extends Admin_Controller
 
     }
 
+
+    public function fetchNotesData(){
+
+        
+    }
+
 }
