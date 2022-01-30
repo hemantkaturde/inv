@@ -44,12 +44,12 @@
                               <input type="text" class="form-control" id="fname" name="fname" placeholder="Employee First Name" required value="<?php echo $user_data['firstname'] ?>" autocomplete="off">
                            </div>
                            <div class="col-md-4">
-                              <label for="lname">Employee Last name <span class="requiredFiled">*</span></label>
+                              <label for="lname">Employee Last name </label>
                               <input type="text" class="form-control" id="lname" name="lname" placeholder="Employee Last name" value="<?php echo $user_data['lastname'] ?>" autocomplete="off">
                            </div>
 
                            <div class="col-md-4">
-                              <label for="mobile">Mobile No <span class="requiredFiled">*</span></label>
+                              <label for="mobile">Mobile No </label>
                               <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter mobile Number" required value="<?php echo $user_data['mobile'] ?>" autocomplete="off">
                            </div>
 
@@ -111,7 +111,7 @@
                      <div class="row">
                         <div class="form-group">
                            <div class="col-md-4">
-                              <label for="address">Address <span class="requiredFiled">*</span></label>
+                              <label for="address">Address</label>
                               <textarea type="text" class="form-control" id="address" name="address"  placeholder="Enter address" value="<?php echo $user_data['address'] ?>" autocomplete="off"><?php echo $user_data['address'] ?></textarea>
                            </div>
 

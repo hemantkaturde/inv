@@ -46,11 +46,11 @@
                           <input type="text" class="form-control" id="fname" name="fname" placeholder="Employee First Name" required autocomplete="off">
                         </div>
                         <div class="col-md-4">
-                          <label for="lname">Employee Last name <span class="required">*</span></label>
+                          <label for="lname">Employee Last name </label>
                           <input type="text" class="form-control" id="lname" name="lname" placeholder="Employee Last name" autocomplete="off">
                         </div>
                         <div class="col-md-4">
-                          <label for="mobile">Mobile No <span class="required">*</span></label>
+                          <label for="mobile">Mobile No</label>
                           <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile Number" required autocomplete="off">
                         </div>
                       </div>
@@ -103,7 +103,7 @@
 
                 <div class="row">
                     <div class="col-md-4">
-                      <label for="address">Address <span class="required">*</span></label>
+                      <label for="address">Address</label>
                       <textarea type="text" class="form-control" id="address" name="address" placeholder="Address" autocomplete="off"></textarea>
                     </div>
                     <div class="col-md-4">
