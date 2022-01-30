@@ -251,12 +251,13 @@ class Controller_Customer extends Admin_Controller
     
     public function add_attachment()
     {
+        $attach_name = $this->input->post('attach_name');
+    
         // print_r($this->input->post());
-        $upload_image = $this->upload_image();
+        $upload_image = $this->upload_image($attach_img);
 
         $cust_id = $this->input->post('id');
-        $attach_name = $this->input->post('attach_name');
-
+      
         $response = array();
         if($cust_id) {
             $data = array(
@@ -283,13 +284,14 @@ class Controller_Customer extends Admin_Controller
         echo json_encode($response);
     }
 
-    public function upload_image()
+    public function upload_image($attach_img)
     {
         // assets/images/cust_attach
         $config['upload_path'] = 'assets/images/customer_image';
         $config['file_name'] =  uniqid();
-        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
-        $config['max_size'] = '1000';
+        // $config['file_name'] =  $attach_name;
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|doc|docx';
+        $config['max_size'] = '100000';
 
         $this->load->library('upload', $config);
         if ( ! $this->upload->do_upload('attach_img'))
