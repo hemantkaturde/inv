@@ -55,7 +55,7 @@
                             <div style="margin-bottom: 40px;">
                                 <h1
                                     style="padding: 20px; text-align: center; padding: 20px;font-weight: bolder;color: cornflowerblue;">
-                                    Inventory</h1>
+                                    CRM</h1>
                             </div>
                             <?php if(!empty($error)): ?>
                             <div class="alert alert-danger alert-dismissible" role="alert">

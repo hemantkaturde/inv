@@ -69,6 +69,9 @@ class Controller_Company extends Admin_Controller
         // }
 
         $this->form_validation->set_rules('company_name', 'Company name', 'trim|required|is_unique[company.company_name]');
+        $this->form_validation->set_rules('company_email1', 'Email Id', 'trim|required');
+        $this->form_validation->set_rules('address', 'Address', 'trim|required');
+        $this->form_validation->set_rules('factory_address', 'Factory Address', 'trim|required');
     
         if ($this->form_validation->run() == TRUE) {
             // true case

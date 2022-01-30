@@ -46,7 +46,7 @@
                     <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Enter company name" autocomplete="off">
                   </div>
                   <div class="col-md-4">
-                    <label for="phone">Mobile No</label>
+                    <label for="phone">Mobile No <span class="required">*</span></label>
                   <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone" autocomplete="off">
                   </div>
                   <div class="col-md-4">
@@ -58,7 +58,7 @@
                 <div class="form-group">
                   
                   <div class="col-md-4">
-                    <label for="company_email1">Email</label>
+                    <label for="company_email1">Email <span class="required">*</span></label>
                     <input type="text" class="form-control" id="company_email1" name="company_email1" placeholder="Enter company Email" autocomplete="off">
                   </div>
                   <div class="col-md-4">
@@ -66,7 +66,7 @@
                     <input type="text" class="form-control" id="company_email2" name="company_email2" placeholder="Enter company Email" autocomplete="off">
                   </div>
                   <div class="col-md-4">
-                    <label for="address">Address</label>
+                    <label for="address">Address <span class="required">*</span></label>
                     <textarea type="text" class="form-control" id="address" name="address" placeholder="Enter address"  autocomplete="off"></textarea>
                   </div>
                 </div>
@@ -95,7 +95,7 @@
 
                 <div class="form-group">
                   <div class="col-md-4">
-                    <label for="factory_address">Factory address</label>
+                    <label for="factory_address">Factory address <span class="required">*</span></label>
                     <textarea type="text" class="form-control" id="factory_address" name="factory_address" placeholder="Enter factory address" autocomplete="off"></textarea>
                   </div>
                   <div class="col-md-4">
@@ -105,7 +105,9 @@
 
                   <div class="col-md-1">
                     <label for="prefix">Prefix</label>
-                    <input type="text" pattern="[a-zA-Z]" oninvalid="setCustomValidity('Please enter on alphabets only. ')" class="form-control" id="prefix" name="prefix" placeholder="Prefix" autocomplete="off"/>
+                    <!-- <input type="text" pattern="[a-zA-Z]" oninvalid="setCustomValidity('Please enter on alphabets only. ')" class="form-control" id="prefix" name="prefix" placeholder="Prefix" autocomplete="off"/> -->
+                    <input type="text" pattern="[a-zA-Z]" class="form-control" id="prefix" name="prefix" placeholder="Prefix" autocomplete="off"/>
+
                   </div>
 
                   <div class="col-md-1">
@@ -115,7 +117,8 @@
 
                   <div class="col-md-1">
                     <label for="sufix">Sufix</label>
-                    <input type="text" pattern="[a-zA-Z]" oninvalid="setCustomValidity('Please enter on alphabets only. ')" class="form-control" id="sufix" name="sufix" placeholder="Sufix" autocomplete="off"/>
+                    <!-- <input type="text" pattern="[a-zA-Z]" oninvalid="setCustomValidity('Please enter on alphabets only. ')" class="form-control" id="sufix" name="sufix" placeholder="Sufix" autocomplete="off"/> -->
+                    <input type="text" pattern="[a-zA-Z]" class="form-control" id="sufix" name="sufix" placeholder="Sufix" autocomplete="off"/>
                   </div>
                 </div>
               </div>
