@@ -126,13 +126,15 @@ class Model_products extends CI_Model
 	/* get the brand data */
 	public function getProductTypeData($id = null)
 	{
+
+		$company_id = $_SESSION['company_id'];
 		if($id) {
-			$sql = "SELECT * FROM product_type where type_id = ?";
+			$sql = "SELECT * FROM product_type where company_id = $company_id And type_id = ?";
 			$query = $this->db->query($sql, array($id));
 			return $query->row_array();
 		}
 
-		$sql = "SELECT * FROM product_type ORDER BY type_id DESC";
+		$sql = "SELECT * FROM product_type where company_id = $company_id  ORDER BY type_id DESC";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
