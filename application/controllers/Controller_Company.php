@@ -179,12 +179,20 @@ class Controller_Company extends Admin_Controller
                     'sufix' => $this->input->post('sufix')
             	);
 
-                if($_FILES['company_logo']['size'] > 0) {
-                            $upload_image = $this->upload_image();
-                            $upload_image = array('logo' => $upload_image);
-                            
-                            $this->Model_company->update($upload_image, $id);
-                        }
+                if(empty($this->input->post('company_logo1')))
+                {
+                    $upload_image = array('logo' => 'assets/images/company_image/5fc5cf759483c.png');
+                    $this->Model_company->update($upload_image, $id);
+                }
+                else
+                {
+                    if($_FILES['company_logo']['size'] > 0) {
+                        $upload_image = $this->upload_image();
+                        $upload_image = array('logo' => $upload_image);
+                        
+                        $this->Model_company->update($upload_image, $id);
+                    }
+                }
 
             	$update = $this->Model_company->update($data, $id);
             	if($update == true) {

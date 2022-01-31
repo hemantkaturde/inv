@@ -103,7 +103,7 @@
 
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Save Changes</button>
-                <a href="<?php echo base_url('Controller_Products/') ?>" class="btn btn-warning">Back</a>
+                <a href="<?php echo base_url('Controller_Products/index/'.$id) ?>" class="btn btn-warning">Back</a>
               </div>
             </form>
           <!-- /.box-body -->

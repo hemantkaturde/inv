@@ -46,7 +46,7 @@ class Controller_Tcpdf extends CI_Controller {
 
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
-		$pdf->SetMargins(10, 30, 10);
+		$pdf->SetMargins(10, 40, 10);
 		$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
 		$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
@@ -65,23 +65,24 @@ class Controller_Tcpdf extends CI_Controller {
 
 		$ref_no = $inquiry_data[0]['inquiry_number'];
 		$date = date('F j, Y', strtotime($inquiry_data[0]['inquiry_date']));
-		$name = $inquiry_data[0]['contact_person'];
-		$address = $inquiry_data[0]['address'];
+		$name = $inquiry_data[0]['name'];
+		$address = $inquiry_data[0]['delivery_address'];
 		$email = $inquiry_data[0]['email'];
 		$mobile = $inquiry_data[0]['mobile'];
 		$phone = $inquiry_data[0]['phone'];
-		$gst_no = $inquiry_data[0]['gst_no'];
+		$gst_no = $inquiry_data[0]['gst_number'];
 		// set some text to print
 		$txt = "";
 		$txt .= <<<EOD
 			<table cellspacing="0" cellpadding="1" border="0">
     			<tr>
-        			<td><b>Factory</b> : $company_address</td>
-					<td><b>Regd. Office</b> : $company_factory_address<br/>$company_phone<br/>$company_email</td>
+        			<td width="40%"><b>Factory</b> : $company_factory_address</td>
+					<td width="20%"></td>
+					<td width="40%"><b>Regd. Office</b> : $company_address<br/>$company_phone<br/>$company_email</td>
     			</tr>
 				<tr>
-        			<td>REF : $ref_no</td>
-					<td style="text-align:right">$date</td>
+        			<td width="50%">REF : $ref_no</td>
+					<td width="50%" style="text-align:right">$date</td>
     			</tr>
 			</table>
 EOD;
@@ -116,11 +117,11 @@ EOD;
 		$qty = isset($value['qty']) ? $value['qty'] : 1;
 		$rate = isset($value['rate']) ? $value['rate'] : "";
 		$final_amount = isset($value['final_amount']) ? $value['final_amount'] : "";
-		
+		$product_type = isset($value['product_type']) ? $value['product_type'] : "";
 		$txt .= <<<EOD
 		<table cellspacing="0" cellpadding="4" border="1">
 			<tr>
-				<td>$name</td>
+				<td>$name<br>$product_type</td>
 				<td>$qty</td>
 				<td>Nos</td>
 				<td>$rate</td>

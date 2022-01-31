@@ -136,44 +136,60 @@ function add_inquiry_row()
             dataType : 'json',
             success : function(response)
             {
+                console.log(response);
+
                 if(response != "")
                 {
                     alert("This product is already Exist.");
                 }
                 else
                 {
-                    var data = '';
-                    data += '<tr id="inq_row_'+inq_cnt+'">';
-                    
-                    data += '<td>'+product_name;
-                    data +=   '<input type="hidden" name="inq_trans_id[]" id="inq_trans_id_'+inq_cnt+'" value="0" readonly/>';
-                    data +=   '<input type="hidden" name="inq_product_id[]" id="inq_product_id_'+inq_cnt+'" value="'+product_id+'" class="form-control form-control-sm" readonly/>';
-                    data += '</td>';
+                    var cn = 0;
+                    for(var i=1; i < inq_cnt; i++)
+                    {
+                        if($("#inq_product_id_"+i).val() == product_id)
+                        {
+                            cn = cn+1;
+                        }
+                    }
+                    if(cn >= 1)
+                    {
+                        alert("This product is already exist.");
+                    }else
+                    {
+                        var data = '';
+                        data += '<tr id="inq_row_'+inq_cnt+'">';
+                        
+                        data += '<td>'+product_name;
+                        data +=   '<input type="hidden" name="inq_trans_id[]" id="inq_trans_id_'+inq_cnt+'" value="0" readonly/>';
+                        data +=   '<input type="hidden" name="inq_product_id[]" id="inq_product_id_'+inq_cnt+'" value="'+product_id+'" class="form-control form-control-sm" readonly/>';
+                        data += '</td>';
 
-                    data += '<td>'+qty;
-                    data +=   '<input type="hidden" name="inq_qty[]" id="inq_qty_'+inq_cnt+'" value="'+qty+'" class="form-control form-control-sm" readonly/>';
-                    data += '</td>';
+                        data += '<td>'+qty;
+                        data +=   '<input type="hidden" name="inq_qty[]" id="inq_qty_'+inq_cnt+'" value="'+qty+'" class="form-control form-control-sm" readonly/>';
+                        data += '</td>';
 
-                    data += '<td>'+rate;
-                    data +=   '<input type="hidden" name="inq_rate[]" id="inq_rate_'+inq_cnt+'" value="'+rate+'" class="form-control form-control-sm" readonly/>';
-                    data += '</td>';
+                        data += '<td>'+rate;
+                        data +=   '<input type="hidden" name="inq_rate[]" id="inq_rate_'+inq_cnt+'" value="'+rate+'" class="form-control form-control-sm" readonly/>';
+                        data += '</td>';
 
-                    data += '<td>'+final_amt;
-                    data +=   '<input type="hidden" name="inq_final_amt[]" id="inq_final_amt_'+inq_cnt+'" value="'+final_amt+'" class="form-control form-control-sm" readonly/>';
-                    data += '</td>';
+                        data += '<td>'+final_amt;
+                        data +=   '<input type="hidden" name="inq_final_amt[]" id="inq_final_amt_'+inq_cnt+'" value="'+final_amt+'" class="form-control form-control-sm" readonly/>';
+                        data += '</td>';
 
-                    data += '<td>';
-                    data +=   '<a onclick="remove_inq_row('+inq_cnt+')"><i class="fa fa-trash"></i></a>';
-                    data += '</td>';
+                        data += '<td>';
+                        data +=   '<a onclick="remove_inq_row('+inq_cnt+')"><i class="fa fa-trash"></i></a>';
+                        data += '</td>';
 
-                    data += '</tr>';
+                        data += '</tr>';
 
-                    inq_cnt++;
-                    $('#inquiry_wrapper').prepend(data);
-                    $("#product").val("");
-                    $("#rate").val("");
-                    $("#qty").val("");
-                    $("#final_amt").val("");
+                        inq_cnt++;
+                        $('#inquiry_wrapper').prepend(data);
+                        $("#product").val("");
+                        $("#rate").val("");
+                        $("#qty").val("");
+                        $("#final_amt").val("");
+                    }
                 }
             },
             error : function(response)

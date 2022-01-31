@@ -43,7 +43,7 @@
                   </div>
                   <div class="col-md-4">
                     <label for="company_email2">Date</label>
-                    <input type="text" class="form-control" id="date" name="date" placeholder="Enter date" autocomplete="off">
+                    <input type="text" class="form-control datepicker" id="date" name="date" placeholder="Enter date" autocomplete="off">
                   </div>
                   <div class="col-md-4">
                     <label for="notes">Notes</label>

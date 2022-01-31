@@ -59,8 +59,9 @@
                     <label for="company_logo">Logo</label>
                     <!-- <input type="file" class="form-control" id="company_logo" name="company_logo" placeholder="Enter company Email" value="<?php echo $company_data['company_name'] ?>" autocomplete="off"> -->
                     <div class="kv-avatar">
-                      <div class="file-loading">
-                          <input id="company_logo" name="company_logo" type="file">
+                      <div class="file-loading" id="preview">
+                          <input id="company_logo" name="company_logo" type="file" value="<?php echo $company_data['logo'] ?>">
+                          
                       </div>
                     </div>
                   </div>
@@ -122,9 +123,14 @@
 
                 <!-- ============= -->
                   <div class="form-group">
-                    <div class="col-md-12">
-                  <label>Image Preview: </label>
-                  <img src="<?php echo base_url() . $company_data['logo'] ?>" width="100" height="100" class="">
+                    <div class="col-md-12" style="margin-top:30px;"></div>
+                    <div class="col-md-1"><label>Image Preview: </label></div>
+                    <div class="col-md-8">
+                    <div id="preview1"><span class="glyphicon glyphicon-remove pull-right" style="cursor:pointer;position:absolute;top: -20px;left: 120px;" onclick="remove_selected_image(1)"></span>
+                    <input id="company_logo1" name="company_logo1" type="hidden" value="<?php echo $company_data['logo'] ?>">
+                    <img src="<?php echo base_url() . $company_data['logo'] ?>" width="100" height="100" class="">
+                    
+                    </div>
                   </div>
                 </div>
                 
@@ -176,4 +182,11 @@
         allowedFileExtensions: ["jpg", "png", "gif"]
     });
   });
+  function remove_selected_image()
+  {
+    $("#preview1").find('span').remove();   
+    $("#preview1").find('img').remove();   
+    $("#preview").find('input').val('');
+    $("#preview1").find('input').val('');
+  }
 </script>

@@ -436,9 +436,9 @@ class Controller_Inquiry extends Admin_Controller
         //     redirect('dashboard', 'refresh');
         // }
 
-        $this->form_validation->set_rules('invoice_no', 'Invoice Number', 'trim|required');
+        // $this->form_validation->set_rules('invoice_no', 'Invoice Number', 'trim|required');
     
-        if ($this->form_validation->run() == TRUE) {
+        // if ($this->form_validation->run() == TRUE) {
             // true case
             $enq_no = $this->Model_inquiry->get_max_id('inquiry', 'inquiry_number');
             $data = array(
@@ -446,10 +446,10 @@ class Controller_Inquiry extends Admin_Controller
                 'company_id' => $_SESSION['company_id'],
                 'deprt_id' => $this->input->post('dept_id'),
                 'user_id' => $this->input->post('member_id'),
-                'invoice_no' => $this->input->post('invoice_no'),
-                'vehicle_no' => $this->input->post('veh_no'),
-                'invoice_date' => date('Y-m-d', strtotime($this->input->post('invoice_date'))),
-                'lr_no' => $this->input->post('inv_lr_no'),
+                // 'invoice_no' => $this->input->post('invoice_no'),
+                // 'vehicle_no' => $this->input->post('veh_no'),
+                // 'invoice_date' => date('Y-m-d', strtotime($this->input->post('invoice_date'))),
+                // 'lr_no' => $this->input->post('inv_lr_no'),
                 'remark' => $this->input->post('remark')
             );
 
@@ -470,11 +470,11 @@ class Controller_Inquiry extends Admin_Controller
                 $response['success'] = false;
                 $response['messages'] = "Error in the database while removing the inquiry information";
             }
-        }
-        else {
-            $response['success'] = false;
-            $response['messages'] = "Refersh the page again!!";
-        }
+        // }
+        // else {
+        //     $response['success'] = false;
+        //     $response['messages'] = "Refersh the page again!!";
+        // }
         echo json_encode($response);
     }
 
@@ -484,7 +484,6 @@ class Controller_Inquiry extends Admin_Controller
         $data['notes_data'] = $this->Model_inquiry->getnotesData($_SESSION['company_id'], $id);
         $data['enquiry_id']=$id;
         $this->render_template('inquiry/add_notes', $data);
-
     }
 
 }

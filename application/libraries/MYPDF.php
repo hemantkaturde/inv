@@ -16,9 +16,24 @@ class MYPDF extends TCPDF {
         $this->SetY(10);
         $this->SetFont('helvetica', 'B', 15);
         // Title
-        $this->Cell(0, 20, $result[0]['company_name'], 0, false, 'C', 0, '', 0, false, 'M', 'M');
-        $this->SetY(25);
-        $this->Cell(0, 20, 'Manufacturers of : CAPACITORS & ANCILLARIES', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+        // $this->Cell(0, 20, $result[0]['company_name'], 0, false, 'C', 0, '', 0, false, 'M', 'M');
+        // $this->SetY(20);
+        // $this->Cell(0, 20, 'Manufacturers of : CAPACITORS & ANCILLARIES', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+        $company_name = $result[0]['company_name'];
+        $tbl_header = '';
+$tbl_header .= <<<EOD
+         <table style="border-bottom:4px solid #000;" cellpadding="13">
+             <tr>
+                 <td style="text-align:center;font-size:19px; font-weight:bold;">$company_name</td>
+             </tr>
+             <tr>
+                 <td style="text-align:center;font-size:17px; font-weight:bold;">Manufacturers of : CAPACITORS & ANCILLARIES</td>
+             </tr>
+        </table>
+    
+EOD;
+            $this->writeHTML($tbl_header, true, false, false, false, '');
+    
     }
 
 //     // Page footer

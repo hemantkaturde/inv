@@ -126,6 +126,7 @@ class Controller_Products extends Admin_Controller
         }
         else {
             // false case
+            $this->data['id'] = $id;
             $this->data['type'] = $this->Model_products->getProductTypeData();
             $this->render_template('products/create', $this->data);
         }	
@@ -186,13 +187,15 @@ class Controller_Products extends Admin_Controller
             // true case
             $code = $this->input->post('product_code');
             $product_data1 = $this->Model_products->getproductdata_isunique($product_id, $code);
+            // print_r($product_data1);
+            // exit;
             
-            if($product_data1 > 0)
-            {
-                $this->session->set_flashdata('error', 'Product Description is already exist');
-                redirect('Controller_Products/update/'.$product_id, 'refresh');
+            // if($product_data1 > 0)
+            // {
+            //     $this->session->set_flashdata('error', 'Product Description is already exist');
+            //     redirect('Controller_Products/update/'.$product_id, 'refresh');
 
-            }else{
+            // }else{
                 $data = array(
                     'company_id' => $_SESSION['company_id'],
                     'customer_id' => $customer_id,
@@ -220,13 +223,14 @@ class Controller_Products extends Admin_Controller
                     $this->session->set_flashdata('errors', 'Error occurred!!');
                     redirect('Controller_Products/update/'.$customer_id.'/'.$product_id, 'refresh');
                 }
-            }
+            // }
         }
         else {
             
             $product_data = $this->Model_products->getProductData($customer_id, $product_id);
             $this->data['type'] = $this->Model_products->getProductTypeData();
             $this->data['product_data'] = $product_data;
+            $this->data['id'] = $customer_id;
             $this->render_template('products/edit', $this->data); 
         }   
 	}
