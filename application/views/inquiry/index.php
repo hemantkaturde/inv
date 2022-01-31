@@ -108,7 +108,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Assign Invoice & LR</h4>
+        <h4 class="modal-title">Assign Inquiry</h4>
       </div>
 
       <form role="form" action="<?php echo base_url('Controller_Inquiry/add_invoice') ?>" method="post" id="addInvoiceForm">
@@ -138,25 +138,25 @@
               </select>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label>Invoice Number</label>
               <input type="text" name="invoice_no" id="invoice_no" class="form-control" placeholder="Enter Invoice Number">
-            </div>
-
+            </div> -->
+<!-- 
              <div class="form-group">
               <label>Invoice Date</label>
               <input type="text" name="invoice_date" id="invoice_date" class="form-control datepicker" placeholder="Enter Invoice Date">
-            </div>
+            </div> -->
 
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label>Vehicle Number</label>
               <input type="text" name="veh_no" id="veh_no" class="form-control" placeholder="Enter Vehicle Number">
-            </div>
+            </div> -->
 
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label>LR Number</label>
               <input type="text" name="inv_lr_no" id="inv_lr_no" class="form-control" placeholder="Enter LR Number">
-            </div>
+            </div> -->
 
             <div class="form-group">
               <label>Remark</label>
