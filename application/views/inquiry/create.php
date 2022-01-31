@@ -96,10 +96,20 @@
                       <option value="3">Closed</option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="po_number">PO Number</label>
+                    <textarea type="text" class="form-control" id="notes" name="po_number" placeholder="PO Number" autocomplete="off"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="reference_number">Reference Number</label>
+                    <textarea type="text" class="form-control" id="reference_number" name="reference_number" placeholder="Reference Number" autocomplete="off" ></textarea>
+                </div>
                 
                 <div class="form-group">
                     <label for="notes">Notes</label>
-                    <textarea type="text" class="form-control" id="notes" name="notes" placeholder="Enter Notes" autocomplete="off" /></textarea>
+                    <textarea type="text" class="form-control" id="notes" name="notes" placeholder="Enter Notes" autocomplete="off"></textarea>
                 </div>
 
                 <div class="form-group">
