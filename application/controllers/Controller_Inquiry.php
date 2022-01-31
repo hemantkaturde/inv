@@ -481,15 +481,10 @@ class Controller_Inquiry extends Admin_Controller
     public function add_notes($id){
         
         $data['getInquiryDetails'] = $this->Model_inquiry->getInquiryDetails($_SESSION['company_id'], $id);
+        $data['notes_data'] = $this->Model_inquiry->getnotesData($_SESSION['company_id'], $id);
         $data['enquiry_id']=$id;
         $this->render_template('inquiry/add_notes', $data);
 
-    }
-
-
-    public function fetchNotesData(){
-
-        
     }
 
 }

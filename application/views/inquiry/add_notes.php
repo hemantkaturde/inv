@@ -69,7 +69,16 @@
                 <th>Action</th>
               </tr>
               </thead>
+              <?php if($notes_data): ?>                  
+                    <?php foreach ($notes_data as $k => $v): ?>
+                      <tr>
+                        <td><?php echo $v['notes_data']['notes']; ?></td>
+                        <td> 
 
+                        </td>
+                    </tr>  
+                    <?php endforeach; ?>
+              <?php endif; ?>
             </table>
           </div>
           <!-- /.box-body -->
@@ -100,7 +109,7 @@ $j(document).ready(function() {
         buttons: [
             'copy', 'csv', 'excel', 'print'
         ], 
-    'ajax': base_url + 'Controller_Inquiry/fetchNotesData',
+    //'ajax': base_url + 'Controller_Inquiry/fetchNotesData',
     'order': []
   });
 
