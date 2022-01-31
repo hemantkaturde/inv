@@ -90,13 +90,11 @@
                 <div class="form-group">
                   <div class="col-md-6" style="margin-top: 10px;">
                     <label for="description">Description <span class="required">*</span></label>
-                    <textarea type="text" class="form-control" id="description" name="description" placeholder="Enter 
-                  description" autocomplete="off" required=""></textarea>
+                    <textarea type="text" class="form-control" id="description" name="description" placeholder="Enter Description" autocomplete="off" required=""></textarea>
                   </div>
                   <div class="col-md-6" style="margin-top: 10px;">
                     <label for="notes">Notes</label>
-                    <textarea type="text" class="form-control" id="notes" name="notes" placeholder="Enter 
-                  notes" autocomplete="off"></textarea>
+                    <textarea type="text" class="form-control" id="notes" name="notes" placeholder="Enter Notes" autocomplete="off"></textarea>
                   </div>
                 </div>
 
@@ -125,8 +123,8 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $(".select_group").select2();
-    $("#description").wysihtml5();
-    $("#notes").wysihtml5();
+    //$("#description").wysihtml5();
+    //$("#notes").wysihtml5();
 
     $("#mainProductNav").addClass('active');
     $("#addProductNav").addClass('active');

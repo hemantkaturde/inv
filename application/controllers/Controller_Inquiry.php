@@ -231,7 +231,10 @@ class Controller_Inquiry extends Admin_Controller
         }
         else {
    //          // false case
+
+               
 			$this->data['inq_no'] = $this->Model_inquiry->get_max_id('inquiry', 'inquiry_number');
+
             // $this->data['users'] = $this->Model_users->getUserData();
             if ($_SESSION['id'] == 0) {
                 $this->data['cust'] = $this->Model_customer->getActiveCustomerData();
@@ -239,6 +242,7 @@ class Controller_Inquiry extends Admin_Controller
             {
                 $this->data['cust'] = $this->Model_customer->getActiveCustomerDataAsPerCompany($_SESSION['company_id']);
             }
+
 
             $this->data['product'] = $this->Model_products->getActiveProductData();            
 

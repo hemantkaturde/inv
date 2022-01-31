@@ -40,13 +40,13 @@ class Model_inquiry extends CI_Model
 		// $record = "SELECT MAX(CAST(SUBSTR(TRIM(inquiry_number),$number) AS UNSIGNED)) AS inquiry_number FROM inquiry WHERE company_id = $company_id";
         $getOnlyNumbersFromString = preg_replace('/[^0-9.]+/', '', $record[0]['inquiry_number']);
 		
-	    if(empty($getOnlyNumbersFromString) )
+	    if(empty($getOnlyNumbersFromString))
 	    {
-	      return $prefix.$count.$sufix;
+	      return $record[0]['inquiry_number'] + 1;
 	    }
 	    else
-	    {
-	      $str = $getOnlyNumbersFromString  + 1;
+	    {	
+	      $str = $record[0]['inquiry_number'] + 1;
 	      $code = $prefix.$str.$sufix;
 		  return $code;
 	    }

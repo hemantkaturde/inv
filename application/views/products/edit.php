@@ -129,8 +129,8 @@
   
   $(document).ready(function() {
     $(".select_group").select2();
-    $("#description").wysihtml5();
-    $("#notes").wysihtml5();
+    //$("#description").wysihtml5();
+    //$("#notes").wysihtml5();
 
     $("#mainProductNav").addClass('active');
     $("#manageProductNav").addClass('active');
