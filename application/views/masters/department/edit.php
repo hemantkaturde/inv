@@ -53,11 +53,9 @@
                                     <label for="department">Department <span class="required">*</span></label>
                                     <input type="text" class="form-control" id="department" name="department"
                                         placeholder="Enter product Type"
-                                        value="<?php echo $dapartment_data['department']; ?>" autocomplete="off"
+                                        value="<?php echo $depart_data['department']; ?>" autocomplete="off"
                                         required />
                                 </div>
-
-
                             </div>
                         </div>
                         <!-- /.box-body -->

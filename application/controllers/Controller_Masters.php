@@ -103,10 +103,36 @@ class Controller_Masters extends Admin_Controller
 		}
 	}
 
-	public function edit($id){
+	public function department_edit($id){
 
-		
-		
+		$post_submit = $this->input->post();
+		if(!empty($post_submit))
+		{
+			$this->form_validation->set_rules('department', 'Department', 'trim|required');
+
+			$department = $this->input->post('department');
+			$data = array(
+				'department' => $this->input->post('department'),
+				'company_id' => $_SESSION['company_id']
+			);
+
+
+			$update = $this->Model_masters->departmentUpdate($data,$id);
+
+			if($update == true) {
+				$this->session->set_flashdata('success', 'Successfully Updated');
+				redirect('Controller_Masters/department', 'refresh');
+			}
+			else {
+				$this->session->set_flashdata('error', 'Error occurred!!');
+				redirect('Controller_Masters/department_edit', 'refresh');
+			}
+
+		}else{
+
+			$this->data['depart_data'] = $this->Model_masters->getDepartmentData($_SESSION['company_id'],$id);
+			$this->render_template('masters/department/edit',$this->data);
+		}
 	}
 
 }

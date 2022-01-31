@@ -49,4 +49,14 @@ class Model_masters extends CI_Model
 		return ($delete == true) ? true : false;
 	}
 
+	public function departmentUpdate($data, $id)
+	{
+		$this->db->where('deprt_id', $id);
+		$this->db->where('company_id', $id);
+		$update = $this->db->update('department', $data);
+		return ($update == true) ? true : false;	
+	}
+
+
+
 }

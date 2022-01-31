@@ -281,7 +281,9 @@ class Controller_Company extends Admin_Controller
     
     public function add_attachment()
     {
-        $upload_image = $this->upload_trans_image();
+
+        $path_parts = $_FILES["attach_img"]["name"];
+        $upload_image = $this->upload_trans_image($path_parts);
 
         $comp_id = $this->input->post('id');
         $attach_name = $this->input->post('attach_name');
@@ -311,13 +313,17 @@ class Controller_Company extends Admin_Controller
         echo json_encode($response);
     }
 
-    public function upload_trans_image()
+    public function upload_trans_image($path_parts)
     {
         // assets/images/cust_attach
         $config['upload_path'] = 'assets/images/company_image';
-        $config['file_name'] =  uniqid();
-        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
-        $config['max_size'] = '1000';
+        //$config['file_name'] =  uniqid();
+        $config['file_name'] = $path_parts;
+        // $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+        // $config['max_size'] = '1000';
+
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|doc|docx';
+        $config['max_size'] = '100000';
 
         $this->load->library('upload', $config);
         if ( ! $this->upload->do_upload('attach_img'))
@@ -331,7 +337,8 @@ class Controller_Company extends Admin_Controller
             $type = explode('.', $_FILES['attach_img']['name']);
             $type = $type[count($type) - 1];
             
-            $path = $config['upload_path'].'/'.$config['file_name'].'.'.$type;
+            //$path = $config['upload_path'].'/'.$config['file_name'].'.'.$type;
+            $path = $config['upload_path'].'/'.$config['file_name'];
             return ($data == true) ? $path : false;            
         }
     }

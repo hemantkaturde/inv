@@ -54,7 +54,7 @@
                       <tr>
                         <td><?php echo $v['user_info']['department']; ?></td>
                         <td> 
-                        <a href="<?php echo base_url('Controller_Masters/edit/'.$v['user_info']['deprt_id']) ?>"
+                        <a href="<?php echo base_url('Controller_Masters/department_edit/'.$v['user_info']['deprt_id']) ?>"
                                              class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
 
 
@@ -115,7 +115,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Remove Product</h4>
+        <h4 class="modal-title">Remove Department</h4>
       </div>
 
       <form role="form" action="<?php echo base_url('Controller_Products/remove_ptype') ?>" method="post" id="removeForm">

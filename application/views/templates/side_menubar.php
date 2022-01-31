@@ -43,7 +43,7 @@
         <?php }?> 
 
         <?php if(in_array('moduleMaster', unserialize($permission['permission']))) {  ?>
-        <li class="treeview <?php if($pageUrl=="Controller_Masters/department" || $pageUrl=="Controller_Masters/createdepartment" || $pageUrl=="Controller_Products/product_type" || $pageUrl=="Controller_Products" || $pageUrl=="Controller_Products/create_ptype" || $pageUrl=="Controller_Products/update_ptype"){echo 'active';}?>">
+        <li class="treeview <?php if($pageUrl=="Controller_Masters/department" || $pageUrl=="Controller_Masters/createdepartment" || $pageUrl=="Controller_Products/product_type" || $pageUrl=="Controller_Products" || $pageUrl=="Controller_Products/create_ptype" || $pageUrl=="Controller_Products/update_ptype" ||  $pageUrl=='Controller_Masters/department_edit'){echo 'active';}?>">
               <a href="#">
                 <i class="fa fa-bars"></i>
                 <span>Masters</span>
@@ -55,7 +55,7 @@
               
               <ul class="treeview-menu">
               <?php if(in_array('moduleDepartment', unserialize($permission['permission']))) {  ?>
-                 <li class="treeview <?php if($pageUrl=="Controller_Masters/department" || $pageUrl=="Controller_Masters/createdepartment"){echo 'active';}?>">
+                 <li class="treeview <?php if($pageUrl=="Controller_Masters/department" || $pageUrl=="Controller_Masters/createdepartment" || $pageUrl=='Controller_Masters/department_edit'){echo 'active';}?>">
                     <a href="#">
                       <i class="fa fa-address-card-o"></i>
                       <span>Department</span>
@@ -65,7 +65,7 @@
                     </a>
                     <ul class="treeview-menu">
                     <li <?php if($pageUrl=="Controller_Masters/createdepartment"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Masters/createdepartment') ?>"><i class="fa fa-plus"></i> Add Department</a></li>
-                    <li <?php if($pageUrl=="Controller_Masters/department"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Masters/department') ?>"><i class="fa fa-pencil"></i> Manage Department</a></li>
+                    <li <?php if($pageUrl=="Controller_Masters/department" ||$pageUrl=='Controller_Masters/department_edit'){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Masters/department') ?>"><i class="fa fa-pencil"></i> Manage Department</a></li>
                     </ul>
                 </li>
 
