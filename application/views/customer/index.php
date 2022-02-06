@@ -138,7 +138,9 @@ function removeFunc(id)
             '</div>');
 
             // hide the modal
+            //$('#configform')[0].reset();
             $("#removeModal").modal('hide');
+            
 
           } else {
 

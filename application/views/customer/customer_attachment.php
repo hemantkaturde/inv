@@ -188,6 +188,7 @@ function addAttach_Func(id)
 
             // hide the modal
             $("#add_attachment").modal('hide');
+            $('#addAttachForm')[0].reset();
 
           } else {
 
