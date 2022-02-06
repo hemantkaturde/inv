@@ -33,6 +33,7 @@
           </div>
         <?php endif; ?>
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_attachment" onclick="addAttach_Func(<?php echo $id; ?>)">Add Attachment</button>
+          <button type="button" class="btn btn-primary"  onclick="location.href='<?php echo base_url();?>/Controller_Company'">Back</button>
           <input type="hidden" name="comp_id" id="comp_id" value="<?php echo $id; ?>">
           <br /> <br />
         <div class="box">
@@ -75,17 +76,20 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Add Attachment</h4>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Add Attachment</h4>
       </div>
 
       <form role="form" action="<?php echo base_url('Controller_Company/add_attachment') ?>" method="post" id="addAttachForm">
         <div class="modal-body">
           <div class="row" style="padding: 20px;">
             <div class="form-group">
-              <label for="attach_name">File name *</label>
+              <label for="attach_name">File name <span class="required">*</span></label>
               <input type="text" class="form-control" id="attach_name" name="attach_name" placeholder="Enter File Name" autocomplete="off" required="">
             </div>
             <div class="form-group">
-              <label for="attach_img">Attachment *</label>
+              <label for="attach_img">Attachment <span class="required">*</span></label>
               <input type="file" class="form-control" id="attach_img" name="attach_img" placeholder="Enter File Name" autocomplete="off" required="">
             </div>
           </div>
@@ -181,6 +185,7 @@ function addAttach_Func(id)
           manageTable.ajax.reload(null, false); 
 
           if(response.success === true) {
+
             $j("#messages").html('<div class="alert alert-success alert-dismissible" role="alert">'+
               '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
               '<strong> <span class="glyphicon glyphicon-ok-sign"></span> </strong>'+response.messages+
@@ -188,6 +193,10 @@ function addAttach_Func(id)
 
             // hide the modal
             $("#add_attachment").modal('hide');
+            $('#addAttachForm')[0].reset();
+
+            //window.location.href = "<?php echo base_url().'Controller_Company/attachment/';?>" + id;
+
 
           } else {
 

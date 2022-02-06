@@ -51,7 +51,7 @@
               <tr>
                 <th>Logo Image</th>
                 <th>Company Name</th>
-                <th>Phone</th>
+                <th>Mobile Number</th>
                 <th>Email</th>
                 <!-- <?php if(in_array('updateCompany', $user_permission) || in_array('deleteCompany', $user_permission)): ?> -->
                   <th>Action</th>

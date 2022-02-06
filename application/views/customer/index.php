@@ -43,7 +43,7 @@
                 <!-- <th></th> -->
                 <!-- <th>Image</th> -->
                 <th>Company Name</th>
-                <th>Phone</th>
+                <th>Mobile Number</th>
                 <th>Email</th>
                 <th>Action</th>
               </tr>

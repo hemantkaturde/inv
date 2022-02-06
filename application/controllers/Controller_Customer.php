@@ -290,7 +290,7 @@ class Controller_Customer extends Admin_Controller
         $config['upload_path'] = 'assets/images/customer_image';
        // $config['file_name'] =  uniqid();
         $config['file_name'] =  $path_parts;
-        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|doc|docx';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|doc|docx|rtf|text|txt|zip|mp4';
         $config['max_size'] = '100000';
 
         $this->load->library('upload', $config);
