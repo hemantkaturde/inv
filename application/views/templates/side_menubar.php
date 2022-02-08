@@ -52,8 +52,7 @@
                 </span>
               </a>
 
-              
-              <ul class="treeview-menu">
+            <ul class="treeview-menu">
               <!-- <?php if(in_array('moduleDepartment', unserialize($permission['permission']))) {  ?>
                  <li class="treeview <?php if($pageUrl=="Controller_Masters/department" || $pageUrl=="Controller_Masters/createdepartment" || $pageUrl=='Controller_Masters/department_edit'){echo 'active';}?>">
                     <a href="#">
