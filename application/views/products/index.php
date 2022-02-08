@@ -56,7 +56,7 @@
                 <!-- <th>Qty</th> -->
                 <!-- <th>Warehouse</th> -->
                 <!-- <th>Availability</th> -->
-                <th>Description</th>
+                <th>Product Type</th>
                 <?php if(in_array('updateProduct', $user_permission) || in_array('deleteProduct', $user_permission)): ?>
                   <th>Action</th>
                 <?php endif; ?>

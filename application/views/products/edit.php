@@ -70,7 +70,7 @@
                   </div>
 
                   <div class="col-md-3">
-                    <label for="rate">Rate</label>
+                    <label for="rate">Rate <span class="required">*</span></label>
                     <input type="text" class="form-control" id="rate" name="rate" placeholder="Enter Rate" value="<?php echo $product_data['price']; ?>" autocomplete="off" />
                   </div>
 
@@ -86,19 +86,17 @@
 
                 <div class="form-group">
                   <div class="col-md-6">
-                    <label for="description">Description <span class="required">*</span></label>
-                    <textarea type="text" class="form-control" id="description" name="description" placeholder="Enter 
-                  description" autocomplete="off">
-                      <?php echo $product_data['description']; ?>
-                    </textarea>
+                    <label for="description">Description</label>
+                    <input type="text" class="form-control" id="description" name="description" value= "<?php echo $product_data['description']; ?>" placeholder="Enter Description" autocomplete="off" />
+                      
+                   
                   </div>
 
                   <div class="col-md-6">
                     <label for="notes">Notes</label>
-                    <textarea type="text" class="form-control" id="notes" name="notes" placeholder="Enter 
-                  notes" autocomplete="off">
-                      <?php echo $product_data['notes']; ?>
-                    </textarea>
+                    <input type="text" class="form-control" id="notes" name="notes" placeholder="Enter Notes" value= "<?php echo $product_data['notes']; ?>" autocomplete="off"/>
+                      
+                   
                   </div>
                 </div>
 

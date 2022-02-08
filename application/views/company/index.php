@@ -39,6 +39,7 @@
 
         <!-- <?php //if(in_array('createCompany', $user_permission)): ?> -->
           <a href="<?php echo base_url('Controller_Company/create') ?>" class="btn btn-primary">Add Company</a>
+          <a href="" onClick="window.location.href=window.location.href" class="btn btn-warning">Refresh</a>
           <br /> <br />
         <?php //endif; ?>
 

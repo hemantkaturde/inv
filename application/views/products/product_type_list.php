@@ -39,6 +39,7 @@
 
         <?php if(in_array('createProduct', $user_permission)): ?>
           <a href="<?php echo base_url('Controller_Products/create_ptype') ?>" class="btn btn-primary">Add Product Type</a>
+          <a href="" onClick="window.location.href=window.location.href" class="btn btn-warning">Refresh</a>
           <br /> <br />
         <?php endif; ?>
 

@@ -67,9 +67,9 @@ class Controller_Inquiry extends Admin_Controller
             }
 
             
-            $buttons .= ' <a href="'.base_url('Controller_Tcpdf/purchase_order/'.$value['inquiry_id']).'" class="btn btn-warning btn-sm"><i class="fa fa-file-text-o"></i></a>';
-            $buttons .= ' <a href="'.base_url('Controller_Tcpdf/sales_order/'.$value['inquiry_id']).'" class="btn btn-warning btn-sm"><i class="fa fa fa-file"></i></a>';
-            $buttons .= ' <a href="'.base_url('Controller_Inquiry/add_notes/'.$value['inquiry_id']).'" class="btn btn-warning btn-sm"><i class="fa fa fa-plus"></i></a>';
+            $buttons .= ' <a href="'.base_url('Controller_Tcpdf/quotation/'.$value['inquiry_id']).'" class="btn btn-success btn-sm"><i class="fa fa-file-text-o"></i></a>';
+            $buttons .= ' <a href="'.base_url('Controller_Tcpdf/sales_order/'.$value['inquiry_id']).'" class="btn btn-success btn-sm"><i class="fa fa fa-file"></i></a>';
+            $buttons .= ' <a href="'.base_url('Controller_Inquiry/add_notes/'.$value['inquiry_id']).'" class="btn btn-info btn-sm"><i class="fa fa fa-plus"></i></a>';
          
             $inquiry_date =  date("d-m-Y", strtotime($value['inquiry_date']));
 			
@@ -138,7 +138,8 @@ class Controller_Inquiry extends Admin_Controller
     public function get_product_data_in_inquiry($id)
     {
         $comp_id = $_SESSION['company_id'];
-        $result = $this->Model_inquiry->getproductListDataFromInquiry($comp_id,$id);
+        $inquiry_id="";
+        $result = $this->Model_inquiry->getproductListDataFromInquiry($comp_id,$id,$inquiry_id);
         echo json_encode($result);
     }
 
@@ -155,9 +156,7 @@ class Controller_Inquiry extends Admin_Controller
     */
 	public function create()
 	{
-		// if(!in_array('createInquiry', $this->permission)) {
-        //     redirect('dashboard', 'refresh');
-        // }
+	
 
         
 
@@ -167,6 +166,12 @@ class Controller_Inquiry extends Admin_Controller
         if ($this->form_validation->run() == TRUE) {
             // true case
             $enq_no = $this->Model_inquiry->get_max_id('inquiry', 'inquiry_number');
+            if($enq_no){
+
+                $enq_no_val =$enq_no;
+            }else{
+                $enq_no_val =$this->input->post('inq_no');
+            }
 
             $formdata = $this->input->post();
             // echo "<pre>"; print_r($formdata);
@@ -175,7 +180,7 @@ class Controller_Inquiry extends Admin_Controller
             // $product = implode(',',$this->input->post('product'));
             
         	$data = array(
-        		'inquiry_number' => $enq_no,
+        		'inquiry_number' => $enq_no_val,
                 'company_id' => $_SESSION['company_id'],
         		'customer_id' => $this->input->post('customer'),
         		'inquiry_from' => $this->input->post('inq_from'),
@@ -458,7 +463,8 @@ class Controller_Inquiry extends Admin_Controller
             if($create == true)
             {
                 $udata = array(
-                    'inquiry_status' => 1
+                    'inquiry_status' => 1,
+                    'inquiry_emp_assigned' => $this->input->post('member_id')
                 );
                 $update = $this->Model_inquiry->update($udata, $id);
 
@@ -485,5 +491,29 @@ class Controller_Inquiry extends Admin_Controller
         $data['enquiry_id']=$id;
         $this->render_template('inquiry/add_notes', $data);
     }
+
+    public function create_notes(){
+        
+
+        // print_r('hemant');
+        // exit;
+        // $data = array(
+        //     'inquiry_id' => $this->input->post('inquiry_id'),
+        //     'company_id' => $_SESSION['company_id'],
+        //     'user_id' => $_SESSION['id'],
+        //     'notes' => $this->input->post('notes'),
+        //     'date' => $this->input->post('date'),
+        //     'status' => 1
+        // );
+
+        // $create = $this->Model_inquiry->create_notes($data);
+
+        // print_r($create);
+
+
+
+    }
+
+    
 
 }

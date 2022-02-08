@@ -33,6 +33,7 @@
           </div>
         <?php endif; ?>
           <a href="<?php echo base_url('Controller_Customer/create') ?>" class="btn btn-primary">Add Customer</a>
+          <a href="" onClick="window.location.href=window.location.href" class="btn btn-warning">Refresh</a>
           <br /> <br />
         <div class="box">
           <!-- /.box-header -->

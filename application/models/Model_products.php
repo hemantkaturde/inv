@@ -25,12 +25,12 @@ class Model_products extends CI_Model
 	public function getProductDataAsPerCompany($company_id = null, $customer_id = null, $id = null)
 	{
 		if($company_id && $id) {
-			$sql = "SELECT * FROM products LEFT JOIN product_type pt ON(pt.type_id = product_code) where customer_id = $customer_id AND  company_id = ? && id = ?";
+			$sql = "SELECT * FROM products LEFT JOIN product_type pt ON(pt.type_id = products.product_code) where products.customer_id = $customer_id AND  products.company_id = ? && products.id = ?";
 			$query = $this->db->query($sql, array($company_id,$id));
 			return $query->row_array();
 		}
 
-		$sql = "SELECT * FROM products LEFT JOIN product_type pt ON(pt.type_id = product_code) where customer_id = $customer_id AND company_id = ? ORDER BY id DESC";
+		$sql = "SELECT * FROM products LEFT JOIN product_type pt ON(pt.type_id = products.product_code) where products.customer_id = $customer_id AND products.company_id = ? ORDER BY products.id DESC";
 		$query = $this->db->query($sql, array($company_id));
 		return $query->result_array();
 	}

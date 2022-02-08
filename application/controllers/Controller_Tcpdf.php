@@ -11,7 +11,7 @@ class Controller_Tcpdf extends CI_Controller {
 	}
 	
 
-	public function purchase_order($id)
+	public function quotation($id)
 	{
 
 		$inquiry_data = $this->Model_inquiry->getInquiryCustomerData($_SESSION['company_id'],$id);
@@ -201,7 +201,7 @@ EOD;
 		// ---------------------------------------------------------
 		 ob_clean();
 		//Close and output PDF document
-		$pdf->Output('Purchase Order.pdf', 'D');
+		$pdf->Output('Quotation.pdf', 'D');
 	}
 
 

@@ -33,13 +33,17 @@ class Model_inquiry extends CI_Model
   		$count = $check_comp[0]['count'];
   		$sufix = $check_comp[0]['sufix'];
   		$number = strlen($check_comp[0]['count']);
+		  
 
-	   // $record = $this->db->query("SELECT MAX(CAST(SUBSTR(TRIM(inquiry_number),$number) AS UNSIGNED)) AS inquiry_number FROM inquiry WHERE company_id = $company_id")->result_array();
+        // check if company having prifix suffix 
+		$compSuffixPrefix =  $this->db->query("SELECT prefix,`count`,sufix FROM company WHERE id = $company_id")->result_array();
 
+		if($compSuffixPrefix[0]['prefix'] || $compSuffixPrefix[0]['count'] || $compSuffixPrefix[0]['sufix']){
+	    // $record = $this->db->query("SELECT MAX(CAST(SUBSTR(TRIM(inquiry_number),$number) AS UNSIGNED)) AS inquiry_number FROM inquiry WHERE company_id = $company_id")->result_array();
 		$record = $this->db->query("SELECT  inquiry_number FROM inquiry WHERE company_id = $company_id order by inquiry_id desc limit 1")->result_array();
 		// $record = "SELECT MAX(CAST(SUBSTR(TRIM(inquiry_number),$number) AS UNSIGNED)) AS inquiry_number FROM inquiry WHERE company_id = $company_id";
         $getOnlyNumbersFromString = preg_replace('/[^0-9.]+/', '', $record[0]['inquiry_number']);
-		
+	
 	    if(empty($getOnlyNumbersFromString))
 	    {
 	      return $record[0]['inquiry_number'] + 1;
@@ -49,7 +53,12 @@ class Model_inquiry extends CI_Model
 	      $str = $record[0]['inquiry_number'] + 1;
 	      $code = $prefix.$str.$sufix;
 		  return $code;
+
 	    }
+	  }else{
+
+		return '';
+	  }
   	}
 
 	/* get the brand data */
@@ -153,11 +162,11 @@ class Model_inquiry extends CI_Model
 		return $query->result_array();	
 	}
 
-	public function getproductListDataFromInquiry($comp_id,$id)
+	public function getproductListDataFromInquiry($comp_id,$id,$inquiry_id)
 	{
 
-		$sql = "SELECT * FROM inquiry_trans where  company_id = $comp_id AND product_id = ?";
-		$query = $this->db->query($sql, array($id));
+		$sql = "SELECT * FROM inquiry_trans where  company_id = $comp_id AND product_id = ? AND trans_inquiry_id = ?";
+		$query = $this->db->query($sql, array($id,$inquiry_id));
 		return $query->result_array();	
 	}
 
@@ -201,5 +210,13 @@ class Model_inquiry extends CI_Model
 		$query = $this->db->query($sql);
 		return $query->result_array();
 
+	}
+
+	public function create_notes($data)
+	{
+		if($data) {
+			$insert = $this->db->insert('create_notes', $data);
+			return ($insert == true) ? true : false;
+		}
 	}
 }

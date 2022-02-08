@@ -93,11 +93,11 @@
                         </div>
                         <div class="col-md-4">
                           <label for="password">Password <span class="required">*</span></label>
-                          <input type="password" class="form-control" id="password" name="password" placeholder="Password" required autocomplete="off">
+                          <input type="text" class="form-control" id="password" name="password" placeholder="Password" required autocomplete="off">
                         </div>
                         <div class="col-md-4">
                           <label for="cpassword">Confirm password <span class="required">*</span></label>
-                          <input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Confirm Password" required autocomplete="off">
+                          <input type="text" class="form-control" id="cpassword" name="cpassword" placeholder="Confirm Password" required autocomplete="off">
                         </div>
                 </div>  
 

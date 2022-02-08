@@ -33,14 +33,14 @@
                   <?php echo $this->session->flashdata('error'); ?>
                </div>
                <?php endif; ?>
-               <form role="form" action="<?php base_url('Controller_Members/create') ?>" method="post">
+               <form role="form" action="<?php base_url('Controller_Members/edit') ?>" method="post">
                   <div class="box-body">
                      <?php echo validation_errors(); ?>
                      <div class="row">
                         <div class="form-group">
                          
                            <div class="col-md-4">
-                              <label for="fname">Employee First Name <span class="requiredFiled">*</span></label>
+                              <label for="fname">Employee First Name <span class="required">*</span></label>
                               <input type="text" class="form-control" id="fname" name="fname" placeholder="Employee First Name" required value="<?php echo $user_data['firstname'] ?>" autocomplete="off">
                            </div>
                            <div class="col-md-4">
@@ -57,7 +57,7 @@
                         <div class="form-group">
 
                            <div class="col-md-4">
-                              <label for="employee_code">Employee Code <span class="requiredFiled">*</span></label>
+                              <label for="employee_code">Employee Code</label>
                               <input type="text" class="form-control" id="employee_code" name="employee_code" placeholder="Enter Employee Code" value="<?php echo $user_data['emp_code'] ?>" autocomplete="off">
                            </div>
 
@@ -67,18 +67,18 @@
                            </div>
 
                            <div class="col-md-4">
-                              <label for="email">Email <span class="requiredFiled">*</span></label>
+                              <label for="email">Email <span class="required">*</span></label>
                               <input type="email" class="form-control" id="email" name="email" placeholder="Email" required value="<?php echo $user_data['email'] ?>" autocomplete="off">
                            </div>
                         </div>
                         <div class="form-group">
 
                            <div class="col-md-4">
-                              <label for="department">Department<span class="requiredFiled">*</span></label>
+                              <label for="department">Department <span class="required">*</span></label>
                               <select class="form-control" id="department_id" required name="department_id">
                                  <option value="">Select Company</option>
                                  <?php foreach ($department_data as $k => $v): ?>
-                                 <option value="<?php echo $v['id'] ?>" <?php if($user_data['department_id'] == $v['deprt_id']) { echo 'selected'; } ?>><?php echo $v['department'] ?></option>
+                                 <option value="<?php echo $v['deprt_id'] ?>" <?php if($user_data['department_id'] == $v['deprt_id']) { echo 'selected'; } ?>><?php echo $v['department'] ?></option>
                                  <?php endforeach ?>
                               </select>
                            </div>
@@ -92,18 +92,18 @@
                      <div class="row">
                      <div class="form-group">
                           <div class="col-md-4">
-                              <label for="username">Username</label>
-                              <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="<?php echo $user_data['username'] ?>" autocomplete="off">
+                              <label for="username">Username <span class="required">*</span></label>
+                              <input type="text" required class="form-control" id="username" name="username" placeholder="Username" value="<?php echo $user_data['username'] ?>" autocomplete="off">
                            </div>
 
                            <div class="col-md-4">
-                              <label for="password">Password</label>
-                              <input type="text" class="form-control" id="password" name="password" placeholder="Password"  autocomplete="off">
+                              <label for="password">Password <span class="required">*</span></label>
+                              <input type="text" required class="form-control" id="password" name="password" placeholder="Password" value="<?php echo $user_data['password'] ?>" autocomplete="off">
                            </div>
 
                            <div class="col-md-4">
-                              <label for="cpassword">Confirm password</label>
-                              <input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Confirm Password" autocomplete="off">
+                              <label for="cpassword">Confirm password <span class="required">*</span></label>
+                              <input type="text" required class="form-control" id="cpassword" name="cpassword" placeholder="Confirm Password" value="<?php echo $user_data['password'] ?>" autocomplete="off">
                            </div>
                         </div>
                      </div>
@@ -120,7 +120,7 @@
                               <textarea type="text" class="form-control" id="notes" name="notes" placeholder="Enter Notes" value="<?php echo $user_data['notes'] ?>" autocomplete="off"><?php echo $user_data['notes'] ?></textarea>
                            </div>
                            <div class="col-md-4">
-                              <label for="groups">Permission <span class="requiredFiled">*</span></label>
+                              <label for="groups">Permission <span class="required">*</span></label>
                               <select class="form-control" id="groups" required name="groups">
                                  <option value="">Select Permission</option>
                                  <?php foreach ($group_data as $k => $v): ?>

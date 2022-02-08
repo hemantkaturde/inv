@@ -36,6 +36,7 @@
 
                  <?php if(in_array('createUser', $user_permission)): ?>
                  <a href="<?php echo base_url('Controller_Members/create') ?>" class="btn btn-primary">Add New</a>
+                 <a href="" onClick="window.location.href=window.location.href" class="btn btn-warning">Refresh</a>
                  <br /> <br />
                  <?php endif; ?>
 
@@ -49,7 +50,7 @@
                                      <th>Username</th>
                                      <th>Email</th>
                                      <th>Name</th>
-                                     <th>Phone</th>
+                                     <th>Mobile No</th>
                                      <th>Permission</th>
 
                                      <?php if(in_array('updateUser', $user_permission) || in_array('deleteUser', $user_permission)): ?>
@@ -65,7 +66,7 @@
                                      <td><?php echo $v['user_info']['email']; ?></td>
                                      <td><?php echo $v['user_info']['firstname'] .' '. $v['user_info']['lastname']; ?>
                                      </td>
-                                     <td><?php echo $v['user_info']['phone']; ?></td>
+                                     <td><?php echo $v['user_info']['mobile']; ?></td>
                                      <td><?php echo $v['user_group']['group_name']; ?></td>
 
                                      <?php if(in_array('updateUser', $user_permission) || in_array('deleteUser', $user_permission)): ?>

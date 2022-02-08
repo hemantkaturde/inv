@@ -110,6 +110,8 @@ class Controller_Members extends Admin_Controller
 		// }
 
 		if($id) {
+
+		
 			$this->form_validation->set_rules('groups', 'Group', 'required');
 			$this->form_validation->set_rules('username', 'Username', 'trim|required');
 			$this->form_validation->set_rules('email', 'Email', 'trim|required');
@@ -122,7 +124,8 @@ class Controller_Members extends Admin_Controller
 		        	$data = array(
 		        		'username' => $this->input->post('username'),
 						'password' => $this->input->post('password'),
-		        		'company_id' => $this->input->post('company_id'),
+		        		'company_id' => $_SESSION['company_id'],
+						'department_id' => $this->input->post('department_id'),
 		        		'email' => $this->input->post('email'),
 		        		'firstname' => $this->input->post('fname'),
 		        		'lastname' => $this->input->post('lname'),
@@ -145,7 +148,7 @@ class Controller_Members extends Admin_Controller
 		        	}
 		        }
 		        else {
-		        	$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]');
+		        	$this->form_validation->set_rules('password', 'Password', 'trim|required');
 					$this->form_validation->set_rules('cpassword', 'Confirm password', 'trim|required|matches[password]');
 
 					if($this->form_validation->run() == TRUE) {
@@ -155,7 +158,8 @@ class Controller_Members extends Admin_Controller
 						$data = array(
 			        		'username' => $this->input->post('username'),
 			        		'password' => $this->input->post('password'),
-			        		'company_id' => $this->input->post('company_id'),
+			        		'company_id' =>  $_SESSION['company_id'],
+							'department_id' => $this->input->post('department_id'),
 			        		'email' => $this->input->post('email'),
 			        		'firstname' => $this->input->post('fname'),
 			        		'lastname' => $this->input->post('lname'),

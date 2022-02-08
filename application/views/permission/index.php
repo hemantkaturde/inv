@@ -29,6 +29,7 @@
             </div>
             <?php endif; ?>
             <a href="<?php echo base_url('Controller_Permission/create') ?>" class="btn btn-primary">Add Permission</a>
+            <a href="" onClick="window.location.href=window.location.href" class="btn btn-warning">Refresh</a>
             <br /> <br />
             <div class="box table-responsive no-padding">
                <div class="box-header">

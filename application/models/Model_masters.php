@@ -11,13 +11,13 @@ class Model_masters extends CI_Model
 	public function getDepartmentData($company_id = null, $id = null)
 	{
 		if($company_id && $id) {
-			$sql = "SELECT * FROM department where company_id= ? AND deprt_id =?";
+			$sql = "SELECT * FROM department";
 			// $CI->db->join('user_email', 'user_email.user_id = emails.id', 'left');
 			$query = $this->db->query($sql, array($company_id,$id));
 			return $query->row_array();
 		}
 
-		$sql = "SELECT * FROM department where company_id= ? ORDER BY deprt_id DESC";
+		$sql = "SELECT * FROM department ORDER BY deprt_id ASC";
 		$query = $this->db->query($sql, array($company_id));
 		return $query->result_array();
 	}

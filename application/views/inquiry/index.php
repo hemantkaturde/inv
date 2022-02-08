@@ -39,6 +39,7 @@
 
         <?php if(in_array('createInquiry', $user_permission) || ($_SESSION['id'] == 1)): ?>
           <a href="<?php echo base_url('Controller_Inquiry/create') ?>" class="btn btn-primary">Add Inquiry</a>
+          <a href="" onClick="window.location.href=window.location.href" class="btn btn-warning">Refresh</a>
           <br /> <br />
         <?php endif; ?>
 
@@ -82,7 +83,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Remove Product</h4>
+        <h4 class="modal-title">Remove Inquiry</h4>
       </div>
 
       <form role="form" action="<?php echo base_url('Controller_Inquiry/remove') ?>" method="post" id="removeForm">

@@ -43,14 +43,14 @@ class Controller_Products extends Admin_Controller
         
 		$result = array('data' => array());
 
-        if($_SESSION['id'] == 1)
-        {
-            $data = $this->Model_products->getProductData($id);    
-        }
-		else
-        {
+        // if($_SESSION['id'] == 1)
+        // {
+        //     $data = $this->Model_products->getProductData($id);    
+        // }
+		// else
+        // {
             $data = $this->Model_products->getProductDataAsPerCompany($_SESSION['company_id'],$id);
-        }
+        // }
         
 
 		foreach ($data as $key => $value) {
@@ -73,7 +73,7 @@ class Controller_Products extends Admin_Controller
                     $img,
                     $value['name'],
                     $value['price'],
-                    $value['description'],
+                    $value['product_type'],
                     $buttons
                 );    
                 
@@ -96,7 +96,7 @@ class Controller_Products extends Admin_Controller
         //     redirect('dashboard', 'refresh');
         // }
 
-		$this->form_validation->set_rules('product_name', 'Product Code', 'trim|required|is_unique[products.name]');
+		$this->form_validation->set_rules('product_name', 'Product Name', 'trim|required');
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
 	
         if ($this->form_validation->run() == TRUE) {
@@ -106,6 +106,7 @@ class Controller_Products extends Admin_Controller
         	$data = array(
                 'company_id' => $_SESSION['company_id'],
                 'customer_id' => $id,
+                'qty'=>1,
         		'name' => $this->input->post('product_name'),
         		'product_code' => $this->input->post('product_code'),
         		'price' => $this->input->post('rate'),
@@ -199,6 +200,7 @@ class Controller_Products extends Admin_Controller
                 $data = array(
                     'company_id' => $_SESSION['company_id'],
                     'customer_id' => $customer_id,
+                    'qty'=>1,
                     'name' => $this->input->post('product_name'),
                     'product_code' => $this->input->post('product_code'),
                     'price' => $this->input->post('rate'),
