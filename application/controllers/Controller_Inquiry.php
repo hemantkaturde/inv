@@ -55,21 +55,21 @@ class Controller_Inquiry extends Admin_Controller
 			// button
             $buttons = '';
             if((in_array('updateInquiry', $this->permission))) {
-    			$buttons .= '<a href="'.base_url('Controller_Inquiry/update/'.$value['inquiry_id']).'" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>';
+    			$buttons .= '<a href="'.base_url('Controller_Inquiry/update/'.$value['inquiry_id']).'" class="btn btn-warning btn-sm">Edit</a>';
             }
 
             if(in_array('deleteInquiry', $this->permission)) { 
-    			$buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeFunc('.$value['inquiry_id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
+    			$buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeFunc('.$value['inquiry_id'].')" data-toggle="modal" data-target="#removeModal">Delete</button>';
             }
             
             if(in_array('assigntoInquiry', $this->permission)) { 
-                $buttons .= ' <a data-toggle="modal" data-target="#addInvoice" onclick="addInvoiceFunc('.$value['inquiry_id'].')"  class="btn btn-primary btn-sm"><i class="fa fa-cogs"></i></a>';
+                $buttons .= ' <a data-toggle="modal" data-target="#addInvoice" onclick="addInvoiceFunc('.$value['inquiry_id'].')"  class="btn btn-primary btn-sm">Assign</a>';
             }
 
             
-            $buttons .= ' <a href="'.base_url('Controller_Tcpdf/quotation/'.$value['inquiry_id']).'" class="btn btn-success btn-sm"><i class="fa fa-file-text-o"></i></a>';
-            $buttons .= ' <a href="'.base_url('Controller_Tcpdf/sales_order/'.$value['inquiry_id']).'" class="btn btn-success btn-sm"><i class="fa fa fa-file"></i></a>';
-            $buttons .= ' <a href="'.base_url('Controller_Inquiry/add_notes/'.$value['inquiry_id']).'" class="btn btn-info btn-sm"><i class="fa fa fa-plus"></i></a>';
+            $buttons .= ' <a href="'.base_url('Controller_Tcpdf/quotation/'.$value['inquiry_id']).'" class="btn btn-success btn-sm">Quotation</a>';
+            $buttons .= ' <a href="'.base_url('Controller_Tcpdf/sales_order/'.$value['inquiry_id']).'" class="btn btn-success btn-sm">Sales Order</a>';
+            $buttons .= ' <a href="'.base_url('Controller_Inquiry/add_notes/'.$value['inquiry_id']).'" class="btn btn-info btn-sm">Add Notes</a>';
          
             $inquiry_date =  date("d-m-Y", strtotime($value['inquiry_date']));
 			

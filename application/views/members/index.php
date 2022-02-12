@@ -74,12 +74,12 @@
                                      <td>
                                          <?php if(in_array('updateUser', $user_permission)): ?>
                                          <a href="<?php echo base_url('Controller_Members/edit/'.$v['user_info']['id']) ?>"
-                                             class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                             class="btn btn-warning btn-sm">Edit</a>
                                          <?php endif; ?>
+                                         
                                          <?php if(in_array('deleteUser', $user_permission)): ?>
                                          <a href="" class="btn btn-danger btn-sm" data-toggle="modal"
-                                             data-target="#delete_users<?php echo $v['user_info']['id']; ?>"><i
-                                                 class="fa fa-trash"></i></a>
+                                             data-target="#delete_users<?php echo $v['user_info']['id']; ?>">Delete</a>
 
                                          <div class="modal fade" id="delete_users<?php echo $v['user_info']['id'];?>"
                                              role="dialog">

@@ -34,14 +34,14 @@ class Controller_Company extends Admin_Controller
             // $store_data = $this->model_stores->getStoresData($value['store_id']);
             // button
             $buttons = '';
-            //if(in_array('updateCompany', $this->permission)) {
-                $buttons .= ' <a href="'.base_url('Controller_Company/attachment/'.$value['id']).'" class="btn btn-info btn-sm"><i class="fa fa-upload"></i></a>';
-                $buttons .= ' <a href="'.base_url('Controller_Company/update/'.$value['id']).'" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>';
-            // }
+            if(in_array('updateCompany', $this->permission)) {
+                $buttons .= ' <a href="'.base_url('Controller_Company/attachment/'.$value['id']).'" class="btn btn-info btn-sm">Upload Documents</a>';
+                $buttons .= ' <a href="'.base_url('Controller_Company/update/'.$value['id']).'" class="btn btn-warning btn-sm">Edit</a>';
+             }
 
-            // if(in_array('deleteCompany', $this->permission)) { 
-                $buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
-            // }
+             if(in_array('deleteCompany', $this->permission)) { 
+                $buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal">Delete</button>';
+             }
             if ($value['logo']) {
                 $img = '<img src="'.base_url($value['logo']).'" alt="'.$value['company_name'].'" class="img-circle" width="50" height="50" />';
             }

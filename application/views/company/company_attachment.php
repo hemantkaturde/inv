@@ -77,8 +77,6 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Add Attachment</h4>
 
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Add Attachment</h4>
       </div>
 
       <form role="form" action="<?php echo base_url('Controller_Company/add_attachment') ?>" method="post" id="addAttachForm">

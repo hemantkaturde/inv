@@ -59,11 +59,11 @@ class Controller_Products extends Admin_Controller
 			// button
                 $buttons = '';
                 if(in_array('updateProduct', $this->permission)) {
-        			$buttons .= '<a href="'.base_url('Controller_Products/update/'.$value['customer_id'].'/'.$value['id']).'" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>';
+        			$buttons .= '<a href="'.base_url('Controller_Products/update/'.$value['customer_id'].'/'.$value['id']).'" class="btn btn-warning btn-sm">Edit</a>';
                 }
 
                 if(in_array('deleteProduct', $this->permission)) { 
-        			$buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
+        			$buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal">Delete</button>';
                 }
     			
 
@@ -324,13 +324,13 @@ class Controller_Products extends Admin_Controller
             // if($_SESSION['company_id'] == $value['company_id']):
             // button
                 $buttons = '';
-                //if(in_array('updateProduct', $this->permission)) {
-                    $buttons .= '<a href="'.base_url('Controller_Products/update_ptype/'.$value['type_id']).'" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>';
-                //}
+                if(in_array('updateProductType', $this->permission)) {
+                    $buttons .= '<a href="'.base_url('Controller_Products/update_ptype/'.$value['type_id']).'" class="btn btn-warning btn-sm">Edit</a>';
+                }
 
-                //if(in_array('deleteProduct', $this->permission)) { 
-                    $buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeFunc('.$value['type_id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
-                //}
+                if(in_array('deleteProductType', $this->permission)) { 
+                    $buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeFunc('.$value['type_id'].')" data-toggle="modal" data-target="#removeModal">Delete</button>';
+                }
                 
                 $result['data'][$key] = array(
                     $value['product_type'],

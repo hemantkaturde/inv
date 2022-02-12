@@ -69,7 +69,7 @@
                 </li>
 
                 <?php } ?> -->
-                <?php if(in_array('moduleDepartment', unserialize($permission['permission']))) {  ?>
+                <?php if(in_array('moduleProductType', unserialize($permission['permission']))) {  ?>
                 <li class="treeview <?php if($pageUrl=="Controller_Products/product_type" || $pageUrl=="Controller_Products" || $pageUrl=="Controller_Products/create_ptype" || $pageUrl=="Controller_Products/update_ptype"){echo 'active';}?>">
                     <a href="#">
                       <i class="fa fa fa-cube"></i>

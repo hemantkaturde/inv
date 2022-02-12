@@ -21,7 +21,7 @@
   <section class="content">
     <!-- Small boxes (Stat box) -->
     <div class="row">
-      <div class="col-md-12 col-xs-12">
+      <div class="col-md-8 col-xs-8">
 
         <div id="messages"></div>
 

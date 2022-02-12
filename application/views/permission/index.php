@@ -50,8 +50,12 @@
                         <tr>
                            <td><?php echo $v['group_name']; ?></td>
                            <td>
-                              <a href="<?php echo base_url('Controller_Permission/edit/'.$v['id']) ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>  
-                              <a href="" data-toggle="modal" data-target="#delete_levels<?php echo $v['id']; ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                          <?php if(in_array('updateGroup', $this->permission)) { ?>
+                              <a href="<?php echo base_url('Controller_Permission/edit/'.$v['id']) ?>" class="btn btn-warning btn-sm">Edit</a>  
+                           <?php } ?>
+
+                           <?php if(in_array('deleteGroup', $this->permission)) { ?>
+                              <a href="" data-toggle="modal" data-target="#delete_levels<?php echo $v['id']; ?>" class="btn btn-danger btn-sm">Delete</a>
                               <div class="modal fade" id="delete_levels<?php echo $v['id'] ?>" role="dialog">
                                  <div class="modal-dialog modal-sm">
                                     <div class="modal-content">
@@ -71,6 +75,7 @@
                                     </div>
                                  </div>
                               </div>
+                              <?php } ?>
                            </td>
                         </tr>
                         <?php endforeach ?>
