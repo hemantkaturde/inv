@@ -178,7 +178,8 @@ class Model_inquiry extends CI_Model
 
 	public function getDeptWiseuserListData($dept_id)
 	{
-		$sql = "SELECT * FROM users where department_id = $dept_id";
+		$company_id =$_SESSION['company_id'];
+		$sql = "SELECT * FROM users where department_id = $dept_id and company_id= $company_id";
 		$query = $this->db->query($sql);
 		return $query->result_array();	
 	}
@@ -227,7 +228,7 @@ class Model_inquiry extends CI_Model
 	}
 
 	public function _fetechAssineedata($id,$company_id){
-		$sql = "SELECT *,customers.email as customer_email FROM inquiry
+		$sql = "SELECT *,customers.email as customer_email,inquiry.inquiry_id as in_id,users.email as user_email FROM inquiry
 		  left join users on inquiry.inquiry_emp_assigned = users.id 
 		  left join department on users.department_id =department.deprt_id
 		  left join customers on inquiry.customer_id =customers.id
@@ -238,6 +239,18 @@ class Model_inquiry extends CI_Model
 		}else{
 			return array();
 		}
-		
+	}
+
+	public function _fetechProductdata($company_id,$enquiry_id){
+		$sql = "SELECT * FROM inquiry_trans 
+		        JOIN products ON inquiry_trans.product_id=products.id 
+				JOIN product_type ON products.product_code=product_type.type_id 
+				where inquiry_trans.company_id=$company_id AND inquiry_trans.trans_inquiry_id=$enquiry_id";
+		$query = $this->db->query($sql);
+		if($query){
+			return $query->result_array();
+		}else{
+			return array();
+		}
 	}
 }

@@ -107,6 +107,9 @@
 <?php if(in_array('updateInquiry', $user_permission) || in_array('deleteInquiry', $user_permission) || ($_SESSION['id'] == 1)): ?>
 <!-- remove brand modal -->
 <div class="modal fade" tabindex="-1" role="dialog" id="addInvoice">
+    <div class="loader_ajax" style="display:none;">
+	    <div class="loader_ajax_inner"><img src="<?php echo base_url(); ?>assets/images/preloader_ajax.gif"></div>
+	  </div>
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">

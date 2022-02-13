@@ -459,27 +459,17 @@ class Controller_Inquiry extends Admin_Controller
                 if($update){
 
                 //     /*Fech Data for Sending Emails to Assignee*/
-
                     $_getDatauser = $this->Model_inquiry->_fetechAssineedata($id,$_SESSION['company_id']);
 
-
-                     
                     if($_getDatauser){
 
-
-                       // $_getProdcutuser = $this->Model_inquiry->_fetechProductdata($_SESSION['company_id'],$_getDatauser['inquiry_id']);
-
-
+    
+                        $_getProdcutuser = $this->Model_inquiry->_fetechProductdata($_SESSION['company_id'],$_getDatauser[0]['inquiry_id']);
 
                         $name =$_getDatauser[0]['firstname'].' '.$_getDatauser[0]['lastname'].'-('.$_getDatauser[0]['department'].')';
 
                         $fromEmailname =$_SESSION['company_name'].' Inquiry';
-                       
-                        $to  = 'hemantkaturde123@gmail.com';
-
-                        // $_getDatauser[0]['mobile'];
-                        // $_getDatauser[0]['email'];
-                        // $_getDatauser[0]['department'];
+                        $to  = $_getDatauser[0]['user_email'];
 
                         $inquiry_date =  date("d-m-Y", strtotime($_getDatauser[0]['inquiry_date']));
 			
@@ -506,14 +496,13 @@ class Controller_Inquiry extends Admin_Controller
                         }else {
                             $inq_from = "";
                         }
-            
 
                         $Subject = 'New '.$_getDatauser[0]['department'].' Inquiry -'.date('Y-m-d H:i:s');
 
                         $Body  = '<html>';
                         $Body .= '<body style="margin: 0 !important; padding: 0 !important;">';
                         $Body .= '<table border="0" cellpadding="0" cellspacing="0" width="100%">';
-                        $Body .= '<h3>Dear '.$name.'</h3>';
+                        $Body .= '<h3>Dear, '.$name.'</h3>';
                         $Body .= '<h3>Customer Details</h3>';
                         $Body .= '<div>Customer Name  : '.$_getDatauser[0]['name'].'</div>';
                         $Body .= '<div>Customer Address : '.$_getDatauser[0]['address'].'</div>';
@@ -526,13 +515,31 @@ class Controller_Inquiry extends Admin_Controller
 
                         $Body .= '<h3>Product Details</h3>';
 
+                        $Body .= '<tr style="
+                        /* border: 1px solid black; */
+                        background: antiquewhite;
+                        text-align: left;
+                         ">';
+                        $Body .= '<th>Product</th>';
+                        $Body .= '<th>Product Type</th>';
+                        $Body .= '<th>Rate</th>';
+                        $Body .= '<th>Qty</th>';
+                        $Body .= '<th>Final Amount</th>';
+                        $Body .= '</tr>';
 
-
+                        foreach ($_getProdcutuser as $key => $value) {
+                            $Body .= '<tr>';
+                            $Body .= '<td>'.$value['name'].'</td>';
+                            $Body .= '<td>'.$value['product_type'].'</td>';
+                            $Body .= '<td>'.$value['rate'].'</td>';
+                            $Body .= '<td>'.$value['qty'].'</td>';
+                            $Body .= '<td>'.$value['final_amount'].'</td>';
+                            $Body .= '</tr>';
+                        }
 
                         $Body .= '</table>';
                         $Body .= '</body>';
                         $Body .= '</html>';
-
 
                         $sendmail= $this->mail->sendMail($name,$to,$Subject,$Body,$fromEmailname);
                     }
