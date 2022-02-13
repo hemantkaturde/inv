@@ -8,6 +8,7 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
+
       Manage Inquiry
 
     </h1>
@@ -55,6 +56,7 @@
                 <th>Inquiry From</th>
                 <th>Inquiry Date</th>
                 <th>Status</th>
+                <th>Assign To</th>
                 <th>Action</th>
                 
               </tr>
@@ -116,8 +118,8 @@
         <div class="modal-body">
           <div class="row col-md-12">
             <div class="form-group">
-              <label>Department</label>
-              <select type="text" name="dept_id" id="dept_id" class="form-control" onchange="get_userListdata()">
+              <label>Department <span class="text-danger">*</span></label>
+              <select type="text" name="dept_id" id="dept_id" class="form-control"  required onchange="get_userListdata()">
                 <option value="">Please Select</option>
                 <?php if (!empty($department)) {
                   foreach ($department as $key => $value) { ?>
@@ -128,8 +130,8 @@
             </div>
 
             <div class="form-group">
-              <label>Member List</label>
-              <select type="text" name="member_id" id="member_id" class="form-control">
+              <label>Member List <span class="text-danger">*</span></label>
+              <select type="text" name="member_id" id="member_id" required class="form-control">
                 <option value="">Please Select</option>
                 <!-- <?php if (!empty($users)) {
                   foreach ($users as $key => $value) { ?>
@@ -254,6 +256,8 @@ function addInvoiceFunc(id)
       // console.log(form.attr('action')+'/'+id);
 
       // remove the text-danger
+      $(".loader_ajax").show();
+
       $j(".text-primary").remove();
 
       $j.ajax({
@@ -272,9 +276,11 @@ function addInvoiceFunc(id)
             '</div>');
 
            
+
             $(form)[0].reset();
             // hide the modal
             $("#addInvoice").modal('hide');
+            $(".loader_ajax").hide();
 
           } else {
 
@@ -337,3 +343,12 @@ function get_userListdata()
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    setTimeout(function(){
+      $('.alert').remove();
+    }, 3000);
+  })
+</script>

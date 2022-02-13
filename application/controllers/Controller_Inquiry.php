@@ -17,6 +17,7 @@ class Controller_Inquiry extends Admin_Controller
         $this->load->model('Model_customer');
         $this->load->model('Model_products');
         $this->load->model('Model_masters');
+        $this->load->library('Mail');
 	}
 
     /* 
@@ -38,17 +39,9 @@ class Controller_Inquiry extends Admin_Controller
     */
 	public function fetchInquiryData()
 	{
-		// $result = array('data' => array());
-        // if($_SESSION['id'] == 1)
-        // {
-        //     $data = $this->Model_inquiry->getInquiryData();
-        // }
-        // else
-        // {
-            $data = $this->Model_inquiry->getInquiryDataAsPerCompany($_SESSION['company_id']);
-        // }
-
 		
+        $data = $this->Model_inquiry->getInquiryDataAsPerCompany($_SESSION['company_id']);	
+
 		foreach ($data as $key => $value) {
 
             $customer_data = $this->Model_customer->getCustomerData($value['customer_id']);
@@ -108,6 +101,12 @@ class Controller_Inquiry extends Admin_Controller
                 $status = "Created";
             }
 
+            if($value['username']){
+                $assinee_name = '<b style="color:red">'.$value['department'].'</b>'.'-'.$value['firstname'].' '.$value['lastname'];
+
+            }else{
+                $assinee_name='<b style="color:green">New Inquiry</b>';
+            }
 
 			$result['data'][$key] = array(
 			    $value['inquiry_number'],
@@ -115,6 +114,7 @@ class Controller_Inquiry extends Admin_Controller
                 $inq_from,
                 $inquiry_date,
                 $status,
+                $assinee_name,
 				$buttons
 			);
 		} // /foreach
@@ -157,9 +157,6 @@ class Controller_Inquiry extends Admin_Controller
 	public function create()
 	{
 	
-
-        
-
 		$this->form_validation->set_rules('inq_no', 'Inquiry Number', 'trim|required');
         $this->form_validation->set_rules('inq_date', 'Inquiry Date', 'trim|required');
 	
@@ -437,14 +434,6 @@ class Controller_Inquiry extends Admin_Controller
     
     public function add_invoice($id)
     {
-        // if(!in_array('createInquiry', $this->permission)) {
-        //     redirect('dashboard', 'refresh');
-        // }
-
-        // $this->form_validation->set_rules('invoice_no', 'Invoice Number', 'trim|required');
-    
-        // if ($this->form_validation->run() == TRUE) {
-            // true case
             $enq_no = $this->Model_inquiry->get_max_id('inquiry', 'inquiry_number');
             $data = array(
                 'inquiry_id' => $id,
@@ -467,20 +456,98 @@ class Controller_Inquiry extends Admin_Controller
                     'inquiry_emp_assigned' => $this->input->post('member_id')
                 );
                 $update = $this->Model_inquiry->update($udata, $id);
+                if($update){
+
+                //     /*Fech Data for Sending Emails to Assignee*/
+
+                    $_getDatauser = $this->Model_inquiry->_fetechAssineedata($id,$_SESSION['company_id']);
+
+
+                     
+                    if($_getDatauser){
+
+
+                       // $_getProdcutuser = $this->Model_inquiry->_fetechProductdata($_SESSION['company_id'],$_getDatauser['inquiry_id']);
+
+
+
+                        $name =$_getDatauser[0]['firstname'].' '.$_getDatauser[0]['lastname'].'-('.$_getDatauser[0]['department'].')';
+
+                        $fromEmailname =$_SESSION['company_name'].' Inquiry';
+                       
+                        $to  = 'hemantkaturde123@gmail.com';
+
+                        // $_getDatauser[0]['mobile'];
+                        // $_getDatauser[0]['email'];
+                        // $_getDatauser[0]['department'];
+
+                        $inquiry_date =  date("d-m-Y", strtotime($_getDatauser[0]['inquiry_date']));
+			
+                        if($_getDatauser[0]['inquiry_from'] == 1) {
+                            $inq_from = 'Justdial';
+                        } else if($_getDatauser[0]['inquiry_from'] == 2) {
+                            $inq_from = 'Direct';
+                        }else if($_getDatauser[0]['inquiry_from'] == 3) {
+                            $inq_from = 'Indiamart';
+                        }else if($_getDatauser[0]['inquiry_from'] == 4) {
+                            $inq_from = 'Tradeindia';
+                        }else if($_getDatauser[0]['inquiry_from'] == 5) {
+                            $inq_from = 'Whatsapp';
+                        }else if($_getDatauser[0]['inquiry_from'] == 6) {
+                            $inq_from = 'Telephone';
+                        }else if($_getDatauser[0]['inquiry_from'] == 7) {
+                            $inq_from = 'Email';
+                        }else if($_getDatauser[0]['inquiry_from'] == 8) {
+                            $inq_from = 'Website';
+                        }else if($_getDatauser[0]['inquiry_from'] == 9) {
+                            $inq_from = 'Exhibition';
+                        }else if($$_getDatauser[0]['inquiry_from'] == 10) {
+                            $inq_from = 'Other';
+                        }else {
+                            $inq_from = "";
+                        }
+            
+
+                        $Subject = 'New '.$_getDatauser[0]['department'].' Inquiry -'.date('Y-m-d H:i:s');
+
+                        $Body  = '<html>';
+                        $Body .= '<body style="margin: 0 !important; padding: 0 !important;">';
+                        $Body .= '<table border="0" cellpadding="0" cellspacing="0" width="100%">';
+                        $Body .= '<h3>Dear '.$name.'</h3>';
+                        $Body .= '<h3>Customer Details</h3>';
+                        $Body .= '<div>Customer Name  : '.$_getDatauser[0]['name'].'</div>';
+                        $Body .= '<div>Customer Address : '.$_getDatauser[0]['address'].'</div>';
+                        $Body .= '<div>Customer Delhivery Address : '.$_getDatauser[0]['delivery_address'].'</div>';
+                        $Body .= '<div>Phone No : '.$_getDatauser[0]['phone'].'</div>';
+                        $Body .= '<div>Email : '.$_getDatauser[0]['customer_email'].' </div>';
+                        $Body .= '<div>Inquiry No : '.$_getDatauser[0]['inquiry_number'].'</div>';
+                        $Body .= '<div>Inquiry Date : '.$inquiry_date.'</div>';
+                        $Body .= '<div>Inquiry From :'.$inq_from.'</div>';
+
+                        $Body .= '<h3>Product Details</h3>';
+
+
+
+
+                        $Body .= '</table>';
+                        $Body .= '</body>';
+                        $Body .= '</html>';
+
+
+                        $sendmail= $this->mail->sendMail($name,$to,$Subject,$Body,$fromEmailname);
+                    }
+                }
 
                 $response['success'] = true;
                 $response['messages'] = "Successfully Assigned"; 
+
             }
             else
             {
                 $response['success'] = false;
                 $response['messages'] = "Error in the database while removing the inquiry information";
             }
-        // }
-        // else {
-        //     $response['success'] = false;
-        //     $response['messages'] = "Refersh the page again!!";
-        // }
+
         echo json_encode($response);
     }
 

@@ -85,11 +85,17 @@ class Model_inquiry extends CI_Model
 	public function getInquiryDataAsPerCompany($company_id = null, $id = null)
 	{
 		if($id) {
-			$sql = "SELECT * FROM inquiry where company_id = ? && inquiry_id = ?";
+			$sql = "SELECT * FROM inquiry 
+			       left join users on inquiry.inquiry_emp_assigned = users.id 
+				   left join department on users.department_id =department.deprt_id
+				   where inquiry.company_id = ? && inquiry.inquiry_id = ?";
 			$query = $this->db->query($sql, array($company_id,$id));
 			return $query->row_array();
 		}
-		$sql = "SELECT * FROM inquiry where company_id = ? ORDER BY inquiry_id DESC";
+		$sql = "SELECT * FROM inquiry 
+		        left join users on inquiry.inquiry_emp_assigned = users.id 
+				left join department on users.department_id =department.deprt_id
+				where inquiry.company_id = ? ORDER BY inquiry.inquiry_id DESC";
 		$query = $this->db->query($sql, array($company_id));
 		return $query->result_array();		
 	}
@@ -218,5 +224,20 @@ class Model_inquiry extends CI_Model
 			$insert = $this->db->insert('create_notes', $data);
 			return ($insert == true) ? true : false;
 		}
+	}
+
+	public function _fetechAssineedata($id,$company_id){
+		$sql = "SELECT *,customers.email as customer_email FROM inquiry
+		  left join users on inquiry.inquiry_emp_assigned = users.id 
+		  left join department on users.department_id =department.deprt_id
+		  left join customers on inquiry.customer_id =customers.id
+		  where inquiry.company_id=$company_id AND inquiry.inquiry_id = $id";
+		$query = $this->db->query($sql);
+		if($query){
+			return $query->result_array();
+		}else{
+			return array();
+		}
+		
 	}
 }

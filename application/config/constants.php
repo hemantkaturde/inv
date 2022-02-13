@@ -88,16 +88,41 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 // Declare Database Connection
 if($_SERVER['SERVER_NAME']=='localhost'){
 
+             /* Define Database Name Here */
             define('DATABASE_HOSTNAME', 'localhost');
             define('DATABASE_USERNAME', 'root');
             define('DATABASE_NAME', 'test');
             define('DATABASE_PASSWORD', '');
+        
+            /* Define Emails Creadenatials Here */
 
-}else if($_SERVER['SERVER_NAME']=='https://qelocitytest.xyz')
+            define('EMAIL_SMTP_HOST','mail.qelocityindia.com');		// your smtp host e.g. smtp.gmail.com
+            define('EMAIL_SMTP_AUTH','true');		// your smtp host e.g. smtp.gmail.com
+            define('EMAIL_USERNAME','test@qelocityindia.com');	// Your system name
+            define('EMAIL_PASSWORD','Qelocity@420');	// Your email password
+            define('EMAIL_SMTP_PORT','465');				    // mail, sendmail, smtp
+            define('FROM_EMAIL','test@qelocityindia.com');		// e.g. email@example.com
+            define('FROM_EMAIL_NAME','CRM');		// e.g. email@example.com
+            
+ 
+
+
+}else if($_SERVER['SERVER_NAME']=='qelocitytest')
 {
             define('DATABASE_HOSTNAME', 'localhost');
             define('DATABASE_USERNAME', 'qelocity_inventory');
             define('DATABASE_NAME', 'qelocity@2014');
             define('DATABASE_PASSWORD', 'qelocity_inventory');
+
+            define('EMAIL_SMTP_HOST','mail.qelocityindia.com');		// your smtp host e.g. smtp.gmail.com
+            define('EMAIL_SMTP_AUTH','true');		// your smtp host e.g. smtp.gmail.com
+            define('EMAIL_USERNAME','test@qelocityindia.com');	// Your system name
+            define('EMAIL_PASSWORD','Qelocity@420');	// Your email password
+            define('EMAIL_SMTP_PORT','465');				    // mail, sendmail, smtp
+            define('FROM_EMAIL','test@qelocityindia.com');		// e.g. email@example.com
+            define('FROM_EMAIL_NAME','Parcelbhej');		// e.g. email@example.com
+
 }
+
+
 

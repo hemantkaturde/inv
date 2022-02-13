@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 if($_SERVER['SERVER_NAME']=='localhost'){
 $config['base_url'] = 'http://localhost/qelocity_technologies/inventory1/';
-}else if($_SERVER['SERVER_NAME']=='https://qelocitytest.xyz'){
+}else if($_SERVER['SERVER_NAME']=='qelocitytest'){
 $config['base_url'] = 'https://qelocitytest.xyz';
 }
 
