@@ -63,6 +63,8 @@ class Controller_Inquiry extends Admin_Controller
             $buttons .= ' <a href="'.base_url('Controller_Tcpdf/quotation/'.$value['inquiry_id']).'" class="btn btn-success btn-sm">Quotation</a>';
             $buttons .= ' <a href="'.base_url('Controller_Tcpdf/sales_order/'.$value['inquiry_id']).'" class="btn btn-success btn-sm">Sales Order</a>';
             $buttons .= ' <a href="'.base_url('Controller_Inquiry/add_notes/'.$value['inquiry_id']).'" class="btn btn-info btn-sm">Add Notes</a>';
+            $buttons .= ' <a href="'.base_url('Controller_Inquiry/tracking/'.$value['inquiry_id']).'" class="btn btn-info btn-sm">Tracking</a>';
+
          
             $inquiry_date =  date("d-m-Y", strtotime($value['inquiry_date']));
 			
@@ -567,8 +569,7 @@ class Controller_Inquiry extends Admin_Controller
     }
 
     public function create_notes(){
-        
-
+    
         // print_r('hemant');
         // exit;
         // $data = array(
@@ -583,11 +584,13 @@ class Controller_Inquiry extends Admin_Controller
         // $create = $this->Model_inquiry->create_notes($data);
 
         // print_r($create);
-
-
-
     }
 
-    
+    public function tracking($id){
+        $data['getInquiryDetails'] = $this->Model_inquiry->getInquiryTrackDetails($_SESSION['company_id'], $id);
+        $data['enquiry_id']=$id;
+        $this->render_template('inquiry/trackdata', $data);
+
+    }
 
 }

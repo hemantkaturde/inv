@@ -84,20 +84,42 @@ class Model_inquiry extends CI_Model
 
 	public function getInquiryDataAsPerCompany($company_id = null, $id = null)
 	{
-		if($id) {
-			$sql = "SELECT * FROM inquiry 
-			       left join users on inquiry.inquiry_emp_assigned = users.id 
-				   left join department on users.department_id =department.deprt_id
-				   where inquiry.company_id = ? && inquiry.inquiry_id = ?";
-			$query = $this->db->query($sql, array($company_id,$id));
-			return $query->row_array();
-		}
-		$sql = "SELECT * FROM inquiry 
-		        left join users on inquiry.inquiry_emp_assigned = users.id 
-				left join department on users.department_id =department.deprt_id
-				where inquiry.company_id = ? ORDER BY inquiry.inquiry_id DESC";
-		$query = $this->db->query($sql, array($company_id));
-		return $query->result_array();		
+
+		if($_SESSION['username']=="Superadmin"){
+						if($id) {
+							$sql = "SELECT * FROM inquiry 
+								left join users on inquiry.inquiry_emp_assigned = users.id 
+								left join department on users.department_id =department.deprt_id
+								where inquiry.company_id = ? && inquiry.inquiry_id = ?";
+							$query = $this->db->query($sql, array($company_id,$id));
+							return $query->row_array();
+						}
+						$sql = "SELECT * FROM inquiry 
+								left join users on inquiry.inquiry_emp_assigned = users.id 
+								left join department on users.department_id =department.deprt_id
+								where inquiry.company_id = ? ORDER BY inquiry.inquiry_id DESC";
+						$query = $this->db->query($sql, array($company_id));
+						return $query->result_array();	
+					}else{
+
+						$user_id = $_SESSION['id'];
+						if($id) {
+							$sql = "SELECT * FROM inquiry 
+								left join users on inquiry.inquiry_emp_assigned = users.id 
+								left join department on users.department_id =department.deprt_id
+								where inquiry.company_id = ? && inquiry.inquiry_id = ? AND inquiry.inquiry_emp_assigned=$user_id";
+							$query = $this->db->query($sql, array($company_id,$id));
+							return $query->row_array();
+						}
+						$sql = "SELECT * FROM inquiry 
+								left join users on inquiry.inquiry_emp_assigned = users.id 
+								left join department on users.department_id =department.deprt_id
+								where inquiry.company_id = ? AND inquiry.inquiry_emp_assigned=$user_id  ORDER BY inquiry.inquiry_id DESC";
+						$query = $this->db->query($sql, array($company_id));
+						return $query->result_array();	
+
+					}
+						
 	}
 
 	public function create($data)
@@ -253,4 +275,19 @@ class Model_inquiry extends CI_Model
 			return array();
 		}
 	}
+
+	public function getInquiryTrackDetails($company_id,$enquiry_id){
+		$sql = "SELECT * FROM invoice 
+		join users on invoice.user_id = users.id
+		join department on users.department_id = department.deprt_id
+		where invoice.company_id=$company_id AND invoice.inquiry_id=$enquiry_id  order by invoice_id DESC";
+		$query = $this->db->query($sql);
+		if($query){
+			return $query->result_array();
+		}else{
+			return array();
+		}
+	}
+
+
 }

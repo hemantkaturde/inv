@@ -38,7 +38,7 @@ class Auth extends Admin_Controller
 						    'company_name' => $company_name['company_name'],
 							'company_id' => $company_name['id'],
 							'permission' => $permission,
-						    'username'  => $checkSuperadmin['username'],
+						    'username'  => trim($checkSuperadmin['username']),
 							'email'     => $checkSuperadmin['email'],
 							'logged_in' => TRUE);
 							$this->session->set_userdata($logged_in_sess);

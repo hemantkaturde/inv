@@ -133,7 +133,7 @@
           <?php }?>   
 
           <?php if(in_array('moduleInquiry', unserialize($permission['permission']))) {  ?>
-          <li class="treeview <?php if($pageUrl=="Controller_Inquiry" || $pageUrl=="Controller_Inquiry/create" || $pageUrl =="Controller_Inquiry/update" || $pageUrl=="Controller_Inquiry/add_notes" ){echo 'active';}?>">
+          <li class="treeview <?php if($pageUrl=="Controller_Inquiry" || $pageUrl=="Controller_Inquiry/create" || $pageUrl =="Controller_Inquiry/update" || $pageUrl=="Controller_Inquiry/add_notes" || $pageUrl=="Controller_Inquiry/tracking" ){echo 'active';}?>">
                 <a href="#">
                   <i class="fa fa-volume-control-phone"></i>
                   <span>Inquiry</span>
@@ -146,7 +146,7 @@
                   <li <?php if($pageUrl=="Controller_Inquiry/create"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Inquiry/create') ?>"><i class="fa fa fa-plus"></i> Add Inquiry</a></li>
                 <?php } ?>
                 <?php if(in_array('viewInquiry', unserialize($permission['permission']))) {  ?>
-                  <li <?php if($pageUrl=="Controller_Inquiry" || $pageUrl=="Controller_Inquiry/add_notes" || $pageUrl =="Controller_Inquiry/update"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Inquiry') ?>"><i class="fa fa fa-pencil"></i> Manage Inquiry</a></li>
+                  <li <?php if($pageUrl=="Controller_Inquiry" || $pageUrl=="Controller_Inquiry/add_notes" || $pageUrl =="Controller_Inquiry/update" || $pageUrl=="Controller_Inquiry/tracking"){echo 'class="active"';}?>><a href="<?php echo base_url('Controller_Inquiry') ?>"><i class="fa fa fa-pencil"></i> Manage Inquiry</a></li>
                   <?php } ?>
                 </ul>
           </li>
