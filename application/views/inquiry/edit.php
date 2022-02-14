@@ -93,6 +93,22 @@
                       <option value="3" <?php if($inquiry_data['inquiry_status'] == 3){ echo "selected"; } ?>>Closed</option>
                     </select>
                 </div>
+
+
+                <div class="form-group">
+                    <label for="po_number">PO Number</label>
+                    <input type="text" class="form-control" id="notes" name="po_number" value="<?php echo $inquiry_data['po_number'] ?>" placeholder="PO Number" autocomplete="off"></input>
+                </div>
+
+                <div class="form-group">
+                    <label for="po_date">PO Date</label>
+                    <input type="text" class="form-control datepicker" id="po_date" name="po_date" value="<?php echo date('d-m-Y', strtotime($inquiry_data['po_date'])) ?>" placeholder="PO Date" autocomplete="off" ></input>
+                </div>
+
+                <div class="form-group">
+                    <label for="freight_charges">Freight charges</label>
+                    <input type="text" class="form-control" id="freight_charges" name="freight_charges"  value="<?php echo $inquiry_data['freight_charges'] ?>" placeholder="Freight charges" autocomplete="off" ></input>
+                </div>
                 
                 <div class="form-group">
                     <label for="notes">Notes</label>

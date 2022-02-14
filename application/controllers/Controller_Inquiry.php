@@ -191,6 +191,9 @@ class Controller_Inquiry extends Admin_Controller
         		'inquiry_from' => $this->input->post('inq_from'),
         		'inquiry_date' => date('Y-m-d', strtotime($this->input->post('inq_date'))),
                 'inquiry_status' => 4,
+                'po_number	' =>$this->input->post('po_number'),	
+                'po_date' => date('Y-m-d', strtotime($this->input->post('po_date'))),
+                'freight_charges' => $this->input->post('freight_charges'),
                 // 'inquiry_emp_assigned' => $this->input->post('emp_assigned'),
                 'inquiry_notes' => $this->input->post('notes')
         	);
@@ -290,7 +293,10 @@ class Controller_Inquiry extends Admin_Controller
                 // 'inquiry_product' => $product,
                 'inquiry_status' => $this->input->post('status'),
                 // 'inquiry_emp_assigned' => $this->input->post('emp_assigned'),
-                'inquiry_notes' => $this->input->post('notes')
+                'inquiry_notes' => $this->input->post('notes'),
+                'po_number	' =>$this->input->post('po_number'),	
+                'po_date' => date('Y-m-d', strtotime($this->input->post('po_date'))),
+                'freight_charges' => $this->input->post('freight_charges')
             );
 
             
