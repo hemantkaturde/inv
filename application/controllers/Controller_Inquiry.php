@@ -163,20 +163,26 @@ class Controller_Inquiry extends Admin_Controller
         $this->form_validation->set_rules('inq_date', 'Inquiry Date', 'trim|required');
 	
         if ($this->form_validation->run() == TRUE) {
+           
+            // check if Enquiry Number is already Exits or Not
+
+        
             // true case
             $enq_no = $this->Model_inquiry->get_max_id('inquiry', 'inquiry_number');
             if($enq_no){
-
                 $enq_no_val =$enq_no;
             }else{
                 $enq_no_val =$this->input->post('inq_no');
             }
 
-            $formdata = $this->input->post();
-            // echo "<pre>"; print_r($formdata);
-            // exit;
+            $checkIfAlreadyExits = $this->Model_inquiry->checkIfEnquirynumberExits($_SESSION['company_id'],$enq_no_val);
 
-            // $product = implode(',',$this->input->post('product'));
+            if($checkIfAlreadyExits > 0){
+                $this->session->set_flashdata('error', 'Inquiry Number Already Exits');
+                redirect('Controller_Inquiry/create', 'refresh');
+            }else{
+
+            $formdata = $this->input->post();
             
         	$data = array(
         		'inquiry_number' => $enq_no_val,
@@ -232,6 +238,7 @@ class Controller_Inquiry extends Admin_Controller
         		$this->session->set_flashdata('errors', 'Error occurred!!');
         		redirect('Controller_Inquiry/create', 'refresh');
         	}
+        }
         }
         else {
    //          // false case
