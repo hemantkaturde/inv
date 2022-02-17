@@ -106,7 +106,7 @@ if($_SERVER['SERVER_NAME']=='localhost'){
  
 
 
-}else if($_SERVER['SERVER_NAME']=='qelocitytest')
+}else if($_SERVER['SERVER_NAME']=='qelocitytest.xzy')
 {
             define('DATABASE_HOSTNAME', 'localhost');
             define('DATABASE_USERNAME', 'qelocity_inventory');

@@ -95,8 +95,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Upload</button>
+          <button type="button"  onclick="clearform()" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit"  class="btn btn-primary">Upload</button>
         </div>
       </form>
 
@@ -252,6 +252,10 @@ function removeTransFunc(id)
       return false;
     });
   }
+}
+
+function clearform(){
+  $('#addAttachForm')[0].reset();
 }
 
 </script>

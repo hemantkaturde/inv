@@ -55,3 +55,11 @@
     color:#ff0000;
   }
  </style>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    setTimeout(function(){
+      $('.alert').remove();
+    }, 3000);
+  })
+</script>

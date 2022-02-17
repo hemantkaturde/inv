@@ -32,8 +32,8 @@ class Controller_Tcpdf extends CI_Controller {
 
 		$pdf->SetCreator(PDF_CREATOR);
 		$pdf->SetAuthor('CRM');
-		$pdf->SetTitle('Purchase Order');
-		$pdf->SetSubject('Purchase Order');
+		$pdf->SetTitle('Quotation');
+		$pdf->SetSubject('Quotation');
 		// $pdf->SetKeywords('TCPDF, PDF, example, test, codeigniter');
 
 		// set default header data
@@ -65,11 +65,11 @@ class Controller_Tcpdf extends CI_Controller {
 
 		$ref_no = $inquiry_data[0]['inquiry_number'];
 		$date = date('F j, Y', strtotime($inquiry_data[0]['inquiry_date']));
-		$name = $inquiry_data[0]['name'];
+		$name = $inquiry_data[0]['customername'];
 		$address = $inquiry_data[0]['delivery_address'];
 		$email = $inquiry_data[0]['email'];
-		$mobile = $inquiry_data[0]['mobile'];
-		$phone = $inquiry_data[0]['phone'];
+		$mobile = $inquiry_data[0]['customermobile'];
+		$phone = $inquiry_data[0]['customerphone'];
 		$gst_no = $inquiry_data[0]['gst_number'];
 		// set some text to print
 		$txt = "";
@@ -80,6 +80,10 @@ class Controller_Tcpdf extends CI_Controller {
 					<td width="20%"></td>
 					<td width="40%"><b>Regd. Office</b> : $company_address<br/>$company_phone<br/>$company_email</td>
     			</tr>
+				<tr> 
+				<td></td>
+				<td></td>
+				</tr>
 				<tr>
         			<td width="50%">REF : $ref_no</td>
 					<td width="50%" style="text-align:right">$date</td>
@@ -113,11 +117,12 @@ EOD;
 	$total_qty = 0;
 	$total_final_amt = 0;
 	foreach($inquiry_data as $key => $value):
-		$name = isset($value['name']) ? $value['name'] : "";
-		$qty = isset($value['qty']) ? $value['qty'] : 1;
+		$name = isset($value['productname']) ? $value['productname'] : "";
+		$qty = isset($value['inquiry_qty']) ? $value['inquiry_qty'] : 1;
 		$rate = isset($value['rate']) ? $value['rate'] : "";
 		$final_amount = isset($value['final_amount']) ? $value['final_amount'] : "";
 		$product_type = isset($value['product_type']) ? $value['product_type'] : "";
+		$freight_charges = isset($value['freight_charges']) ? $value['freight_charges'] : "";
 		$txt .= <<<EOD
 		<table cellspacing="0" cellpadding="4" border="1">
 			<tr>
@@ -134,8 +139,8 @@ EOD;
 	$total_qty = $qty + $total_qty;
 	$total_final_amt = $final_amount + $total_final_amt;
 	endforeach;
-	$gst = ($total_final_amt + 500) * (18/100);
-	$total = $total_final_amt+500+$gst;
+	$gst = ($total_final_amt + $freight_charges) * (18/100);
+	$total = $total_final_amt+$freight_charges+$gst;
 		$txt .= <<<EOD
 		<table cellspacing="0" cellpadding="4" border="1">
 			<tr>
@@ -143,7 +148,7 @@ EOD;
 				<td></td>
 				<td></td>
 				<td></td>
-				<td>500</td>
+				<td>$freight_charges</td>
 			</tr>
 			<tr>
 				<td>+ GST 18%</td>

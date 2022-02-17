@@ -96,7 +96,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" onclick="clearform()" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Upload</button>
         </div>
       </form>
@@ -260,7 +260,19 @@ function removeTransFunc(id)
   }
 }
 
+function clearform(){
+  $('#addAttachForm')[0].reset();
+
+}
+
+$(document).ready(function(){
+    setTimeout(function(){
+      $('.alert-success').remove();
+    }, 3000);
+  })
+
 </script>
+
 <script type="text/javascript" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
@@ -270,3 +282,4 @@ function removeTransFunc(id)
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+

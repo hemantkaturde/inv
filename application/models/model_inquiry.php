@@ -178,7 +178,7 @@ class Model_inquiry extends CI_Model
 
 	public function getproductList_aspercustomer($id)
 	{
-		$sql = "SELECT * FROM products where customer_id = ?";
+		$sql = "SELECT * FROM products join product_type on products.product_code =product_type.type_id  where customer_id = ?";
 		$query = $this->db->query($sql, array($id));
 		return $query->result_array();
 	}
@@ -207,7 +207,7 @@ class Model_inquiry extends CI_Model
 	}
 
 	public function getInquiryCustomerData($company_id,$id){
-		$sql = "SELECT *,customers.gst_no as gst_number, company.address as company_address, company.factory_address as company_factory_address, product_type.product_type as product_type FROM inquiry 
+		$sql = "SELECT *,inquiry.freight_charges,products.name as productname,inquiry_trans.qty as inquiry_qty,customers.name as customername,customers.phone as customerphone,customers.mobile as customermobile,customers.gst_no as gst_number, company.address as company_address, company.factory_address as company_factory_address, product_type.product_type as product_type FROM inquiry 
 		join customers on inquiry.customer_id= customers.id
 		join inquiry_trans on inquiry_trans.trans_inquiry_id=inquiry.inquiry_id
 		join company on company.id=inquiry.company_id

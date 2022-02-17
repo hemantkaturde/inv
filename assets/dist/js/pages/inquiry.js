@@ -14,7 +14,7 @@ function get_productList_customerwise()
             data += '<select class="form-control" name="product" id="product" onchange="get_product_price()">';
             data += '<option value="">Select product</option>';
                 $.each(response, function(index, value){
-                    data += '<option value="'+value['id']+'">'+value['name']+'</option>';
+                    data += '<option value="'+value['id']+'">'+value['product_type']+' - '+value['name']+'</option>';
                 });
 
             data += '</select>';

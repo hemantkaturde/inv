@@ -40,10 +40,8 @@ class Controller_Members extends Admin_Controller
 
 	public function create()
 	{
-		// if(!in_array('createUser', $this->permission)) {
-		// 	redirect('dashboard', 'refresh');
-		// }
-
+		
+       /* check if user alreday exits in database*/ 
 		$this->form_validation->set_rules('groups', 'Group', 'required');
 		$this->form_validation->set_rules('username', 'Username', 'trim|required');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required');

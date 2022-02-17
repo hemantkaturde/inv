@@ -117,7 +117,7 @@
 
                 <div class="form-group">
                   <button type="submit" class="btn btn-primary">Save Changes</button>
-                  <a href="<?php echo base_url('Controller_inquiry/') ?>" class="btn btn-warning">Back</a>
+                  <a href="<?php echo base_url('Controller_Inquiry/index') ?>" class="btn btn-warning">Back</a>
                 </div>
               </div>
           <!-- /.box-body -->
