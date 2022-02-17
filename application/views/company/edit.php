@@ -41,11 +41,11 @@
 
                 <div class="form-group">
                   <div class="col-md-4">
-                    <label for="company_name">Company Name</label>
+                    <label for="company_name">Company Name <span class="required">*</span></label>
                     <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Enter company name" value="<?php echo $company_data['company_name'] ?>" autocomplete="off">
                   </div>
                   <div class="col-md-4">
-                    <label for="phone">Phone</label>
+                    <label for="phone">Mobile No <span class="required">*</span></label>
                   <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone" value="<?php echo $company_data['mobile'] ?>" autocomplete="off">
                   </div>
                   <div class="col-md-4">
@@ -66,7 +66,7 @@
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <label for="company_email1">Email</label>
+                    <label for="company_email1">Email <span class="required">*</span></label>
                     <input type="text" class="form-control" id="company_email1" name="company_email1" placeholder="Enter company Email" value="<?php echo $company_data['email1'] ?>" autocomplete="off">
                   </div>
                   <div class="col-md-4">
@@ -92,11 +92,11 @@
 
                 <div class="form-group">
                   <div class="col-md-4">
-                    <label for="address">Address</label>
+                    <label for="address">Address <span class="required">*</span></label>
                     <textarea type="text" class="form-control" id="address" name="address" placeholder="Enter address" value="<?php echo $company_data['address'] ?>" autocomplete="off"><?php echo $company_data['address'] ?></textarea>
                   </div>
                   <div class="col-md-4">
-                    <label for="factory_address">Factory address</label>
+                    <label for="factory_address">Factory address <span class="required">*</span></label>
                     <textarea type="text" class="form-control" id="factory_address" name="factory_address" placeholder="Enter factory address" value="<?php echo $company_data['factory_address'] ?>" autocomplete="off"><?php echo $company_data['factory_address'] ?></textarea>
                   </div>
                   <div class="col-md-1">

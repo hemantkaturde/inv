@@ -118,7 +118,7 @@
                                     <td></td>
                                  </tr>
 
-                                 <tr>
+                                 <!-- <tr>
                                     <td>Department</td>
                                     <td><input type="checkbox" name="permission[]" id="permission" value="moduleDepartment" class="minimal"></td>
                                     <td><input type="checkbox" name="permission[]" id="permission" value="viewDepartment" class="minimal"></td>
@@ -126,7 +126,7 @@
                                     <td><input type="checkbox" name="permission[]" id="permission" value="updateDepartment" class="minimal"></td>
                                     <td><input type="checkbox" name="permission[]" id="permission" value="deleteDepartment" class="minimal"></td>
                                     <td></td>
-                                 </tr>
+                                 </tr> -->
 
                                  <tr>
                                     <td>Company</td>

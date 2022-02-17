@@ -71,6 +71,9 @@
 <?php //if(in_array('addattachmentCustomer', $user_permission) || ($_SESSION['id'] == 1)): ?>
 <!-- remove brand modal -->
 <div class="modal fade" tabindex="-1" role="dialog" id="add_attachment">
+<div class="loader_ajax" style="display:none;">
+	    <div class="loader_ajax_inner"><img src="<?php echo base_url(); ?>assets/images/preloader_ajax.gif"></div>
+	  </div>
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -158,6 +161,7 @@ function addAttach_Func(id)
   if(id) {
     $j("#addAttachForm").on('submit', function() {
 
+      $(".loader_ajax").show();
       var form = $(this);
 
       var file_data = $('#attach_img').prop('files')[0];
@@ -192,6 +196,7 @@ function addAttach_Func(id)
             // hide the modal
             $("#add_attachment").modal('hide');
             $('#addAttachForm')[0].reset();
+            $(".loader_ajax").hide();
 
             //window.location.href = "<?php echo base_url().'Controller_Company/attachment/';?>" + id;
 

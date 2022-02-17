@@ -299,7 +299,6 @@ class Controller_Inquiry extends Admin_Controller
                 'freight_charges' => $this->input->post('freight_charges')
             );
 
-            
             $this->db->trans_begin();
         	// $create = $this->Model_inquiry->create($data);
             $update = $this->Model_inquiry->update($data, $inquiry_id);

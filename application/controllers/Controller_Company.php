@@ -117,7 +117,7 @@ class Controller_Company extends Admin_Controller
         // assets/images/cust_attach
         $config['upload_path'] = 'assets/images/company_image';
         $config['file_name'] =  uniqid();
-        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|doc|docx|rtf|text|txt|zip|mp4|xls|xlsx|csv';
         $config['max_size'] = '10000000000';
 
         $this->load->library('upload', $config);
@@ -330,7 +330,7 @@ class Controller_Company extends Admin_Controller
         // $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
         // $config['max_size'] = '1000';
 
-        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|doc|docx|rtf|text|txt|zip|mp4';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|doc|docx|rtf|text|txt|zip|mp4|xls|xlsx|csv';
         $config['max_size'] = '100000';
 
         $this->load->library('upload', $config);

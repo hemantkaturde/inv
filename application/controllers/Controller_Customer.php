@@ -44,7 +44,7 @@ class Controller_Customer extends Admin_Controller
                 $result['data'][$key] = array(
                     // $img,
                     $value['name'],
-                    $value['phone'],
+                    $value['mobile'],
                     $value['email'],
                     $buttons
                 );
@@ -290,7 +290,7 @@ class Controller_Customer extends Admin_Controller
         $config['upload_path'] = 'assets/images/customer_image';
        // $config['file_name'] =  uniqid();
         $config['file_name'] =  $path_parts;
-        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|doc|docx|rtf|text|txt|zip|mp4';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|doc|docx|rtf|text|txt|zip|mp4|xls|xlsx|csv';
         $config['max_size'] = '100000';
 
         $this->load->library('upload', $config);

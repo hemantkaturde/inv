@@ -58,7 +58,7 @@
                   <div class="form-group">
                     
                     <div class="col-md-4">
-                      <label for="customer">Customer *</label>
+                      <label for="customer">Customer <span class="required">*</span></label>
                       <input type="text" class="form-control" id="customer" name="customer" value="<?php echo $customer_data['customer']['name'] ?>" placeholder="Enter customer name" autocomplete="off" required="">
                     </div>
 
@@ -74,11 +74,11 @@
 
                   <div class="form-group">
                     <div class="col-md-4">
-                      <label for="mobile">Mobile No. *</label>
+                      <label for="mobile">Mobile No. <span class="required">*</span></label>
                       <input type="text" class="form-control" id="mobile" name="mobile" value="<?php echo $customer_data['customer']['mobile'] ?>" placeholder="Phone" autocomplete="off" required="">
                     </div> 
                     <div class="col-md-4">
-                      <label for="email">Email *</label>
+                      <label for="email">Email <span class="required">*</span></label>
                       <input type="email" class="form-control" id="email" name="email" value="<?php echo $customer_data['customer']['email'] ?>" placeholder="Email" autocomplete="off" required="">
                     </div>
                     <div class="col-md-4">
@@ -97,7 +97,7 @@
                       <input type="text" class="form-control" id="pan_no" name="pan_no" value="<?php echo $customer_data['customer']['pan_no'] ?>" placeholder="Enter PAN No" autocomplete="off">
                     </div>
                     <div class="col-md-4">
-                      <label for="address">Address *</label>
+                      <label for="address">Address <span class="required">*</span></label>
                       <textarea type="text" class="form-control" id="address" name="address" placeholder="Enter Address" autocomplete="off" value="<?php echo $customer_data['customer']['address'] ?>"><?php echo $customer_data['customer']['address'] ?></textarea>
                     </div>
                   </div>

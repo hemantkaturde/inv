@@ -71,6 +71,9 @@
 <?php //if(in_array('addattachmentCustomer', $user_permission) || ($_SESSION['id'] == 1)): ?>
 <!-- remove brand modal -->
 <div class="modal fade" tabindex="-1" role="dialog" id="add_attachment">
+<div class="loader_ajax" style="display:none;">
+	    <div class="loader_ajax_inner"><img src="<?php echo base_url(); ?>assets/images/preloader_ajax.gif"></div>
+	  </div>
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -82,11 +85,11 @@
         <div class="modal-body">
           <div class="row" style="padding: 20px;">
             <div class="form-group">
-              <label for="attach_name">File name *</label>
+              <label for="attach_name">File name <span class="required">*</span></label>
               <input type="text" class="form-control" id="attach_name" name="attach_name" placeholder="Enter File Name" autocomplete="off" required="">
             </div>
             <div class="form-group">
-              <label for="attach_img">Attachment *</label>
+              <label for="attach_img">Attachment <span class="required">*</span></label>
               <input type="file" class="form-control" id="attach_img" name="attach_img" placeholder="Enter File Name" autocomplete="off" required="">
             </div>
           </div>
@@ -156,6 +159,7 @@ function addAttach_Func(id)
   if(id) {
     $j("#addAttachForm").on('submit', function() {
 
+      $(".loader_ajax").show();
       var form = $(this);
 
       var file_data = $('#attach_img').prop('files')[0];
@@ -189,6 +193,7 @@ function addAttach_Func(id)
             // hide the modal
             $("#add_attachment").modal('hide');
             $('#addAttachForm')[0].reset();
+            $(".loader_ajax").hide();
 
           } else {
 

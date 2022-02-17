@@ -150,7 +150,7 @@
                               </tr>
 
 
-                              <tr>
+                              <!-- <tr>
                                  <td>Department</td>
                                  <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="moduleDepartment" <?php if($serialize_permission) {
                                     if(in_array('moduleDepartment', $serialize_permission)) { echo "checked"; } 
@@ -168,7 +168,7 @@
                                     if(in_array('deleteDepartment', $serialize_permission)) { echo "checked"; } 
                                     } ?>></td>
                                  <td></td>
-                              </tr>
+                              </tr> -->
 
 
                               <tr>
