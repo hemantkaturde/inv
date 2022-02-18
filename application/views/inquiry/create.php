@@ -108,6 +108,21 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="sales_order_number">Sales Order Number</label>
+                    <input type="text" class="form-control" id="sales_order_number" name="sales_order_number" placeholder="Sales Order Number" autocomplete="off"></input>
+                </div>
+
+                <div class="form-group">
+                    <label for="sales_order_date">Sales Order Date</label>
+                    <input type="text" class="form-control datepicker" id="sales_order_date" name="sales_order_date" placeholder="Sales Order Date" autocomplete="off" ></input>
+                </div>
+
+                <div class="form-group">
+                    <label for="delivery_date">Delivery Date</label>
+                    <input type="text" class="form-control datepicker" id="delivery_date" name="delivery_date" placeholder="Delivery Date" autocomplete="off" ></input>
+                </div>
+
+                <div class="form-group">
                     <label for="freight_charges">Freight charges</label>
                     <input type="text" class="form-control" id="freight_charges" name="freight_charges" placeholder="Freight charges" autocomplete="off" ></input>
                 </div>

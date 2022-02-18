@@ -193,8 +193,10 @@ class Controller_Inquiry extends Admin_Controller
                 'inquiry_status' => 4,
                 'po_number	' =>$this->input->post('po_number'),	
                 'po_date' => date('Y-m-d', strtotime($this->input->post('po_date'))),
+                'sales_order_number	' =>$this->input->post('sales_order_number'),	
+                'sales_order_date' => date('Y-m-d', strtotime($this->input->post('sales_order_date'))),
                 'freight_charges' => $this->input->post('freight_charges'),
-                // 'inquiry_emp_assigned' => $this->input->post('emp_assigned'),
+                'delivery_date' =>  date('Y-m-d', strtotime($this->input->post('delivery_date'))),
                 'inquiry_notes' => $this->input->post('notes')
         	);
             $this->db->trans_begin();
@@ -295,7 +297,10 @@ class Controller_Inquiry extends Admin_Controller
                 // 'inquiry_emp_assigned' => $this->input->post('emp_assigned'),
                 'inquiry_notes' => $this->input->post('notes'),
                 'po_number	' =>$this->input->post('po_number'),	
+                'sales_order_number	' =>$this->input->post('sales_order_number'),	
+                'sales_order_date' => date('Y-m-d', strtotime($this->input->post('sales_order_date'))),
                 'po_date' => date('Y-m-d', strtotime($this->input->post('po_date'))),
+                'delivery_date' =>  date('Y-m-d', strtotime($this->input->post('delivery_date'))),
                 'freight_charges' => $this->input->post('freight_charges')
             );
 

@@ -94,7 +94,6 @@
                     </select>
                 </div>
 
-
                 <div class="form-group">
                     <label for="po_number">PO Number</label>
                     <input type="text" class="form-control" id="notes" name="po_number" value="<?php echo $inquiry_data['po_number'] ?>" placeholder="PO Number" autocomplete="off"></input>
@@ -104,6 +103,37 @@
                     <label for="po_date">PO Date</label>
                     <input type="text" class="form-control datepicker" id="po_date" name="po_date" value="<?php echo date('d-m-Y', strtotime($inquiry_data['po_date'])) ?>" placeholder="PO Date" autocomplete="off" ></input>
                 </div>
+
+                <div class="form-group">
+                    <label for="sales_order_number">Sales Order Number</label>
+                    <input type="text" class="form-control" id="sales_order_number" name="sales_order_number" value="<?php echo $inquiry_data['sales_order_number'] ?>" placeholder="Sales Order Number" autocomplete="off"></input>
+                </div>
+
+                <?php if($inquiry_data['sales_order_date']==NULL){
+                    // $sales_order = $inquiry_data['sales_order_date'];
+                     $sales_order = "";
+                }else{
+                     $sales_order =date('d-m-Y', strtotime($inquiry_data['sales_order_date']));
+                } ?>
+
+                <div class="form-group">
+                    <label for="sales_order_date">Sales Order Date</label>
+                    <input type="text" class="form-control datepicker" id="sales_order_date" name="sales_order_date" value="<?php echo $sales_order; ?>" placeholder="Sales Order Date" autocomplete="off" ></input>
+                </div>
+
+                <?php if($inquiry_data['delivery_date']==NULL){
+                    // $sales_order = $inquiry_data['sales_order_date'];
+                     $delivery_date = "";
+                }else{
+                     $delivery_date =date('d-m-Y', strtotime($inquiry_data['delivery_date']));
+                } ?>
+
+                
+                <div class="form-group">
+                    <label for="delivery_date">Delivery Date</label>
+                    <input type="text" class="form-control datepicker" id="delivery_date" name="delivery_date" value="<?php echo $delivery_date; ?>" placeholder="Delivery Date" autocomplete="off" ></input>
+                </div>
+
 
                 <div class="form-group">
                     <label for="freight_charges">Freight charges</label>
