@@ -84,6 +84,7 @@ defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
+
 // Declare Database Connection
 if($_SERVER['SERVER_NAME']=='localhost'){
 
@@ -106,22 +107,20 @@ if($_SERVER['SERVER_NAME']=='localhost'){
  
 
 
-}else if($_SERVER['SERVER_NAME']=='qelocitytest.xzy')
+}else if($_SERVER['SERVER_NAME']=='qelocitytest.xyz')
 {
             define('DATABASE_HOSTNAME', 'localhost');
             define('DATABASE_USERNAME', 'qelocity_inventory');
             define('DATABASE_NAME', 'qelocity@2014');
             define('DATABASE_PASSWORD', 'qelocity_inventory');
 
-            define('EMAIL_SMTP_HOST','mail.qelocityindia.com');		// your smtp host e.g. smtp.gmail.com
+            define('EMAIL_SMTP_HOST','mail.qelocitytest.xyz');		// your smtp host e.g. smtp.gmail.com
             define('EMAIL_SMTP_AUTH','true');		// your smtp host e.g. smtp.gmail.com
-            define('EMAIL_USERNAME','test@qelocityindia.com');	// Your system name
-            define('EMAIL_PASSWORD','Qelocity@420');	// Your email password
-            define('EMAIL_SMTP_PORT','465');				    // mail, sendmail, smtp
+            define('EMAIL_USERNAME','contact@qelocitytest.xyz');	// Your system name
+            define('EMAIL_PASSWORD','Qelocity@123');	// Your email password
+            define('EMAIL_SMTP_PORT','587');				    // mail, sendmail, smtp
             define('FROM_EMAIL','test@qelocityindia.com');		// e.g. email@example.com
-            define('FROM_EMAIL_NAME','Parcelbhej');		// e.g. email@example.com
+            define('FROM_EMAIL_NAME','CRM');		// e.g. email@example.com
+            define('EMAIL_ENCRYPTION_SMTPS','tls');		// e.g. email@example.com
 
 }
-
-
-

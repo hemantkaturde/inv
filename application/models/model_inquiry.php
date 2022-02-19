@@ -254,7 +254,7 @@ class Model_inquiry extends CI_Model
 		  left join users on inquiry.inquiry_emp_assigned = users.id 
 		  left join department on users.department_id =department.deprt_id
 		  left join customers on inquiry.customer_id =customers.id
-		  where inquiry.company_id=$company_id AND inquiry.inquiry_id = $id";
+		  where inquiry.company_id=$company_id  AND users.company_id= $company_id  AND inquiry.inquiry_id = $id";
 		$query = $this->db->query($sql);
 		if($query){
 			return $query->result_array();

@@ -478,11 +478,10 @@ class Controller_Inquiry extends Admin_Controller
                 $update = $this->Model_inquiry->update($udata, $id);
                 if($update){
 
-                //     /*Fech Data for Sending Emails to Assignee*/
+                    ///*Fech Data for Sending Emails to Assignee*/
                     $_getDatauser = $this->Model_inquiry->_fetechAssineedata($id,$_SESSION['company_id']);
 
                     if($_getDatauser){
-
     
                         $_getProdcutuser = $this->Model_inquiry->_fetechProductdata($_SESSION['company_id'],$_getDatauser[0]['inquiry_id']);
 
@@ -518,22 +517,24 @@ class Controller_Inquiry extends Admin_Controller
                         }
 
                         $Subject = 'New '.$_getDatauser[0]['department'].' Inquiry -'.date('Y-m-d H:i:s');
-
-                        $Body  = '<html>';
-                        $Body .= '<body style="margin: 0 !important; padding: 0 !important;">';
-                        $Body .= '<table border="0" cellpadding="0" cellspacing="0" width="100%">';
+                        
+                        $Body ='';
                         $Body .= '<h3>Dear, '.$name.'</h3>';
                         $Body .= '<h3>Customer Details</h3>';
-                        $Body .= '<div>Customer Name  : '.$_getDatauser[0]['name'].'</div>';
-                        $Body .= '<div>Customer Address : '.$_getDatauser[0]['address'].'</div>';
-                        $Body .= '<div>Customer Delhivery Address : '.$_getDatauser[0]['delivery_address'].'</div>';
-                        $Body .= '<div>Phone No : '.$_getDatauser[0]['phone'].'</div>';
-                        $Body .= '<div>Email : '.$_getDatauser[0]['customer_email'].' </div>';
-                        $Body .= '<div>Inquiry No : '.$_getDatauser[0]['inquiry_number'].'</div>';
-                        $Body .= '<div>Inquiry Date : '.$inquiry_date.'</div>';
-                        $Body .= '<div>Inquiry From :'.$inq_from.'</div>';
+                        $Body .= '<div><b>Customer Name </b> : '.$_getDatauser[0]['name'].'</div>';
+                        $Body .= '<div><b>Customer Address </b> : '.$_getDatauser[0]['address'].'</div>';
+                        $Body .= '<div><b>Customer Delhivery Address </b> : '.$_getDatauser[0]['delivery_address'].'</div>';
+                        $Body .= '<div><b>Phone No </b>: '.$_getDatauser[0]['phone'].'</div>';
+                        $Body .= '<div><b>Email </b>: '.$_getDatauser[0]['customer_email'].' </div>';
+                        $Body .= '<div><b>Inquiry No </b>: '.$_getDatauser[0]['inquiry_number'].'</div>';
+                        $Body .= '<div><b>Inquiry Date </b>: '.$inquiry_date.'</div>';
+                        $Body .= '<div><b>Inquiry From </b>:'.$inq_from.'</div>';
 
                         $Body .= '<h3>Product Details</h3>';
+
+                        $Body .= '<html>';
+                        $Body .= '<body style="margin: 0 !important; padding: 0 !important;">';
+                        $Body .= '<table border="1" cellpadding="1" cellspacing="0" width="70%">';
 
                         $Body .= '<tr style="
                         /* border: 1px solid black; */
@@ -549,11 +550,11 @@ class Controller_Inquiry extends Admin_Controller
 
                         foreach ($_getProdcutuser as $key => $value) {
                             $Body .= '<tr>';
-                            $Body .= '<td>'.$value['name'].'</td>';
-                            $Body .= '<td>'.$value['product_type'].'</td>';
-                            $Body .= '<td>'.$value['rate'].'</td>';
-                            $Body .= '<td>'.$value['qty'].'</td>';
-                            $Body .= '<td>'.$value['final_amount'].'</td>';
+                            $Body .= '<td width="30%">'.$value['name'].'</td>';
+                            $Body .= '<td width="10%">'.$value['product_type'].'</td>';
+                            $Body .= '<td width="10%">'.$value['rate'].'</td>';
+                            $Body .= '<td width="10%">'.$value['qty'].'</td>';
+                            $Body .= '<td width="10%">'.$value['final_amount'].'</td>';
                             $Body .= '</tr>';
                         }
 
@@ -567,7 +568,6 @@ class Controller_Inquiry extends Admin_Controller
 
                 $response['success'] = true;
                 $response['messages'] = "Successfully Assigned"; 
-
             }
             else
             {
