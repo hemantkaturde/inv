@@ -318,4 +318,30 @@ class Model_inquiry extends CI_Model
 		}
 	}
 
+
+	public function getUser_list($company_id){
+
+		$sql = "SELECT *,users.id as userid FROM users join department ON users.department_id = department.deprt_id
+		         where users.company_id=$company_id order by users.id DESC";
+		$query = $this->db->query($sql);
+		if($query){
+			return $query->result_array();
+		}else{
+			return array();
+		}
+	}
+
+
+	public function getSalesorderdonebyData($company_id,$sales_order_done_by_id){
+
+		$sql = "SELECT *,users.id as userid FROM users join department ON users.department_id = department.deprt_id
+		         where users.company_id=$company_id  AND users.id=$sales_order_done_by_id";
+		$query = $this->db->query($sql);
+		if($query){
+			return $query->result_array();
+		}else{
+			return array();
+		}
+	}
+
 }

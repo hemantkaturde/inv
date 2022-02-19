@@ -7,11 +7,8 @@ class Controller_Inquiry extends Admin_Controller
 	public function __construct()
 	{
 		parent::__construct();
-
 		$this->not_logged_in();
-
 		$this->data['page_title'] = 'Inquiry';
-
 		$this->load->model('Model_inquiry');
         $this->load->model('Model_users');
         $this->load->model('Model_customer');
@@ -65,7 +62,6 @@ class Controller_Inquiry extends Admin_Controller
             $buttons .= ' <a href="'.base_url('Controller_Inquiry/add_notes/'.$value['inquiry_id']).'" class="btn btn-info btn-sm">Add Notes</a>';
             $buttons .= ' <a href="'.base_url('Controller_Inquiry/tracking/'.$value['inquiry_id']).'" class="btn btn-info btn-sm">Tracking</a>';
 
-         
             $inquiry_date =  date("d-m-Y", strtotime($value['inquiry_date']));
 			
             if($value['inquiry_from'] == 1) {
@@ -197,7 +193,8 @@ class Controller_Inquiry extends Admin_Controller
                 'sales_order_date' => date('Y-m-d', strtotime($this->input->post('sales_order_date'))),
                 'freight_charges' => $this->input->post('freight_charges'),
                 'delivery_date' =>  date('Y-m-d', strtotime($this->input->post('delivery_date'))),
-                'inquiry_notes' => $this->input->post('notes')
+                'inquiry_notes' => $this->input->post('notes'),
+                'sales_order_by' => $this->input->post('sales_order_done_by')
         	);
             $this->db->trans_begin();
         	// $create = $this->Model_inquiry->create($data);
@@ -246,9 +243,6 @@ class Controller_Inquiry extends Admin_Controller
         }
         }
         else {
-   //          // false case
-
-               
 			$this->data['inq_no'] = $this->Model_inquiry->get_max_id('inquiry', 'inquiry_number');
 
             // $this->data['users'] = $this->Model_users->getUserData();
@@ -259,6 +253,8 @@ class Controller_Inquiry extends Admin_Controller
                 $this->data['cust'] = $this->Model_customer->getActiveCustomerDataAsPerCompany($_SESSION['company_id']);
             }
 
+
+            $this->data['user_list'] = $this->Model_inquiry->getUser_list($_SESSION['company_id']); 
 
             $this->data['product'] = $this->Model_products->getActiveProductData();            
 
@@ -301,7 +297,9 @@ class Controller_Inquiry extends Admin_Controller
                 'sales_order_date' => date('Y-m-d', strtotime($this->input->post('sales_order_date'))),
                 'po_date' => date('Y-m-d', strtotime($this->input->post('po_date'))),
                 'delivery_date' =>  date('Y-m-d', strtotime($this->input->post('delivery_date'))),
-                'freight_charges' => $this->input->post('freight_charges')
+                'freight_charges' => $this->input->post('freight_charges'),
+                'sales_order_by' => $this->input->post('sales_order_done_by')
+
             );
 
             $this->db->trans_begin();
@@ -365,6 +363,9 @@ class Controller_Inquiry extends Admin_Controller
                 $this->data['cust'] = $this->Model_customer->getActiveCustomerDataAsPerCompany($_SESSION['company_id']);
             }
             $cust_id = $inquiry_data['customer_id'];
+
+            $this->data['user_list'] = $this->Model_inquiry->getUser_list($_SESSION['company_id']); 
+
             $this->data['product'] = $this->Model_inquiry->getproductList_aspercustomer($cust_id);
             $this->data['inquiry_data'] = $inquiry_data;
             $this->data['trans_data'] = $inqTrans_data;
@@ -610,7 +611,6 @@ class Controller_Inquiry extends Admin_Controller
                 $this->session->set_flashdata('error', 'Error occurred!!');
                 redirect('Controller_Inquiry/add_notes/'.$this->input->post('inquiry_id'), 'refresh');
             }
-
 
         }else{
             $data['inquiry_id'] =$this->uri->segment(3);

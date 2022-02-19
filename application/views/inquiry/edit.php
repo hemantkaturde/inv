@@ -128,12 +128,20 @@
                      $delivery_date =date('d-m-Y', strtotime($inquiry_data['delivery_date']));
                 } ?>
 
-                
                 <div class="form-group">
                     <label for="delivery_date">Delivery Date</label>
                     <input type="text" class="form-control datepicker" id="delivery_date" name="delivery_date" value="<?php echo $delivery_date; ?>" placeholder="Delivery Date" autocomplete="off" ></input>
                 </div>
 
+                <div class="form-group">
+                    <label for="delivery_date">Sales Order Done by</label>
+                    <select class="form-control" id="sales_order_done_by" name="sales_order_done_by">
+                      <option value="">Select Users</option>
+                      <?php foreach ($user_list as $keyuser => $valueusrer): ?>
+                        <option value="<?php echo $valueusrer['userid']; ?>" <?php if($inquiry_data['sales_order_by'] == $valueusrer['userid']) { echo 'selected'; } ?>><?php echo $valueusrer['firstname'].' '.$valueusrer['firstname'].' - '.'<b>'.$valueusrer['department'].'</b>'; ?></option>
+                      <?php endforeach; ?>
+                  </select>
+                </div>
 
                 <div class="form-group">
                     <label for="freight_charges">Freight charges</label>

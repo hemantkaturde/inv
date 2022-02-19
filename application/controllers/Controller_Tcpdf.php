@@ -219,7 +219,16 @@ EOD;
 		$company_phone = $inquiry_data[0]['phone'];
 		$company_email = $inquiry_data[0]['email1'];
 		$company_factory_address = $inquiry_data[0]['company_factory_address'];
-	
+
+		$sales_order_done_by_id = $inquiry_data[0]['sales_order_by'];
+
+		if($sales_order_done_by_id){
+			$sales_order_done_by_name = $this->Model_inquiry->getSalesorderdonebyData($_SESSION['company_id'],$sales_order_done_by_id);
+			$sales_order_done_by=	$sales_order_done_by_name[0]['firstname'].' '.$sales_order_done_by_name[0]['firstname'].'-'.$sales_order_done_by_name[0]['department'];
+		}else{
+			$sales_order_done_by ="";
+		}
+		
 
 		$this->load->library('MYPDF');
 
@@ -227,8 +236,8 @@ EOD;
 
 		$pdf->SetCreator(PDF_CREATOR);
 		$pdf->SetAuthor('CRM');
-		$pdf->SetTitle('Sale Order');
-		$pdf->SetSubject('Sale Order');
+		$pdf->SetTitle('Sales Order');
+		$pdf->SetSubject('Sales Order');
 		// $pdf->SetKeywords('TCPDF, PDF, example, test, codeigniter');
 
 		// set default header data
@@ -272,15 +281,17 @@ EOD;
 		$gst_no = $inquiry_data[0]['gst_number'];
 
 		$sales_order_number = $inquiry_data[0]['sales_order_number'];
-		$sales_order_date = $inquiry_data[0]['sales_order_date'];
+
+		$sales_order_date =  date("d-m-Y", strtotime($inquiry_data[0]['sales_order_date']));
 
 		$po_number = $inquiry_data[0]['po_number'];
-		$po_date = $inquiry_data[0]['po_date'];
+		$po_date =  date("d-m-Y", strtotime($inquiry_data[0]['po_date']));
 
-		$delivery_date = $inquiry_data[0]['delivery_date'];
+		$delivery_date = date("d-m-Y", strtotime($inquiry_data[0]['delivery_date']));;
 
 		$freight_charges = $inquiry_data[0]['freight_charges'];
 
+	
 	
 		// set some text to print
 		$txt = "";
@@ -391,7 +402,7 @@ $txt .= <<<EOD
 EOD;
 
 $txt .= <<<EOD
-<table cellspacing="0" cellpadding="2"><br/><br/><b>ENTERED BY : </b>   -/sd<br/><br/></table>
+<table cellspacing="0" cellpadding="2"><br/><br/><b>ENTERED BY : </b> $sales_order_done_by  -/sd<br/><br/></table>
 EOD;
 
 $txt .= <<<EOD

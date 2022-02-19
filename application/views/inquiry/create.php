@@ -123,6 +123,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="delivery_date">Sales Order Done by</label>
+                    <select class="form-control" id="sales_order_done_by" name="sales_order_done_by">
+                      <option value="">Select Users</option>
+                      <?php foreach ($user_list as $keyuser => $valueusrer): ?>
+                        <option value="<?php echo $valueusrer['userid']; ?>"><?php echo $valueusrer['firstname'].' '.$valueusrer['firstname'].' - '.'<b>'.$valueusrer['department'].'</b>'; ?></option>
+                      <?php endforeach; ?>
+                  </select>
+                </div>
+
+                <div class="form-group">
                     <label for="freight_charges">Freight charges</label>
                     <input type="text" class="form-control" id="freight_charges" name="freight_charges" placeholder="Freight charges" autocomplete="off" ></input>
                 </div>
