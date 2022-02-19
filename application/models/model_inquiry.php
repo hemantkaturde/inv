@@ -296,4 +296,26 @@ class Model_inquiry extends CI_Model
 		
 	}
 
+
+	public function getInquirynotes($company_id,$enquiry_id){
+		$user_id =$_SESSION['id'];
+		$sql = "SELECT * FROM inquiry_notes
+		where company_id=$company_id AND inquiry_id=$enquiry_id AND `user_id`=$user_id order by id DESC";
+		$query = $this->db->query($sql);
+		if($query){
+			return $query->result_array();
+		}else{
+			return array();
+		}
+	}
+
+
+	public function create_notes_data($data)
+	{
+		if($data) {
+			$insert = $this->db->insert('inquiry_notes', $data);
+			return ($insert == true) ? true : false;
+		}
+	}
+
 }

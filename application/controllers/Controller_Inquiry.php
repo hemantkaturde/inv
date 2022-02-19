@@ -48,7 +48,7 @@ class Controller_Inquiry extends Admin_Controller
 			// button
             $buttons = '';
             if((in_array('updateInquiry', $this->permission))) {
-    			$buttons .= '<a href="'.base_url('Controller_Inquiry/update/'.$value['inquiry_id']).'" class="btn btn-warning btn-sm">Edit</a>';
+    			$buttons .= '<a href="'.base_url('Controller_Inquiry/update/'.$value['inquiry_id']).'" class="btn btn-warning btn-sm">Modify</a>';
             }
 
             if(in_array('deleteInquiry', $this->permission)) { 
@@ -578,29 +578,47 @@ class Controller_Inquiry extends Admin_Controller
     }
 
     public function add_notes($id){
-        
-        $data['getInquiryDetails'] = $this->Model_inquiry->getInquiryDetails($_SESSION['company_id'], $id);
-        $data['notes_data'] = $this->Model_inquiry->getnotesData($_SESSION['company_id'], $id);
-        $data['enquiry_id']=$id;
-        $this->render_template('inquiry/add_notes', $data);
+
+            $data['getInquiryDetails'] = $this->Model_inquiry->getInquiryDetails($_SESSION['company_id'], $id);
+            $data['notes_data'] = $this->Model_inquiry->getnotesData($_SESSION['company_id'], $id);
+            $data['enquiry_id']=$id;
+            $this->render_template('inquiry/add_notes', $data);
     }
 
     public function create_notes(){
-    
-        // print_r('hemant');
-        // exit;
-        // $data = array(
-        //     'inquiry_id' => $this->input->post('inquiry_id'),
-        //     'company_id' => $_SESSION['company_id'],
-        //     'user_id' => $_SESSION['id'],
-        //     'notes' => $this->input->post('notes'),
-        //     'date' => $this->input->post('date'),
-        //     'status' => 1
-        // );
+        $this->form_validation->set_rules('Inquiry_number', 'Inquiry Number', 'trim|required');
+        $this->form_validation->set_rules('date', 'Date', 'trim|required');
+        $this->form_validation->set_rules('inquiry_notes', 'Notes', 'trim|required');
 
-        // $create = $this->Model_inquiry->create_notes($data);
+        if ($this->form_validation->run() == TRUE) {
+            $data = array(
+        		'inquiry_id' => $this->input->post('inquiry_id'),
+                'inquiry_number' => $this->input->post('Inquiry_number'),
+                'company_id' => $_SESSION['company_id'],
+                'user_id' => $_SESSION['id'],
+                'date' =>  date('Y-m-d', strtotime($this->input->post('date'))),
+                'notes' => $this->input->post('inquiry_notes')
+        	);
+        	
+            $create = $this->Model_inquiry->create_notes_data($data);
+            
+            if(!empty($create)) {
+                $this->session->set_flashdata('success', 'Successfully Added');
+                redirect('Controller_Inquiry/add_notes/'.$this->input->post('inquiry_id'), 'refresh');
 
-        // print_r($create);
+            }else{
+                $this->session->set_flashdata('error', 'Error occurred!!');
+                redirect('Controller_Inquiry/add_notes/'.$this->input->post('inquiry_id'), 'refresh');
+            }
+
+
+        }else{
+            $data['inquiry_id'] =$this->uri->segment(3);
+            $inquiry_id =$this->uri->segment(3);
+            $data['getInquiryDetails'] = $this->Model_inquiry->getInquiryDetails($_SESSION['company_id'], $inquiry_id);  
+            $this->render_template('inquiry/add_inquiry_notes', $data);
+
+        }
     }
 
     public function tracking($id){
@@ -609,5 +627,25 @@ class Controller_Inquiry extends Admin_Controller
         $this->render_template('inquiry/trackdata', $data);
 
     }
+
+    public function fetchProductData($id = null)
+	{
+        // $id = $_GET['id'];
+		$result = array('data' => array());
+        $data = $this->Model_inquiry->getInquirynotes($_SESSION['company_id'],$id);
+		foreach ($data as $key => $value) {
+                $buttons = '';
+        		$buttons .= ' <button type="button" class="btn btn-danger btn-sm" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal">Delete</button>';          
+               
+                $inquiry_date =  date("d-m-Y", strtotime($value['date']));
+                $result['data'][$key] = array(
+                    $value['inquiry_number'],
+                    $inquiry_date,
+                    $value['notes'],
+                    $buttons
+                );       
+		}
+		echo json_encode($result);
+	}
 
 }
