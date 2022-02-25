@@ -283,25 +283,36 @@ class Controller_Products extends Admin_Controller
         //     redirect('dashboard', 'refresh');
         // }
 
-        $this->form_validation->set_rules('product_type', 'Product Type', 'trim|required|is_unique[product_type.product_type]');
+        $this->form_validation->set_rules('product_type', 'Product Type', 'trim|required');
     
         if ($this->form_validation->run() == TRUE) {
             // true case
 
-            $data = array(
-                'company_id' => $_SESSION['company_id'],
-                'product_type' => $this->input->post('product_type')
-            );
+                    /* Check if Alreday Exits*/
 
-            $create = $this->Model_products->create_product($data);
-            if($create == true) {
-                $this->session->set_flashdata('success', 'Successfully created');
-                redirect('Controller_Products/product_type', 'refresh');
-            }
-            else {
-                $this->session->set_flashdata('errors', 'Error occurred!!');
-                redirect('Controller_Products/create_ptype', 'refresh');
-            }
+                    $checkifalredayExits = $this->Model_products->checkProductTypeExits($this->input->post('product_type'),$_SESSION['company_id']);
+
+                    if($checkifalredayExits > 0 ){
+                        $this->session->set_flashdata('error', 'Product Type Alreday Exists');
+                        redirect('Controller_Products/create_ptype', 'refresh');
+
+                    }else{
+
+                    $data = array(
+                        'company_id' => $_SESSION['company_id'],
+                        'product_type' => $this->input->post('product_type')
+                    );
+
+                    $create = $this->Model_products->create_product($data);
+                    if($create == true) {
+                        $this->session->set_flashdata('success', 'Successfully created');
+                        redirect('Controller_Products/product_type', 'refresh');
+                    }
+                    else {
+                        $this->session->set_flashdata('error', 'Error occurred!!');
+                        redirect('Controller_Products/create_ptype', 'refresh');
+                    }
+                }
         }
         else {
             // false case
@@ -350,9 +361,9 @@ class Controller_Products extends Admin_Controller
         //     redirect('dashboard', 'refresh');
         // }
 
-        if(!$type_id) {
-            redirect('dashboard', 'refresh');
-        }
+        // if(!$type_id) {
+        //     redirect('dashboard', 'refresh');
+        // }
 
         // print_r($type_id);exit;
 
@@ -361,28 +372,52 @@ class Controller_Products extends Admin_Controller
         if ($this->form_validation->run() == TRUE) {
             // true case
             $code = $this->input->post('product_type');
-            $product_data1 = $this->Model_products->getproducttypedata_isunique($type_id, $code);
+            $product_data1 = $this->Model_products->getproducttypedata_isunique($type_id, $code ,$_SESSION['company_id']);
             
             if($product_data1 > 0)
             {
-                $this->session->set_flashdata('error', 'Product type is already exist');
-                redirect('Controller_Products/update_ptype/'.$type_id, 'refresh');
+                    $data = array(
+                        'company_id' => $_SESSION['company_id'],
+                        'product_type' => $this->input->post('product_type')
+                    );
+
+                    $update = $this->Model_products->update_ptype($data, $type_id);
+                    if($update == true) {
+                        $this->session->set_flashdata('success', 'Successfully updated');
+                        redirect('Controller_Products/product_type', 'refresh');
+                    }
+                    else {
+                        $this->session->set_flashdata('error', 'Error occurred!!');
+                        redirect('Controller_Products/update_ptype/'.$type_id, 'refresh');
+                    }
 
             }else{
-                $data = array(
-                    'company_id' => $_SESSION['company_id'],
-                    'product_type' => $this->input->post('product_type')
-                );
 
-                $update = $this->Model_products->update_ptype($data, $type_id);
-                if($update == true) {
-                    $this->session->set_flashdata('success', 'Successfully updated');
-                    redirect('Controller_Products/product_type', 'refresh');
-                }
-                else {
-                    $this->session->set_flashdata('errors', 'Error occurred!!');
-                    redirect('Controller_Products/update/'.$type_id, 'refresh');
-                }
+                $product_data2 = $this->Model_products->getproducttypedata_isunique_name($code ,$_SESSION['company_id']);
+
+                   if($product_data2 > 0){
+                        $this->session->set_flashdata('error', 'Product Alreday Exists');
+                        redirect('Controller_Products/update_ptype/'.$type_id, 'refresh');
+
+                   }else{
+
+                    $data = array(
+                        'company_id' => $_SESSION['company_id'],
+                        'product_type' => $this->input->post('product_type')
+                    );
+
+                    $update = $this->Model_products->update_ptype($data, $type_id);
+                    if($update == true) {
+                        $this->session->set_flashdata('success', 'Successfully updated');
+                        redirect('Controller_Products/product_type', 'refresh');
+                    }
+                    else {
+                        $this->session->set_flashdata('error', 'Error occurred!!');
+                        redirect('Controller_Products/update/'.$type_id, 'refresh');
+                    }
+                
+
+                   }     
             }
         }
         else {

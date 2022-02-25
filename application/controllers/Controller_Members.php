@@ -40,7 +40,7 @@ class Controller_Members extends Admin_Controller
 
 	public function create()
 	{
-		
+	
        /* check if user alreday exits in database*/ 
 		$this->form_validation->set_rules('groups', 'Group', 'required');
 		$this->form_validation->set_rules('username', 'Username', 'trim|required');
@@ -52,31 +52,47 @@ class Controller_Members extends Admin_Controller
         if ($this->form_validation->run() == TRUE) {
             // true case
             //$password = $this->password_hash($this->input->post('password'));
-        	$data = array(
-        		'username' => $this->input->post('username'),
-        		'password' => $this->input->post('password'),
-        		'company_id' => $_SESSION['company_id'],
-        		'email' => $this->input->post('email'),
-        		'firstname' => $this->input->post('fname'),
-        		'lastname' => $this->input->post('lname'),
-        		'phone' => $this->input->post('phone'),
-        		'mobile' => $this->input->post('mobile'),
-        		'emp_code' => $this->input->post('employee_code'),
-        		'designation' => $this->input->post('emp_designation'),
-        		'address' => $this->input->post('address'),
-        		'notes' => $this->input->post('notes'),
-				'department_id'=> $this->input->post('department_id'),
-        	);
+            // check if username alreday exits in database 
+			$checkifalredayExits = $this->Model_users->checkifuserAlredayExits($this->input->post('username'), $_SESSION['company_id']);
 
-        	$create = $this->Model_users->create($data, $this->input->post('groups'));
-        	if($create == true) {
-        		$this->session->set_flashdata('success', 'Successfully created');
-        		redirect('Controller_Members/', 'refresh');
-        	}
-        	else {
-        		$this->session->set_flashdata('error', 'Error occurred!!');
+			 if($checkifalredayExits >0){
+				$this->session->set_flashdata('error', 'Username Alreday Exits');
         		redirect('Controller_Members/create', 'refresh');
-        	}
+
+			 }else{
+				 // check if username alreday exits in database 
+					$checkifalredayExitsemail = $this->Model_users->checkifalredayExitsemail($this->input->post('email'), $_SESSION['company_id']);
+					if($checkifalredayExitsemail >0){
+					$this->session->set_flashdata('error', 'Email Alreday Exits');
+					redirect('Controller_Members/create', 'refresh');
+					}else{
+						$data = array(
+							'username' => $this->input->post('username'),
+							'password' => $this->input->post('password'),
+							'company_id' => $_SESSION['company_id'],
+							'email' => $this->input->post('email'),
+							'firstname' => $this->input->post('fname'),
+							'lastname' => $this->input->post('lname'),
+							'phone' => $this->input->post('phone'),
+							'mobile' => $this->input->post('mobile'),
+							'emp_code' => $this->input->post('employee_code'),
+							'designation' => $this->input->post('emp_designation'),
+							'address' => $this->input->post('address'),
+							'notes' => $this->input->post('notes'),
+							'department_id'=> $this->input->post('department_id'),
+						);
+
+						$create = $this->Model_users->create($data, $this->input->post('groups'));
+						if($create == true) {
+							$this->session->set_flashdata('success', 'Successfully created');
+							redirect('Controller_Members/', 'refresh');
+						}
+						else {
+							$this->session->set_flashdata('error', 'Error occurred!!');
+							redirect('Controller_Members/create', 'refresh');
+						}
+					}
+		     }
         }
         else {
             // false case
@@ -84,11 +100,8 @@ class Controller_Members extends Admin_Controller
         	$department_data = $this->Model_company->getDepartmentData($id=null,$_SESSION['company_id']);
         	$this->data['group_data'] = $group_data;
         	$this->data['department_data'] = $department_data;
-
             $this->render_template('members/create', $this->data);
         }	
-
-		
 	}
 
 	public function password_hash($pass = '')
@@ -101,21 +114,15 @@ class Controller_Members extends Admin_Controller
 
 	public function edit($id = null)
 	{
-		// if(!in_array('updateUser', $this->permission)) {
-		// 	redirect('dashboard', 'refresh');
-		// }
-
 		if($id) {
 
-		
 			$this->form_validation->set_rules('groups', 'Group', 'required');
 			$this->form_validation->set_rules('username', 'Username', 'trim|required');
 			$this->form_validation->set_rules('email', 'Email', 'trim|required');
 			$this->form_validation->set_rules('fname', 'First name', 'trim|required');
 
-
 			if ($this->form_validation->run() == TRUE) {
-	            // true case
+
 		        if(empty($this->input->post('password')) && empty($this->input->post('cpassword'))) {
 		        	$data = array(
 		        		'username' => $this->input->post('username'),

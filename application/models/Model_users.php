@@ -104,5 +104,43 @@ class Model_users extends CI_Model
 		$query = $this->db->query($sql, array($company_id));
 		return $query->num_rows();
 	}
+
+	public function checkifuserAlredayExits($username,$company_id)
+	{
+		$this->db->where('username', $username);
+       // $this->db->where('type_id', $type_id);
+		$this->db->where('company_id', $company_id);
+        $this->db->from('users');
+        return $this->db->count_all_results();
+	}
+
+	public function checkifalredayExitsemail($email,$company_id)
+	{
+		$this->db->where('email', $email);
+       // $this->db->where('type_id', $type_id);
+		$this->db->where('company_id', $company_id);
+        $this->db->from('users');
+        return $this->db->count_all_results();
+	}
+
+	public function checkifalredayExitsedit($username,$company_id,$id)
+	{
+		$this->db->where('username', $username);
+        $this->db->where('id', $id);
+		$this->db->where('company_id', $company_id);
+        $this->db->from('users');
+        return $this->db->count_all_results();
+	}
+
+
+	public function checkifalredayExitsemailedit($username,$company_id,$email)
+	{
+		$this->db->where('email', $email);
+        $this->db->where('id', $id);
+		$this->db->where('company_id', $company_id);
+        $this->db->from('users');
+        return $this->db->count_all_results();
+	}
+	
 	
 }

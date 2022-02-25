@@ -152,13 +152,23 @@ class Model_products extends CI_Model
 		return $query->result_array();
 	}
 
-	public function getproducttypedata_isunique($type_id, $code)
+	public function getproducttypedata_isunique($type_id, $code ,$company_id)
     {
         $this->db->where('product_type', $code);
-        $this->db->where_not_in('type_id', $type_id);
+        $this->db->where('type_id', $type_id);
+		$this->db->where('company_id', $company_id);
         $this->db->from('product_type');
         return $this->db->count_all_results();
     }
+
+
+	public function getproducttypedata_isunique_name($code ,$company_id){
+		$this->db->where('product_type', $code);
+       // $this->db->where('type_id', $type_id);
+		$this->db->where('company_id', $company_id);
+        $this->db->from('product_type');
+        return $this->db->count_all_results();
+	}
 
     public function update_ptype($data, $id)
 	{
@@ -178,4 +188,17 @@ class Model_products extends CI_Model
 		}
 	}
     // ==========================
+    
+	public function checkProductTypeExits($product_type,$company_id){
+
+		if($product_type) {
+			$sql = "SELECT * FROM product_type where product_type = '$product_type' and company_id=$company_id";
+			$query = $this->db->query($sql);
+			return $query->num_rows();
+		}
+
+	}
+
+
+
 }
