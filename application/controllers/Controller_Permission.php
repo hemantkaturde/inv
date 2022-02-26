@@ -80,10 +80,6 @@ class Controller_Permission extends Admin_Controller
 	public function edit($id = null)
 	{
 		$company_id = $_SESSION['company_id'];
-		// if(!in_array('updateGroup', $this->permission)) {
-		// 	redirect('dashboard', 'refresh');
-		// }
-
 		if($id) {
 
 			$this->form_validation->set_rules('group_name', 'Permission name', 'required');
@@ -91,7 +87,8 @@ class Controller_Permission extends Admin_Controller
 	            // true case
 
 				$check_groupsExits = $this->Model_groups->CheckgroupsAlreadyExist(trim($this->input->post('group_name')),$_SESSION['company_id'],$id);
-				if($check_groupsExits){
+			
+				if($check_groupsExits > 0){
    
 				   $permission = serialize($this->input->post('permission'));
 				   
@@ -113,6 +110,13 @@ class Controller_Permission extends Admin_Controller
 				}else{
 					// $this->session->set_flashdata('error', 'Alreadey!!');
 					// redirect('Controller_Permission/edit/'.$id, 'refresh');
+					$check_groupsExitswithoutid = $this->Model_groups->CheckgroupsAlreadyExistwithoutid(trim($this->input->post('group_name')),$_SESSION['company_id']);
+			
+					if($check_groupsExitswithoutid){
+						$this->session->set_flashdata('error', 'Permission Already Exits!!');
+						redirect('Controller_Permission/edit/'.$id, 'refresh');
+
+					}else{
 
 					$permission = serialize($this->input->post('permission'));
 				   
@@ -132,7 +136,7 @@ class Controller_Permission extends Admin_Controller
 						redirect('Controller_Permission/edit/'.$id, 'refresh');
 					}
 
-
+				}
 
 				}
 	          

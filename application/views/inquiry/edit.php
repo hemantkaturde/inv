@@ -49,11 +49,11 @@
                 <?php  } ?>
 
                 <div class="form-group">
-                    <label for="inq_no">Inquiry Number</label>
+                    <label for="inq_no">Inquiry Number<span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="inq_no" name="inq_no" placeholder="Enter Inquiry Number" autocomplete="off" value="<?php echo $inquiry_data['inquiry_number'] ?>" />
                 </div>
                 <div class="form-group">
-                    <label for="inq_from">Inquiry From</label>
+                    <label for="inq_from">Inquiry From<span class="text-danger">*</span></label>
                     <select type="text" class="form-control" id="inq_from" name="inq_from" autocomplete="off">
                       <option value="">PLEASE SELECT</option>
                       <option value="1" <?php if($inquiry_data['inquiry_from'] == 1){ echo "selected"; } ?>>Justdial</option>
@@ -69,7 +69,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                  <label for="customer">Customer</label>
+                  <label for="customer">Customer<span class="text-danger">*</span></label>
                     
                   <select class="form-control" id="customer" name="customer" onchange="get_productList_customerwise()" >
                       <option value="">Select customer</option>
@@ -80,11 +80,11 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="inq_date">Inquiry Date *</label>
+                    <label for="inq_date">Inquiry Date <span class="text-danger">*</span></label>
                     <input type="text" class="form-control datepicker" id="inq_date" name="inq_date" placeholder="Enter Inquiry Date" value="<?php echo date('d-m-Y', strtotime($inquiry_data['inquiry_date'])) ?>" autocomplete="off"/>
                 </div>
                 <div class="form-group">
-                    <label for="status">Status</label>
+                    <label for="status">Status<span class="text-danger">*</span></label>
                     <select type="text" class="form-control" id="status" name="status" autocomplete="off">
                       <option value="">PLEASE SELECT</option>
                       <option value="4" <?php if($inquiry_data['inquiry_status'] == 4){ echo "selected"; } ?>>Create</option>
@@ -94,6 +94,15 @@
                     </select>
                 </div>
 
+              
+
+                 <?php if($inquiry_data['po_date']=='1970-01-01'){
+                   $po_date = ''; 
+                 }else{
+                  $po_date = date('d-m-Y', strtotime($inquiry_data['po_date']));
+                 }
+
+                   ?>
                 <div class="form-group">
                     <label for="po_number">PO Number</label>
                     <input type="text" class="form-control" id="notes" name="po_number" value="<?php echo $inquiry_data['po_number'] ?>" placeholder="PO Number" autocomplete="off"></input>
@@ -101,7 +110,7 @@
 
                 <div class="form-group">
                     <label for="po_date">PO Date</label>
-                    <input type="text" class="form-control datepicker" id="po_date" name="po_date" value="<?php echo date('d-m-Y', strtotime($inquiry_data['po_date'])) ?>" placeholder="PO Date" autocomplete="off" ></input>
+                    <input type="text" class="form-control datepicker" id="po_date" name="po_date" value="<?php echo $po_date; ?>" placeholder="PO Date" autocomplete="off" ></input>
                 </div>
 
                 <div class="form-group">
@@ -109,11 +118,12 @@
                     <input type="text" class="form-control" id="sales_order_number" name="sales_order_number" value="<?php echo $inquiry_data['sales_order_number'] ?>" placeholder="Sales Order Number" autocomplete="off"></input>
                 </div>
 
-                <?php if($inquiry_data['sales_order_date']==NULL){
+                <?php if($inquiry_data['sales_order_date']=='1970-01-01'){
                     // $sales_order = $inquiry_data['sales_order_date'];
-                     $sales_order = "";
-                }else{
+                    
                      $sales_order =date('d-m-Y', strtotime($inquiry_data['sales_order_date']));
+                }else{
+                  $sales_order = "";
                 } ?>
 
                 <div class="form-group">

@@ -269,19 +269,16 @@ class Controller_Inquiry extends Admin_Controller
     */
 	public function update($inquiry_id)
 	{      
-        // if(!in_array('updateInquiry', $this->permission)) {
-        //     redirect('dashboard', 'refresh');
-        // }
-
-        if(!$inquiry_id) {
-            redirect('dashboard', 'refresh');
-        }
+    
 
         $this->form_validation->set_rules('inq_no', 'Inquiry Number', 'trim|required');
 
         if ($this->form_validation->run() == TRUE) {
             // true case
             // $product = implode(',',$this->input->post('product'));
+
+            $checkIfAlreadyExits = $this->Model_inquiry->checkIfEnquirynumberExitsedit($_SESSION['company_id'],$this->input->post('inq_no'),$inquiry_id);
+            if($checkIfAlreadyExits > 0){
 
             $data = array(
                 'inquiry_number' => $this->input->post('inq_no'),
@@ -341,15 +338,90 @@ class Controller_Inquiry extends Admin_Controller
                     }
                 } // ELSE NOT EMPTY ATTACH ID
         		
-        	}
-            // if($update == true) {
-            //     $this->session->set_flashdata('success', 'Successfully updated');
-            //     redirect('Controller_Inquiry/', 'refresh');
-            // }
-            else {
-                $this->session->set_flashdata('errors', 'Error occurred!!');
+        	}else {
+                $this->session->set_flashdata('error', 'Error occurred!!');
                 redirect('Controller_Inquiry/update/'.$inquiry_id, 'refresh');
             }
+
+
+        }else{
+
+                $checkIfAlreadyExitswithouid = $this->Model_inquiry->checkIfEnquirynumberExitseditwithoutid($_SESSION['company_id'],$this->input->post('inq_no'));
+                if($checkIfAlreadyExitswithouid > 0){
+
+                     $this->session->set_flashdata('error', 'Inquiry Number Already Exits!!');
+                     redirect('Controller_Inquiry/update/'.$inquiry_id, 'refresh');
+
+                }else{
+
+
+                    $data = array(
+                        'inquiry_number' => $this->input->post('inq_no'),
+                        'customer_id' => $this->input->post('customer'),
+                        'inquiry_from' => $this->input->post('inq_from'),
+                        'inquiry_date' => date('Y-m-d', strtotime($this->input->post('inq_date'))),
+                        // 'inquiry_product' => $product,
+                        'inquiry_status' => $this->input->post('status'),
+                        // 'inquiry_emp_assigned' => $this->input->post('emp_assigned'),
+                        'inquiry_notes' => $this->input->post('notes'),
+                        'po_number	' =>$this->input->post('po_number'),	
+                        'sales_order_number	' =>$this->input->post('sales_order_number'),	
+                        'sales_order_date' => date('Y-m-d', strtotime($this->input->post('sales_order_date'))),
+                        'po_date' => date('Y-m-d', strtotime($this->input->post('po_date'))),
+                        'delivery_date' =>  date('Y-m-d', strtotime($this->input->post('delivery_date'))),
+                        'freight_charges' => $this->input->post('freight_charges'),
+                        'sales_order_by' => $this->input->post('sales_order_done_by')
+        
+                    );
+        
+                    $this->db->trans_begin();
+                    // $create = $this->Model_inquiry->create($data);
+                    $update = $this->Model_inquiry->update($data, $inquiry_id);
+                    if(!empty($update)) {
+                        if(!empty($this->input->post('inq_trans_id')))
+                        {
+                            $trans_result = $this->data_insert_inquiry_trans($this->input->post(),$inquiry_id);
+                            if($trans_result == 1)
+                            {
+                                if ($this->db->trans_status() === FALSE)
+                                {
+                                    $this->db->trans_rollback();
+                                    $this->session->set_flashdata('error', 'Error occurred!!');
+                                    redirect('Controller_Inquiry/create', 'refresh');
+                                }
+                                else
+                                {
+                                    $this->db->trans_commit();
+                                    $this->session->set_flashdata('success', 'Successfully updated');
+                                    redirect('Controller_Inquiry/', 'refresh');
+                                }
+                            } // ATTACH TRANS
+                        }
+                        else
+                        {
+                            if ($this->db->trans_status() === FALSE)
+                            {
+                                $this->db->trans_rollback();
+                                $this->session->set_flashdata('error', 'Error occurred!!');
+                                redirect('Controller_Inquiry/create', 'refresh');
+                            }
+                            else
+                            {
+                                $this->db->trans_commit();
+                                $this->session->set_flashdata('success', 'Successfully updated');
+                                redirect('Controller_Inquiry/', 'refresh');
+                            }
+                        } // ELSE NOT EMPTY ATTACH ID
+                        
+                    }else {
+                        $this->session->set_flashdata('error', 'Error occurred!!');
+                        redirect('Controller_Inquiry/update/'.$inquiry_id, 'refresh');
+                    }
+
+
+                }
+
+          }
         }
         else {
             

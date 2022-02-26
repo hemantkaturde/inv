@@ -78,9 +78,11 @@ class Model_groups extends CI_Model
 	
 	}
 
+	public function CheckgroupsAlreadyExistwithoutid($groupname='', $company_id=''){
+		$sql = "SELECT * FROM groups WHERE company_id=? AND group_name =?";
+		$query = $this->db->query($sql, array($company_id ,$groupname));
+		return $query->row_array();
+	}
+
 	
-
-
-
-
 }

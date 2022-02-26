@@ -297,6 +297,20 @@ class Model_inquiry extends CI_Model
 	}
 
 
+	public function checkIfEnquirynumberExitsedit($company_id,$enquiry_id,$id){
+		$sql = "SELECT * FROM inquiry where company_id=$company_id AND inquiry_number=$enquiry_id AND inquiry_id = $id";
+		$query = $this->db->query($sql);
+		return $query->num_rows();
+		
+	}
+
+	public function checkIfEnquirynumberExitseditwithoutid($company_id,$enquiry_id){
+		$sql = "SELECT * FROM inquiry where company_id=$company_id AND inquiry_number=$enquiry_id";
+		$query = $this->db->query($sql);
+		return $query->num_rows();
+		
+	}
+
 	public function getInquirynotes($company_id,$enquiry_id){
 		$user_id =$_SESSION['id'];
 		$sql = "SELECT * FROM inquiry_notes
