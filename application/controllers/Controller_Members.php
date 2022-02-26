@@ -123,84 +123,207 @@ class Controller_Members extends Admin_Controller
 
 			if ($this->form_validation->run() == TRUE) {
 
-		        if(empty($this->input->post('password')) && empty($this->input->post('cpassword'))) {
-		        	$data = array(
-		        		'username' => $this->input->post('username'),
-						'password' => $this->input->post('password'),
-		        		'company_id' => $_SESSION['company_id'],
-						'department_id' => $this->input->post('department_id'),
-		        		'email' => $this->input->post('email'),
-		        		'firstname' => $this->input->post('fname'),
-		        		'lastname' => $this->input->post('lname'),
-		        		'phone' => $this->input->post('phone'),
-		        		'mobile' => $this->input->post('mobile'),
-		        		'emp_code' => $this->input->post('employee_code'),
-		        		'designation' => $this->input->post('emp_designation'),
-		        		'address' => $this->input->post('address'),
-		        		'notes' => $this->input->post('notes'),
-		        	);
 
-		        	$update = $this->Model_users->edit($data, $id, $this->input->post('groups'));
-		        	if($update == true) {
-		        		$this->session->set_flashdata('success', 'Successfully created');
-		        		redirect('Controller_Members/', 'refresh');
-		        	}
-		        	else {
-		        		$this->session->set_flashdata('errors', 'Error occurred!!');
-		        		redirect('Controller_Members/edit/'.$id, 'refresh');
-		        	}
-		        }
-		        else {
-		        	$this->form_validation->set_rules('password', 'Password', 'trim|required');
-					$this->form_validation->set_rules('cpassword', 'Confirm password', 'trim|required|matches[password]');
+			$checkifalredayExitsedit = $this->Model_users->checkifuserAlredayExitsedit($this->input->post('username'),$this->input->post('email'),$_SESSION['company_id'],$id);
+                
+			if($checkifalredayExitsedit > 0){
 
-					if($this->form_validation->run() == TRUE) {
+							if(empty($this->input->post('password')) && empty($this->input->post('cpassword'))) {
+								$data = array(
+									'username' => $this->input->post('username'),
+									'password' => $this->input->post('password'),
+									'company_id' => $_SESSION['company_id'],
+									'department_id' => $this->input->post('department_id'),
+									'email' => $this->input->post('email'),
+									'firstname' => $this->input->post('fname'),
+									'lastname' => $this->input->post('lname'),
+									'phone' => $this->input->post('phone'),
+									'mobile' => $this->input->post('mobile'),
+									'emp_code' => $this->input->post('employee_code'),
+									'designation' => $this->input->post('emp_designation'),
+									'address' => $this->input->post('address'),
+									'notes' => $this->input->post('notes'),
+								);
 
-						//$password = $this->password_hash($this->input->post('password'));
+								$update = $this->Model_users->edit($data, $id, $this->input->post('groups'));
+								if($update == true) {
+									$this->session->set_flashdata('success', 'Successfully created');
+									redirect('Controller_Members/', 'refresh');
+								}
+								else {
+									$this->session->set_flashdata('error', 'Error occurred!!');
+									redirect('Controller_Members/edit/'.$id, 'refresh');
+								}
+							}
+							else {
+								$this->form_validation->set_rules('password', 'Password', 'trim|required');
+								$this->form_validation->set_rules('cpassword', 'Confirm password', 'trim|required|matches[password]');
 
-						$data = array(
-			        		'username' => $this->input->post('username'),
-			        		'password' => $this->input->post('password'),
-			        		'company_id' =>  $_SESSION['company_id'],
-							'department_id' => $this->input->post('department_id'),
-			        		'email' => $this->input->post('email'),
-			        		'firstname' => $this->input->post('fname'),
-			        		'lastname' => $this->input->post('lname'),
-			        		'phone' => $this->input->post('phone'),
-			        		'mobile' => $this->input->post('mobile'),
-			        		'emp_code' => $this->input->post('employee_code'),
-			        		'designation' => $this->input->post('emp_designation'),
-			        		'address' => $this->input->post('address'),
-			        		'notes' => $this->input->post('notes'),
-			        	);
+								if($this->form_validation->run() == TRUE) {
 
-			        	$update = $this->Model_users->edit($data, $id, $this->input->post('groups'));
-			        	if($update == true) {
-			        		$this->session->set_flashdata('success', 'Successfully updated');
-			        		redirect('Controller_Members/', 'refresh');
-			        	}
-			        	else {
-			        		$this->session->set_flashdata('errors', 'Error occurred!!');
-			        		redirect('Controller_Members/edit/'.$id, 'refresh');
-			        	}
+									//$password = $this->password_hash($this->input->post('password'));
+
+									$data = array(
+										'username' => $this->input->post('username'),
+										'password' => $this->input->post('password'),
+										'company_id' =>  $_SESSION['company_id'],
+										'department_id' => $this->input->post('department_id'),
+										'email' => $this->input->post('email'),
+										'firstname' => $this->input->post('fname'),
+										'lastname' => $this->input->post('lname'),
+										'phone' => $this->input->post('phone'),
+										'mobile' => $this->input->post('mobile'),
+										'emp_code' => $this->input->post('employee_code'),
+										'designation' => $this->input->post('emp_designation'),
+										'address' => $this->input->post('address'),
+										'notes' => $this->input->post('notes'),
+									);
+
+									$update = $this->Model_users->edit($data, $id, $this->input->post('groups'));
+									if($update == true) {
+										$this->session->set_flashdata('success', 'Successfully updated');
+										redirect('Controller_Members/', 'refresh');
+									}
+									else {
+										$this->session->set_flashdata('errors', 'Error occurred!!');
+										redirect('Controller_Members/edit/'.$id, 'refresh');
+									}
+								}
+								else {
+									// false case
+									$user_data = $this->Model_users->getUserData($id);
+									$groups = $this->Model_users->getUserGroup($id);
+							
+									$this->data['user_data'] = $user_data;
+									$this->data['user_group'] = $groups;
+							
+									$group_data = $this->Model_groups->getGroupData();
+									$company_data = $this->Model_company->getCompanyData();
+									$this->data['group_data'] = $group_data;
+									$this->data['company_data'] = $company_data;
+
+									$this->render_template('members/edit', $this->data);	
+								}	
+
+							}
+			}else{
+				$checkifalredayExitsusernameedit = $this->Model_users->checkifalredayExitsusernameedit($this->input->post('username'),$_SESSION['company_id'],$id);
+				if($checkifalredayExitsusernameedit == 0){
+
+					$checkifalredayExitsemailedit = $this->Model_users->checkifalredayExitsemailedit($this->input->post('username'),$_SESSION['company_id'],$id);
+					if($checkifalredayExitsemailedit == 0){
+                          
+						$checkifalredayExitsusernameeditwithoutid = $this->Model_users->checkifalredayExitsusernameeditwithoutid($this->input->post('username'),$_SESSION['company_id'],$id);
+					    if($checkifalredayExitsusernameeditwithoutid > 0){
+							$this->session->set_flashdata('error', 'Username Already Exits!!');
+					        redirect('Controller_Members/edit/'.$id, 'refresh');   
+
+
+						}else{
+
+							$checkifalredayExitsusernameeditwithoutid = $this->Model_users->checkifalredayExitsusernameeditwithoutid($this->input->post('username'),$_SESSION['company_id'],$id);
+							if($checkifalredayExitsusernameeditwithoutid > 0){
+
+								$this->session->set_flashdata('error', 'Email Already Exits!!');
+								redirect('Controller_Members/edit/'.$id, 'refresh'); 
+							}else{
+
+								if(empty($this->input->post('password')) && empty($this->input->post('cpassword'))) {
+									$data = array(
+										'username' => $this->input->post('username'),
+										'password' => $this->input->post('password'),
+										'company_id' => $_SESSION['company_id'],
+										'department_id' => $this->input->post('department_id'),
+										'email' => $this->input->post('email'),
+										'firstname' => $this->input->post('fname'),
+										'lastname' => $this->input->post('lname'),
+										'phone' => $this->input->post('phone'),
+										'mobile' => $this->input->post('mobile'),
+										'emp_code' => $this->input->post('employee_code'),
+										'designation' => $this->input->post('emp_designation'),
+										'address' => $this->input->post('address'),
+										'notes' => $this->input->post('notes'),
+									);
+	
+									$update = $this->Model_users->edit($data, $id, $this->input->post('groups'));
+									if($update == true) {
+										$this->session->set_flashdata('success', 'Successfully created');
+										redirect('Controller_Members/', 'refresh');
+									}
+									else {
+										$this->session->set_flashdata('error', 'Error occurred!!');
+										redirect('Controller_Members/edit/'.$id, 'refresh');
+									}
+								}
+								else {
+									$this->form_validation->set_rules('password', 'Password', 'trim|required');
+									$this->form_validation->set_rules('cpassword', 'Confirm password', 'trim|required|matches[password]');
+	
+									if($this->form_validation->run() == TRUE) {
+	
+										//$password = $this->password_hash($this->input->post('password'));
+	
+										$data = array(
+											'username' => $this->input->post('username'),
+											'password' => $this->input->post('password'),
+											'company_id' =>  $_SESSION['company_id'],
+											'department_id' => $this->input->post('department_id'),
+											'email' => $this->input->post('email'),
+											'firstname' => $this->input->post('fname'),
+											'lastname' => $this->input->post('lname'),
+											'phone' => $this->input->post('phone'),
+											'mobile' => $this->input->post('mobile'),
+											'emp_code' => $this->input->post('employee_code'),
+											'designation' => $this->input->post('emp_designation'),
+											'address' => $this->input->post('address'),
+											'notes' => $this->input->post('notes'),
+										);
+	
+										$update = $this->Model_users->edit($data, $id, $this->input->post('groups'));
+										if($update == true) {
+											$this->session->set_flashdata('success', 'Successfully updated');
+											redirect('Controller_Members/', 'refresh');
+										}
+										else {
+											$this->session->set_flashdata('errors', 'Error occurred!!');
+											redirect('Controller_Members/edit/'.$id, 'refresh');
+										}
+									}
+									else {
+										// false case
+										$user_data = $this->Model_users->getUserData($id);
+										$groups = $this->Model_users->getUserGroup($id);
+								
+										$this->data['user_data'] = $user_data;
+										$this->data['user_group'] = $groups;
+								
+										$group_data = $this->Model_groups->getGroupData();
+										$company_data = $this->Model_company->getCompanyData();
+										$this->data['group_data'] = $group_data;
+										$this->data['company_data'] = $company_data;
+	
+										$this->render_template('members/edit', $this->data);	
+									}	
+	
+								}
+								 
+
+							}
+
+						}
+					}else{
+
+						$this->session->set_flashdata('error', 'Email Already Exits!!');
+					     redirect('Controller_Members/edit/'.$id, 'refresh');  
 					}
-			        else {
-			            // false case
-			        	$user_data = $this->Model_users->getUserData($id);
-			        	$groups = $this->Model_users->getUserGroup($id);
-			    
-			        	$this->data['user_data'] = $user_data;
-			        	$this->data['user_group'] = $groups;
-			    
-			            $group_data = $this->Model_groups->getGroupData();
-			        	$company_data = $this->Model_company->getCompanyData();
-			        	$this->data['group_data'] = $group_data;
-			        	$this->data['company_data'] = $company_data;
+			       
+				}else{
 
-						$this->render_template('members/edit', $this->data);	
-			        }	
+					$this->session->set_flashdata('error', 'Username Already Exits!!');
+					redirect('Controller_Members/edit/'.$id, 'refresh');       
 
-		        }
+				}
+			  }
 	        }
 	        else {
 	            // false case

@@ -123,24 +123,55 @@ class Model_users extends CI_Model
         return $this->db->count_all_results();
 	}
 
-	public function checkifalredayExitsedit($username,$company_id,$id)
+	public function checkifuserAlredayExitsedit($username,$email,$company_id,$id)
 	{
 		$this->db->where('username', $username);
-        $this->db->where('id', $id);
-		$this->db->where('company_id', $company_id);
-        $this->db->from('users');
-        return $this->db->count_all_results();
-	}
-
-
-	public function checkifalredayExitsemailedit($username,$company_id,$email)
-	{
 		$this->db->where('email', $email);
         $this->db->where('id', $id);
 		$this->db->where('company_id', $company_id);
         $this->db->from('users');
         return $this->db->count_all_results();
 	}
+
+
+	public function checkifalredayExitsusernameedit($username,$company_id,$id)
+	{
+		$this->db->where('username', $username);
+		$this->db->where('company_id', $company_id);
+		$this->db->where('id', $id);
+        $this->db->from('users');
+        return $this->db->count_all_results();
+	}
+
+	public function checkifalredayExitsemailedit($email,$company_id,$id)
+	{
+		$this->db->where('email', $email);
+		$this->db->where('company_id', $company_id);
+		$this->db->where('id', $id);
+        $this->db->from('users');
+        return $this->db->count_all_results();
+	}
+
+	public function checkifalredayExitsusernameeditwithoutid($username,$company_id)
+	{
+		$this->db->where('username', $username);
+		$this->db->where('company_id', $company_id);
+        $this->db->from('users');
+        return $this->db->count_all_results();
+
+	}
+
+	public function checkifalredayExitsemaileditwithoutid($email,$company_id)
+	{
+		$this->db->where('email', $email);
+		$this->db->where('company_id', $company_id);
+        $this->db->from('users');
+        return $this->db->count_all_results();
+
+	}
+
+
+	
 	
 	
 }
