@@ -179,6 +179,24 @@ class Controller_Inquiry extends Admin_Controller
             }else{
 
             $formdata = $this->input->post();
+
+            if($this->input->post('sales_order_date')){
+                $sales_order_date = date('Y-m-d', strtotime($this->input->post('sales_order_date')));
+               }else{
+                  $sales_order_date = NULL;
+               }
+
+              if($this->input->post('po_date')){
+                  $po_date = date('Y-m-d', strtotime($this->input->post('po_date')));
+              }else{
+                  $po_date = NULL;
+              }
+
+              if($this->input->post('delivery_date')){
+                  $delivery_date = date('Y-m-d', strtotime($this->input->post('delivery_date')));
+              }else{
+                  $delivery_date = NULL;
+              }
             
         	$data = array(
         		'inquiry_number' => $enq_no_val,
@@ -188,11 +206,11 @@ class Controller_Inquiry extends Admin_Controller
         		'inquiry_date' => date('Y-m-d', strtotime($this->input->post('inq_date'))),
                 'inquiry_status' => 4,
                 'po_number	' =>$this->input->post('po_number'),	
-                'po_date' => date('Y-m-d', strtotime($this->input->post('po_date'))),
+                'po_date' => $po_date,
                 'sales_order_number	' =>$this->input->post('sales_order_number'),	
-                'sales_order_date' => date('Y-m-d', strtotime($this->input->post('sales_order_date'))),
+                'sales_order_date' =>  $sales_order_date,
                 'freight_charges' => $this->input->post('freight_charges'),
-                'delivery_date' =>  date('Y-m-d', strtotime($this->input->post('delivery_date'))),
+                'delivery_date' =>  $delivery_date,
                 'inquiry_notes' => $this->input->post('notes'),
                 'sales_order_by' => $this->input->post('sales_order_done_by')
         	);
@@ -280,6 +298,24 @@ class Controller_Inquiry extends Admin_Controller
             $checkIfAlreadyExits = $this->Model_inquiry->checkIfEnquirynumberExitsedit($_SESSION['company_id'],$this->input->post('inq_no'),$inquiry_id);
             if($checkIfAlreadyExits > 0){
 
+                if($this->input->post('sales_order_date')){
+                  $sales_order_date = date('Y-m-d', strtotime($this->input->post('sales_order_date')));
+                 }else{
+                    $sales_order_date = NULL;
+                 }
+
+                if($this->input->post('po_date')){
+                    $po_date = date('Y-m-d', strtotime($this->input->post('po_date')));
+                }else{
+                    $po_date = NULL;
+                }
+
+                if($this->input->post('delivery_date')){
+                    $delivery_date = date('Y-m-d', strtotime($this->input->post('delivery_date')));
+                }else{
+                    $delivery_date = NULL;
+                }
+
             $data = array(
                 'inquiry_number' => $this->input->post('inq_no'),
                 'customer_id' => $this->input->post('customer'),
@@ -291,9 +327,9 @@ class Controller_Inquiry extends Admin_Controller
                 'inquiry_notes' => $this->input->post('notes'),
                 'po_number	' =>$this->input->post('po_number'),	
                 'sales_order_number	' =>$this->input->post('sales_order_number'),	
-                'sales_order_date' => date('Y-m-d', strtotime($this->input->post('sales_order_date'))),
-                'po_date' => date('Y-m-d', strtotime($this->input->post('po_date'))),
-                'delivery_date' =>  date('Y-m-d', strtotime($this->input->post('delivery_date'))),
+                'sales_order_date' => $sales_order_date,
+                'po_date' => $po_date,
+                'delivery_date' => $delivery_date,
                 'freight_charges' => $this->input->post('freight_charges'),
                 'sales_order_by' => $this->input->post('sales_order_done_by')
 
