@@ -22,11 +22,7 @@ class Controller_Tcpdf_sales extends CI_Controller {
 	
 
 		$this->load->library('MYPDF_sales');
-
-        print_r('hemant');
-
-        exit;
-
+		
 		$pdf = new MYPDF_sales(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'utf-8', false);
 
 		$pdf->SetCreator(PDF_CREATOR);

@@ -38,19 +38,24 @@ class Model_inquiry extends CI_Model
         // check if company having prifix suffix 
 		$compSuffixPrefix =  $this->db->query("SELECT prefix,`count`,sufix FROM company WHERE id = $company_id")->result_array();
 
+
 		if($compSuffixPrefix[0]['prefix'] && $compSuffixPrefix[0]['count'] && $compSuffixPrefix[0]['sufix']){
 	    // $record = $this->db->query("SELECT MAX(CAST(SUBSTR(TRIM(inquiry_number),$number) AS UNSIGNED)) AS inquiry_number FROM inquiry WHERE company_id = $company_id")->result_array();
 		$record = $this->db->query("SELECT  inquiry_number FROM inquiry WHERE company_id = $company_id order by inquiry_id desc limit 1")->result_array();
 		// $record = "SELECT MAX(CAST(SUBSTR(TRIM(inquiry_number),$number) AS UNSIGNED)) AS inquiry_number FROM inquiry WHERE company_id = $company_id";
         $getOnlyNumbersFromString = preg_replace('/[^0-9.]+/', '', $record[0]['inquiry_number']);
+
+		
 		
 	    if(empty($getOnlyNumbersFromString))
 	    {
-	      return '';
+			///$str = $record[0]['inquiry_number'] + 1;
+			$code = $compSuffixPrefix[0]['prefix'].$compSuffixPrefix[0]['count'].$compSuffixPrefix[0]['sufix'];
+			return $code;
 	    }
 	    else
 	    {	
-	      $str = $record[0]['inquiry_number'] + 1;
+	      $str = $getOnlyNumbersFromString + 1;
 	      $code = $prefix.$str.$sufix;
 		  return $code;
 
@@ -290,7 +295,7 @@ class Model_inquiry extends CI_Model
 	}
 
 	public function checkIfEnquirynumberExits($company_id,$enquiry_id){
-		$sql = "SELECT * FROM inquiry where company_id=$company_id AND inquiry_number=$enquiry_id";
+		$sql = "SELECT * FROM inquiry where company_id=$company_id AND inquiry_number='$enquiry_id'";
 		$query = $this->db->query($sql);
 		return $query->num_rows();
 		
@@ -298,7 +303,7 @@ class Model_inquiry extends CI_Model
 
 
 	public function checkIfEnquirynumberExitsedit($company_id,$enquiry_id,$id){
-		$sql = "SELECT * FROM inquiry where company_id=$company_id AND inquiry_number=$enquiry_id AND inquiry_id = $id";
+		$sql = "SELECT * FROM inquiry where company_id=$company_id AND inquiry_number='$enquiry_id' AND inquiry_id = $id";
 		$query = $this->db->query($sql);
 		return $query->num_rows();
 		

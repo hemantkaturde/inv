@@ -282,17 +282,29 @@ EOD;
 
 		$sales_order_number = $inquiry_data[0]['sales_order_number'];
 
-		$sales_order_date =  date("d-m-Y", strtotime($inquiry_data[0]['sales_order_date']));
+        if($inquiry_data[0]['sales_order_date']){
+			$sales_order_date =  date("d-m-Y", strtotime($inquiry_data[0]['sales_order_date']));
+		}else{
+			$sales_order_date ='';
+		}
 
 		$po_number = $inquiry_data[0]['po_number'];
-		$po_date =  date("d-m-Y", strtotime($inquiry_data[0]['po_date']));
 
-		$delivery_date = date("d-m-Y", strtotime($inquiry_data[0]['delivery_date']));;
 
+		if($inquiry_data[0]['po_date']){
+			$po_date =  date("d-m-Y", strtotime($inquiry_data[0]['po_date']));
+		}else{
+			$po_date ='';
+		}
+
+		if($inquiry_data[0]['delivery_date']){
+			$delivery_date = date("d-m-Y", strtotime($inquiry_data[0]['delivery_date']));
+		}else{
+			$delivery_date ='';
+		}
+		
 		$freight_charges = $inquiry_data[0]['freight_charges'];
 
-	
-	
 		// set some text to print
 		$txt = "";
 		$txt .= <<<EOD

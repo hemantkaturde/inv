@@ -113,10 +113,10 @@
                     <input type="text" class="form-control datepicker" id="po_date" name="po_date" value="<?php echo $po_date; ?>" placeholder="PO Date" autocomplete="off" ></input>
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="sales_order_number">Sales Order Number</label>
                     <input type="text" class="form-control" id="sales_order_number" name="sales_order_number" value="<?php echo $inquiry_data['sales_order_number'] ?>" placeholder="Sales Order Number" autocomplete="off"></input>
-                </div>
+                </div> -->
 
                 <?php if($inquiry_data['sales_order_date']=='1970-01-01'){
                     // $sales_order = $inquiry_data['sales_order_date'];
