@@ -96,17 +96,18 @@
 
               
 
-                 <?php if($inquiry_data['po_date']=='1970-01-01'){
+                 <?php if($inquiry_data['po_date']=='1970-01-01' || $inquiry_data['po_date']==NULL){
                    $po_date = ''; 
                  }else{
                   $po_date = date('d-m-Y', strtotime($inquiry_data['po_date']));
                  }
-
                    ?>
                 <div class="form-group">
                     <label for="po_number">PO Number</label>
                     <input type="text" class="form-control" id="notes" name="po_number" value="<?php echo $inquiry_data['po_number'] ?>" placeholder="PO Number" autocomplete="off"></input>
                 </div>
+
+                
 
                 <div class="form-group">
                     <label for="po_date">PO Date</label>

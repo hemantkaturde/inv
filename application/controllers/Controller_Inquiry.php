@@ -232,7 +232,7 @@ class Controller_Inquiry extends Admin_Controller
                         }
                         else
                         {
-                            echo $this->db->trans_commit();
+                            $this->db->trans_commit();
                             $this->session->set_flashdata('success', 'Successfully created');
         		            redirect('Controller_Inquiry/', 'refresh');
                         }
