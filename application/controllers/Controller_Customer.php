@@ -302,10 +302,10 @@ class Controller_Customer extends Admin_Controller
                 $response['messages'] = "Error in the database while removing the product information";
             }
         }
-        else {
-            $response['success'] = false;
-            $response['messages'] = "Refersh the page again!!";
-        }
+        // else {
+        //     $response['success'] = false;
+        //     $response['messages'] = "Refersh the page again!!";
+        // }
 
         echo json_encode($response);
     }
@@ -317,7 +317,7 @@ class Controller_Customer extends Admin_Controller
        // $config['file_name'] =  uniqid();
         $config['file_name'] =  $path_parts;
         $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|doc|docx|rtf|text|txt|zip|mp4|xls|xlsx|csv';
-        $config['max_size'] = '100000';
+        $config['max_size'] = '1000000';
 
         $this->load->library('upload', $config);
         if ( ! $this->upload->do_upload('attach_img'))

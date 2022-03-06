@@ -53,7 +53,9 @@
 
                 <div class="form-group">
                     <label for="inq_no">Inquiry Number <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="inq_no" name="inq_no" placeholder="Enter Inquiry Number" autocomplete="off" value="<?php echo $inq_no; ?>" />
+                    <input type="text" class="form-control" id="inq_no" name="inq_no" placeholder="Enter Inquiry Number" autocomplete="off" value="<?php echo  $inq_no['prefix'].$inq_no['count'].$inq_no['sufix']; ?>" />
+
+                    <input type="hidden" class="form-control" id="auto_count" name="auto_count" value="<?php echo $inq_no['count']; ?>" />
                 </div>
                 <div class="form-group">
                     <label for="inq_from">Inquiry From <span class="text-danger">*</span></label>

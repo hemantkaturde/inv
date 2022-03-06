@@ -50,7 +50,10 @@
 
                 <div class="form-group">
                     <label for="inq_no">Inquiry Number<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="inq_no" name="inq_no" placeholder="Enter Inquiry Number" autocomplete="off" value="<?php echo $inquiry_data['inquiry_number'] ?>" />
+                    <input type="text" class="form-control" id="inq_no" name="inq_no" placeholder="Enter Inquiry Number" autocomplete="off" value="<?php echo $inquiry_data['inquiry_number'] ?>" readonly/>
+
+                    <input type="hidden" class="form-control" id="auto_count" name="auto_count" value="<?php echo $inquiry_data['auto_count_number']; ?>" />
+
                 </div>
                 <div class="form-group">
                     <label for="inq_from">Inquiry From<span class="text-danger">*</span></label>

@@ -164,9 +164,10 @@ class Controller_Inquiry extends Admin_Controller
 
         
             // true case
-            $enq_no = $this->Model_inquiry->get_max_id('inquiry', 'inquiry_number');
+            $enq_no = $this->Model_inquiry->get_auto_increment_id('inquiry', 'inquiry_number');
+
             if($enq_no){
-                $enq_no_val =$enq_no;
+                $enq_no_val =$enq_no['prefix'].$enq_no['count'].$enq_no['sufix'];
             }else{
                 $enq_no_val =$this->input->post('inq_no');
             }
@@ -213,6 +214,7 @@ class Controller_Inquiry extends Admin_Controller
                 'freight_charges' => $this->input->post('freight_charges'),
                 'delivery_date' =>  $delivery_date,
                 'inquiry_notes' => $this->input->post('notes'),
+                'auto_count_number'=> $this->input->post('auto_count'),
                 'sales_order_by' => $this->input->post('sales_order_done_by')
         	);
             $this->db->trans_begin();
@@ -262,7 +264,7 @@ class Controller_Inquiry extends Admin_Controller
         }
         }
         else {
-			$this->data['inq_no'] = $this->Model_inquiry->get_max_id('inquiry', 'inquiry_number');
+			$this->data['inq_no'] = $this->Model_inquiry->get_auto_increment_id('inquiry', 'inquiry_number');
 
             // $this->data['users'] = $this->Model_users->getUserData();
             if ($_SESSION['id'] == 0) {
@@ -332,6 +334,7 @@ class Controller_Inquiry extends Admin_Controller
                 'sales_order_date' => $sales_order_date,
                 'po_date' => $po_date,
                 'delivery_date' => $delivery_date,
+                'auto_count_number'=> $this->input->post('auto_count'),
                 'freight_charges' => $this->input->post('freight_charges'),
                 'sales_order_by' => $this->input->post('sales_order_done_by')
 

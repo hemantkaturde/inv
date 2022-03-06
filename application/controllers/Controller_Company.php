@@ -313,10 +313,10 @@ class Controller_Company extends Admin_Controller
                 $response['messages'] = "Error in the database while removing the product information";
             }
         }
-        else {
-            $response['success'] = false;
-            $response['messages'] = "Refersh the page again!!";
-        }
+        // else {
+        //     $response['success'] = false;
+        //     $response['messages'] = "Refersh the page again!!";
+        // }
 
         echo json_encode($response);
     }
