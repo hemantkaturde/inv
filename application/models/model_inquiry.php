@@ -77,11 +77,13 @@ class Model_inquiry extends CI_Model
 			$record = $this->db->query("SELECT auto_count_number FROM inquiry WHERE company_id = $company_id order by inquiry_id desc limit 1")->result_array();
 			// $record = "SELECT MAX(CAST(SUBSTR(TRIM(inquiry_number),$number) AS UNSIGNED)) AS inquiry_number FROM inquiry WHERE company_id = $company_id";
 			$getOnlyNumbersFromString = preg_replace('/[^0-9.]+/', '', $record[0]['auto_count_number']);
+
+			//print_r();
 	
 			if(empty($getOnlyNumbersFromString))
 			{
 				///$str = $record[0]['inquiry_number'] + 1;
-				$code = array('prefix'=>$check_comp[0]['prefix'],'count'=>$check_comp[0]['count']+1,'sufix'=>$check_comp[0]['sufix']);
+				$code = array('prefix'=>$check_comp[0]['prefix'],'count'=>$getOnlyNumbersFromString+1,'sufix'=>$check_comp[0]['sufix']);
 				return $code;
 			}
 			else
