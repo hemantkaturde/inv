@@ -87,8 +87,18 @@ class Model_customer extends CI_Model
 	public function getCustomerData_isunique($id,$comp_id, $cust)
 	{
 		$this->db->where('name', $cust);
-		$this->db->where_in('company_id', $id);
-		$this->db->where_not_in('id', $id);
+		$this->db->where('company_id', $comp_id);
+		$this->db->where('id', $id);
+		$this->db->from('customers');
+		return $this->db->count_all_results();
+	}
+
+
+	public function getCustomerData_isunique_withoutid($comp_id, $cust)
+	{
+		$this->db->where('name', $cust);
+		$this->db->where('company_id', $comp_id);
+		//$this->db->where('id', $id);
 		$this->db->from('customers');
 		return $this->db->count_all_results();
 	}

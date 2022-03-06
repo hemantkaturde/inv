@@ -106,31 +106,56 @@ class Controller_Customer extends Admin_Controller
 
 	public function edit($id = null)
 	{
-		// if(!in_array('updateCustomer', $this->permission)) {
-		// 	redirect('dashboard', 'refresh');
-		// }
 
 		if($id) {
-
 			$this->form_validation->set_rules('email', 'Email', 'trim|required');
 			$this->form_validation->set_rules('mobile', 'Mobile Number', 'trim|required');
 			$this->form_validation->set_rules('address', 'Address', 'trim|required');
 			$this->form_validation->set_rules('customer', 'Customer name', 'trim|required');
 
 			if ($this->form_validation->run() == TRUE) {
-	            // true case
-		          $customer = $this->input->post('customer');
+	           
+                  $customer = $this->input->post('customer');
                   $customer_data = $this->Model_customer->getCustomerData_isunique($id,$_SESSION['company_id'], $customer);
-                  // echo $customer_data['name'];
-                  // print_r($customer_data);exit;
-                  
+                  if($customer_data > 0)
+                  {
+                    $data = array(
+		        	
+        				'name' => $this->input->post('customer'),
+                        'company_id' => $_SESSION['company_id'],
+        				'contact_person' => $this->input->post('contact_person'),
+		        		'phone' => $this->input->post('phone'),
+                        'mobile' => $this->input->post('mobile'),
+		        		'email' => $this->input->post('email'),
+		        		'email_2' => $this->input->post('email2'),
+		        		'gst_no' => $this->input->post('gst'),
+		        		'pan_no' => $this->input->post('pan_no'),
+		        		'address' => $this->input->post('address'),
+		        		'delivery_address' => $this->input->post('del_address'),
+		        		'notes' => $this->input->post('notes')
+				    );
+
+                    $update = $this->Model_customer->edit($data, $id);
+		        	if($update == true) {
+		        		$this->session->set_flashdata('success', 'Successfully updated');
+		        		redirect('Controller_Customer/', 'refresh');
+		        	}
+		        	else {
+		        		$this->session->set_flashdata('errors', 'Error occurred!!');
+		        		redirect('Controller_Customer/edit/'.$id, 'refresh');
+		        	}
+
+                  }else{
+
+                 /* here We need to check uniqe name of company*/
+
+                  $customer = $this->input->post('customer');
+                  $customer_data = $this->Model_customer->getCustomerData_isunique_withoutid($_SESSION['company_id'], $customer);
                   if($customer_data > 0)
                   {
                     $this->session->set_flashdata('error', 'Customer name is already exist');
                     redirect('Controller_Customer/edit/'.$id, 'refresh');
-
                   }else{
-
 		        	$data = array(
 		        	
         				'name' => $this->input->post('customer'),
@@ -164,6 +189,7 @@ class Controller_Customer extends Admin_Controller
 		        		redirect('Controller_Customer/edit/'.$id, 'refresh');
 		        	}
 		        }
+            }
 	        }
 	        else {
 	            // false case

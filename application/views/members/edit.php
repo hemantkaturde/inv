@@ -50,7 +50,7 @@
 
                            <div class="col-md-4">
                               <label for="mobile">Mobile No </label>
-                              <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter mobile Number" required value="<?php echo $user_data['mobile'] ?>" autocomplete="off">
+                              <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter mobile Number" value="<?php echo $user_data['mobile'] ?>" autocomplete="off">
                            </div>
 
                         </div>

@@ -97,7 +97,7 @@ class Controller_Products extends Admin_Controller
         // }
 
 		$this->form_validation->set_rules('product_name', 'Product Name', 'trim|required');
-        $this->form_validation->set_rules('description', 'Description', 'trim|required');
+        $this->form_validation->set_rules('description', 'Description', 'trim');
 	
         if ($this->form_validation->run() == TRUE) {
             // true case
@@ -180,9 +180,11 @@ class Controller_Products extends Admin_Controller
             redirect('dashboard', 'refresh');
         }
 
+        $this->form_validation->set_rules('product_name', 'Product Name', 'trim|required');
+       // $this->form_validation->set_rules('description', 'Description', 'trim');
         // print_r($product_id);exit;
 
-        $this->form_validation->set_rules('description', 'Description', 'trim|required');
+       // $this->form_validation->set_rules('description', 'Description', 'trim');
 
         if ($this->form_validation->run() == TRUE) {
             // true case
