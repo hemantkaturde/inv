@@ -231,6 +231,7 @@ function removeTransFunc(id)
           manageTable.ajax.reload(null, false); 
 
           if(response.success === true) {
+
             $j("#messages").html('<div class="alert alert-success alert-dismissible" role="alert">'+
               '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
               '<strong> <span class="glyphicon glyphicon-ok-sign"></span> </strong>'+response.messages+
@@ -238,6 +239,7 @@ function removeTransFunc(id)
 
             // hide the modal
             $("#removeTransModal").modal('hide');
+            location.reload();
 
           } else {
 
@@ -245,6 +247,7 @@ function removeTransFunc(id)
               '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
               '<strong> <span class="glyphicon glyphicon-exclamation-sign"></span> </strong>'+response.messages+
             '</div>'); 
+            location.reload();
           }
         }
       }); 

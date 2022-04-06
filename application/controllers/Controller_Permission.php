@@ -44,7 +44,7 @@ class Controller_Permission extends Admin_Controller
 			$check_groupsExits = $this->Model_groups->CheckgroupsAlreadyExist(trim($this->input->post('group_name')),$_SESSION['company_id']);
 				
 				if($check_groupsExits){
-				   $this->session->set_flashdata('error', 'Permission Alreday Exits!');
+				   $this->session->set_flashdata('error', 'Permission Already Exits!');
 				  redirect('Controller_Permission/create', 'refresh');
 
 				}else{

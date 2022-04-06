@@ -1,0 +1,3 @@
+Asset Name*,Asset Code*,Asset Barcode/Physical No,Blocks*,Sub Blocks*,Additional Depreciation(Enter  1 ),Purchase Date*,Put To Use Date*,Date Of Entry*,Asset Purchase Cost*,Opening WDV(I.T.)*,Cost Center,Inward,Ownership Type,Components*,Parent Component(for parent component*),Location*,Asset User*,Custodian,Department,Category*,Sub-Category,Cenvat Credit,Remarks,Opening WDV(C.A.)*,Opening Depreciation,Residual Value*,Depreciation Rate(for WDV* ),Expiry Date
+mango,777,777,1,1,,06-04-2022,06-04-2022,06-04-2022,1000,1000,,,,Independent,,dd,priyesh,,,hemant,,,,1000,0,0,,
+sony,888,888,1,1,,10-05-2019,10-05-2019,01-04-2022,500,0,,,,Independent,,dd,priyesh,,,hemant,,,,300,200,0,,

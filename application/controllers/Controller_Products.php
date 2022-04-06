@@ -295,7 +295,7 @@ class Controller_Products extends Admin_Controller
                     $checkifalredayExits = $this->Model_products->checkProductTypeExits($this->input->post('product_type'),$_SESSION['company_id']);
 
                     if($checkifalredayExits > 0 ){
-                        $this->session->set_flashdata('error', 'Product Type Alreday Exists');
+                        $this->session->set_flashdata('error', 'Product Type Already Exists');
                         redirect('Controller_Products/create_ptype', 'refresh');
 
                     }else{
@@ -398,7 +398,7 @@ class Controller_Products extends Admin_Controller
                 $product_data2 = $this->Model_products->getproducttypedata_isunique_name($code ,$_SESSION['company_id']);
 
                    if($product_data2 > 0){
-                        $this->session->set_flashdata('error', 'Product Alreday Exists');
+                        $this->session->set_flashdata('error', 'Product Already Exists');
                         redirect('Controller_Products/update_ptype/'.$type_id, 'refresh');
 
                    }else{

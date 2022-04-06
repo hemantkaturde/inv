@@ -244,13 +244,14 @@ function removeTransFunc(id)
 
             // hide the modal
             $("#removeTransModal").modal('hide');
-
+            location.reload();
           } else {
 
             $("#messages").html('<div class="alert alert-warning alert-dismissible" role="alert">'+
               '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
               '<strong> <span class="glyphicon glyphicon-exclamation-sign"></span> </strong>'+response.messages+
             '</div>'); 
+            location.reload();
           }
         }
       }); 

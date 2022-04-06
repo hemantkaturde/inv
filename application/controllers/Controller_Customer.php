@@ -66,7 +66,7 @@ class Controller_Customer extends Admin_Controller
              $check_customer = $this->Model_customer->CheckCustomerAlreadyExist($_SESSION['company_id'],trim($this->input->post('customer')));
             //  $customer_data = $this->Model_customer->getCustomerCreate_isunique($id,$_SESSION['company_id'], $customer);
              if($check_customer){
-                $this->session->set_flashdata('error', 'Customer Alreday Exits!');
+                $this->session->set_flashdata('error', 'Customer Already Exits!');
         		redirect('Controller_Customer/create', 'refresh');
 
              }else{

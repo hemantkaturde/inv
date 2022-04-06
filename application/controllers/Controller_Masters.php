@@ -53,7 +53,7 @@ class Controller_Masters extends Admin_Controller
 				$check_department = $this->Model_masters->CheckdepartmentAlreadyExist(trim($this->input->post('department')),$_SESSION['company_id']);
 				
 				if($check_department){
-				   $this->session->set_flashdata('error', 'Department Alreday Exits!');
+				   $this->session->set_flashdata('error', 'Department Already Exits!');
 				  redirect('Controller_Masters/createdepartment', 'refresh');
 
 				}else{

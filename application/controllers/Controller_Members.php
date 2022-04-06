@@ -56,14 +56,14 @@ class Controller_Members extends Admin_Controller
 			$checkifalredayExits = $this->Model_users->checkifuserAlredayExits($this->input->post('username'), $_SESSION['company_id']);
 
 			 if($checkifalredayExits >0){
-				$this->session->set_flashdata('error', 'Username Alreday Exits');
+				$this->session->set_flashdata('error', 'Username Already Exits');
         		redirect('Controller_Members/create', 'refresh');
 
 			 }else{
 				 // check if username alreday exits in database 
 					$checkifalredayExitsemail = $this->Model_users->checkifalredayExitsemail($this->input->post('email'), $_SESSION['company_id']);
 					if($checkifalredayExitsemail >0){
-					$this->session->set_flashdata('error', 'Email Alreday Exits');
+					$this->session->set_flashdata('error', 'Email Already Exits');
 					redirect('Controller_Members/create', 'refresh');
 					}else{
 						$data = array(

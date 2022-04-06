@@ -219,6 +219,7 @@ EOD;
 		$company_phone = $inquiry_data[0]['phone'];
 		$company_email = $inquiry_data[0]['email1'];
 		$company_factory_address = $inquiry_data[0]['company_factory_address'];
+		$customer_billing_address = $inquiry_data[0]['customer_billing'];
 
 		$sales_order_done_by_id = $inquiry_data[0]['sales_order_by'];
 
@@ -270,7 +271,7 @@ EOD;
 		$ref_no = $inquiry_data[0]['inquiry_number'];
 		$date = date('F j, Y', strtotime($inquiry_data[0]['inquiry_date']));
 		$customername = $inquiry_data[0]['customername'];
-		$address = $inquiry_data[0]['delivery_address'];
+		//$address = $inquiry_data[0]['delivery_address'];
 		$add = $inquiry_data[0]['address'];
 		$email = $inquiry_data[0]['email'];
 		$mobile = $inquiry_data[0]['customermobile'];
@@ -314,8 +315,8 @@ EOD;
 					<div><b>CUSTOMER NAME</b> : $customername</div>
 					<div><b>PO NO</b> : $po_number</div>
 					<div><b>PO DATE</b> : $po_date</div>
-					<div><b>DELIVERY ADDRESS</b> : $address</div>
-					<div><b>BILLING ADDRESS</b> :$add</div>
+					<div><b>DELIVERY ADDRESS</b> : $add</div>
+					<div><b>BILLING ADDRESS</b> :$customer_billing_address</div>
 					<div><b>Fright</b> : $freight_charges</div>
 					<div><b>GST NO</b> : $gst_no</div>
 					<br/>

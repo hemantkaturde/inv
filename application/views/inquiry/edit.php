@@ -122,12 +122,11 @@
                     <input type="text" class="form-control" id="sales_order_number" name="sales_order_number" value="<?php echo $inquiry_data['sales_order_number'] ?>" placeholder="Sales Order Number" autocomplete="off"></input>
                 </div> -->
 
-                <?php if($inquiry_data['sales_order_date']=='1970-01-01'){
-                    // $sales_order = $inquiry_data['sales_order_date'];
-                    
-                     $sales_order =date('d-m-Y', strtotime($inquiry_data['sales_order_date']));
-                }else{
+                <?php if($inquiry_data['sales_order_date']==NULL){
+                    // $sales_order = $inquiry_data['sales_order_date'];    
                   $sales_order = "";
+                }else{
+                  $sales_order =date('d-m-Y', strtotime($inquiry_data['sales_order_date']));
                 } ?>
 
                 <div class="form-group">
